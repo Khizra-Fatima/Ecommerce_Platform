@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load notifications_tags %}
+
+{% block title %}Co-Admin Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/admin_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold p-2" href="{% url 'home' %}" id="navbar-brand"
+            style="font-size: 1.3em;">E-commerce Platform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% load notifications_tags %}
+            <div class="ms-auto d-flex justify-content-end">
+                <div class="notification-icon btn-group dropstart">
+                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell-fill"></i>
+                        {% get_notifications as notifications %}
+                        <span class="badge bg-danger">{{ notification_count }}</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for notification in notifications %}
+                        <li><a class="dropdown-item" href="#">{{ notification.message }}</a></li>
+                        {% empty %}
+                        <li><a class="dropdown-item text-muted">No new notifications</a></li>
+                        {% endfor %}
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'notifications' %}">Visit Notification Page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-lg-2 col-md-3 sidebar">
+            <h2 class="mb-4 profile_heading">{{ user.first_name }}'s Dashboard</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="#"
+                        data-url="{% url 'overview' %}">
+                        <i class="bi bi-speedometer2"></i> Overview
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'user_management' %}">
+                        <i class="bi bi-people-fill"></i> Manage Users
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'product_management' %}">
+                        <i class="bi bi-box-seam"></i> Manage Products
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'order_management' %}">
+                        <i class="bi bi-bag-check"></i> Manage Orders
+                    </a>
+                </li>
+                <!--<li class="nav-item">
+                    <a class="nav-link" href="#" data-url="#">
+                        <i class="bi bi-bar-chart"></i> Analytics
+                    </a>-->
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link no-ajax" href="{% url 'notifications' %}">
+                        <i class="bi bi-bell"></i> Notifications
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'user_profile' user.id %}"><i class="bi bi-person-circle"></i>
+                        Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'support' %}">
+                        <i class="bi bi-headset"></i> Support
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#" data-url="{% url 'account_settings' %}"><i
+                    class="bi bi-person-gear"></i> Account Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link no-ajax" href="{% url 'logout' %}">
+                        <i class="bi bi-box-arrow-left"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <main id="main-content" class="col-lg-10 col-md-9">
+            <div class="p-4">
+                <h1 class="mb-4">Welcome, {{ user.first_name }}{{ user.last_name }}!</h1>
+                <p>Select a section from the sidebar to begin managing the platform.</p>
+                <!-- Placeholder for dynamic content -->
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        function loadDefaultSection() {
+            const activeLink = $('.nav-link.active');
+            if (!activeLink.length) {
+                const overviewLink = $('.nav-link[data-url*="overview"]');
+                overviewLink.addClass('active');
+                $.ajax({
+                    url: overviewLink.data('url'),
+                    type: 'GET',
+                    beforeSend: function () {
+                        $('#main-content').html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
+                    },
+                    success: function (response) {
+                        $('#main-content').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX error:', status, error);
+                        $('#main-content').html('<p class="text-danger">Failed to load content. Please try again.</p>');
+                    }
+                });
+            }
+        }
+
+        // Handle AJAX loading for sidebar links
+        $('.nav-link').click(function (e) {
+            if (!$(this).hasClass('no-ajax')) {
+                e.preventDefault();
+                const url = $(this).data('url');
+                if (!url) return;
+
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    beforeSend: function () {
+                        $('#main-content').html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
+                    },
+                    success: function (response) {
+                        $('#main-content').html(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX error:', status, error);
+                        $('#main-content').html('<p class="text-danger">Failed to load content. Please try again.</p>');
+                    }
+                });
+            }
+        });
+
+        // Load the default section on page load
+        loadDefaultSection();
+    });
+
+
+
+    document.querySelectorAll(".dropdown-item").forEach(item => {
+        item.addEventListener("click", () => {
+            const notificationId = item.dataset.notificationId;
+            fetch(`/activities/mark-as-read/${notificationId}/`, {
+                method: 'POST',
+                headers: { 'X-CSRFToken': getCookie('csrftoken') },
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    item.classList.add('read'); // Optional: Update UI
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

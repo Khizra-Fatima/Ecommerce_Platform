@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Your Wishlist{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/wishlist.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container main_sec">
+    <div class="Wishlist-header d-flex justify-content-between">
+        <h1>Your Wishlist</h1>
+    </div>
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#clearWishlistModal">
+        Clear Your Wishlist
+    </button>
+
+    {% if messages %}
+    <div class="alert alert-info mt-3">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if wishlisted %}
+    <div class="row"> 
+        <ul class="list-group wishlist-list mt-4">
+            {% for wishlist in wishlisted %}
+            <li class="list-group-item wishlist-item d-flex flex-column justify-content-between"
+                data-item-id="{{ wishlist.product.id }}">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="product-name mb-0">
+                            <a href="{% url 'product_detail' wishlist.product.id %}">{{ wishlist.product.product_name }}</a>
+                        </h4>
+                        {% if wishlist.product.featured_image %}
+                        <div class="featured-image-container">
+                            <img src="{{ wishlist.product.featured_image.url }}" alt="Featured Image"
+                                class="featured-image img-fluid">
+                        </div>
+                        {% endif %}
+                        <small class="text-muted">Wishlisted on: {{ wishlist.created_at|date:"F d, Y" }}</small>
+                    </div>
+                    <div class="product-info text-end">
+                        <p class="price">Price: ${{ wishlist.product.price }}</p>
+                        <p class="stock">Stock: {{ wishlist.product.stock }}</p>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between mt-2">
+                    <a href="{% url 'product_detail' wishlist.product.id %}" class="btn btn-outline-primary btn-view btn-sm">View
+                        Details</a>
+                    {% if request.user == wishlist.user %}
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ wishlist.id }}"
+                        class="btn btn-delete">
+                        Delete
+                    </a>
+
+                    <!-- Delete Confirmation Modal -->
+                    <div class="modal fade" id="deleteModal{{ wishlist.id }}" tabindex="-1"
+                        aria-labelledby="deleteModalLabel{{ wishlist.id }}" aria-hidden="true"
+                        data-bs-backdrop="static" data-bs-keyboard="false">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deleteModalLabel{{ wishlist.id }}">Confirm Delete</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to remove this product from your wishlist?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form method="POST" action="{% url 'delete_wishlist_item' wishlist.id %}" class="delete-form">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+
+    <!-- Message and Discover Products button if wishlist is empty -->
+    <div class="call-to-action my-2">
+        <p class="text-muted">Your Wishlist is empty. Start Discovering Now!</p>
+        <a href="{% url 'buynow' %}" class="btn btn-primary">Discover Products</a>
+    </div>
+    {% endif %}
+
+    <!-- Clear Wishlist Confirmation Modal -->
+    <div class="modal fade" id="clearWishlistModal" tabindex="-1" aria-labelledby="clearWishlistModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clearWishlistModalLabel">Clear Your Wishlist</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove all products from your Wishlist?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="POST" action="{% url 'clear_wishlist' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Clear Wishlist</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+{% block script %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const deleteForms = document.querySelectorAll(".delete-form");
+
+    deleteForms.forEach((form) => {
+        const modal = form.closest(".modal");
+        if (modal) {
+            modal.addEventListener("hidden.bs.modal", function () {
+                form.submit();
+            });
+        }
+    });
+});
+
+</script>
+{% endblock %}

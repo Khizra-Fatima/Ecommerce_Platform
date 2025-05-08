@@ -1,0 +1,124 @@
+/* Color Variables */
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$background-color: #faf6f1;
+$secondary-background-color: #ffffff;
+$third-background-color: #080808;
+
+
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col2: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+
+body {
+    background-color: lighten($bg-col1, 7%);
+}
+
+
+/* General Container Styling */
+.container {
+    max-width: 1000px;
+    background-color: $primary-col1;
+    padding: 2rem 2rem 1rem 2rem;
+}
+
+/* Header Styling */
+h2 {
+    color: $accent-col2;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Order ID */
+h5 {
+    font-size: 1.2rem;
+    color: $accent-color;
+}
+
+/* Card Styling */
+.card {
+    background-color: $secondary-background-color;
+    border: 1px solid lighten($primary-color, 40%);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+/* Product Summary Section */
+.order-summary h4,
+.customer-info h4,
+.delivery-info h4 {
+    color: $accent-col2;
+    margin-bottom: 0.5rem;
+}
+
+.product-detail {
+    .row {
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        max-width: 100%;
+        height: 296px;
+        width: 100%;
+        border-radius: 4px;
+        border: 1px solid $accent-color;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    h5 {
+        font-size: 1.2rem;
+        color: $primary-col1;
+        margin-top: 0.5rem;
+        margin-bottom: 2em;
+        font-weight: bold;
+    }
+
+    p {
+        color: $primary-col1;
+        margin: 0.8rem 0;
+    }
+
+    .price {
+        color: $accent-color;
+        font-weight: bold;
+    }
+}
+
+/* Customer and Delivery Info */
+.customer-info, .delivery-info {
+    p {
+        color: $primary-col1;
+        margin: 0.3rem 0;
+
+        strong {
+            color: darken($primary-col1, 15%);
+        }
+    }
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inbox{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/msginbox.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <nav class="col-lg-2 col-md-3 msg-inbox-body">
+        <h2 class="heading mt-3">Message Inbox</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                {% for conversation in conversations %}
+                <a href="#" class="nav-link chat-link" data-url="{% url 'chatformat' conversation.user.id %}">
+                    <div class="inbox-item">
+                        <h5 class="mb-1">{{ conversation.user.first_name }} {{ conversation.user.last_name }}</h5>
+                        <p class="mb-1 text-muted">{{ conversation.latest_message.msg_content|truncatechars:38 }}</p>
+                    </div>
+                </a>
+                {% empty %}
+                <p class="text-center text-muted">You have no conversations.</p>
+                {% endfor %}
+            </li>
+        </ul>
+    </nav>
+
+    <main id="main-content" class="col-lg-10 col-md-9">
+        <!-- msgs for the selected person will be loaded here -->
+    </main>
+</div>
+{% endblock %}
+
+
+
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $('.chat-link').click(function (e) {
+            e.preventDefault();
+            var url = $(this).data('url');
+
+            if (!url) return;
+
+            $('.chat-link').removeClass('active');
+            $(this).addClass('active');
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                beforeSend: function () {
+                    $('#main-content').html('<div class="spinner-border text-primary"></div>');
+                },
+                success: function (response) {
+                    $('#main-content').html(response);
+                    $('#messages').scrollTop($('#messages')[0].scrollHeight);
+                },
+                error: function (xhr, status, error) {
+                    alert('Error loading conversation.');
+                }
+            });
+        });
+
+        $('.chat-link:first').trigger('click');  // Auto-load the first conversation
+    });
+</script>
+{% endblock %}

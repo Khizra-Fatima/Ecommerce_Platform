@@ -1,0 +1,56 @@
+.msg-inbox-body {
+  background-color: #151515;
+  max-width: 1920px;
+  height: 100vh;
+  margin: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.heading {
+  color: white;
+  text-align: left;
+  margin-bottom: 1.2rem;
+  margin-left: 0.5em;
+}
+
+.inbox-item {
+  background-color: #D3D3FF;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  padding: 15px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.inbox-item h5 {
+  margin-bottom: 5px;
+  font-size: 1.1em;
+  color: #2E2E2E;
+}
+.inbox-item p {
+  font-size: 0.9rem;
+  color: white;
+}
+.inbox-item small {
+  font-size: 0.9rem;
+  color: #131313;
+}
+.inbox-item:hover {
+  background-color: #babaff;
+  transform: scale(1.02);
+}
+.inbox-item.unread {
+  background-color: #2E2E2E !important;
+  border-left: 4px solid #D3D3FF;
+}
+
+#main-content {
+  background-color: #2e2e2e;
+  padding: 20px;
+  height: 100vh;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chat-bot-div {
+  display: none !important;
+}/*# sourceMappingURL=msginbox.css.map */

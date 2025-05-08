@@ -1,0 +1,101 @@
+body {
+  background-color: #f6ebdf;
+}
+
+/* Container for the edit profile page */
+.edit-profile-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #080808;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.edit-profile-container h1 {
+  color: #C29B0C;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Form section heading */
+.edit-profile-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+label {
+  color: #C29B0C !important;
+}
+
+/* Section headings for each form part (Profile, Account, Password) */
+.edit-profile-container h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: white;
+}
+
+#id_image {
+  color: white;
+}
+
+/* Profile, User, and Password form sections */
+.profile-section, .user-section, .password-section {
+  background-color: #151515; /* Light background for each section */
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+}
+
+/* Style the form inputs, select fields, and text areas */
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  border: 1px solid rgb(224, 224, 224);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Buttons for saving changes and password submission */
+.btn {
+  display: block;
+  padding: 12px 15px 12px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.btn-pass,
+.btn-save {
+  background-color: #C29B0C;
+  color: #212121;
+}
+.btn-pass:hover,
+.btn-save:hover {
+  background-color: #C29B0C;
+  color: #212121;
+}
+
+/* Success message styling */
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+}
+
+/* Add responsive behavior for smaller screens */
+@media (max-width: 768px) {
+  .edit-profile-container {
+    padding: 15px;
+  }
+  .btn {
+    font-size: 14px;
+  }
+}/*# sourceMappingURL=edit_profile.css.map */

@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Order Checkout{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/order_checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2>Order Checkout</h2>
+
+    <div class="row">
+        <div class="col-lg-7">
+            <!-- Order Checkout Form -->
+            <div class="order-form card">
+                <form id="order-form" method="post" action="{% url 'order_checkout_page' product.id %}">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+
+                    <h5>Customer information</h5>
+                    <div class="mb-3">
+                        <label for="id_email" class="form-label">Your Email:</label>
+                        {{ form.email }}
+                    </div>
+
+                    <h5>Billing details</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_first_name" class="form-label">First Name:</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_last_name" class="form-label">Last Name:</label>
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_phone_number" class="form-label">Phone Number:</label>
+                        {{ form.phone_number }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="id_address" class="form-label">Address:</label>
+                        {{ form.address }}
+                    </div>
+
+                    <h5>Product information</h5>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="id_quantity" class="form-label">Quantity:</label>
+                            <input type="number" name="quantity" id="id_quantity" class="form-control"
+                                value="{{ initial_quantity }}" min="1" max="{{ product.stock }}">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_color" class="form-label">Select Color:</label>
+                            <select name="color" id="id_color" class="form-control">
+                                {% for color in form.color.field.queryset %}
+                                <option value="{{ color.id }}" {% if cart_color == color %}selected{% endif %}>
+                                    {{ color.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="id_delivery_method" class="form-label">Delivery Method:</label>
+                            {{ form.delivery_method }}
+                            <p id="expressCharge"
+                                style="display: none; color: #612718; margin: 0.5em 0 0 0.2em;">
+                                Express delivery:
+                                $20</p>
+                        </div>
+                        <div class="col-md-6 mt-3">
+                            <label for="estimated_delivery_date" class="form-label">Estimated Delivery Date</label>
+                            <input type="text" id="estimated_delivery_date" class="form-control" disabled
+                                value="{{ estimated_delivery_date }}">
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-end">
+                        <button type="button" class="btn btn-order" data-bs-toggle="modal"
+                            data-bs-target="#orderConfirmationModal">Place Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <!-- Product Summary Section -->
+            <div class="order-summary">
+                <h4>Your Order</h4>
+                <div class="product-detail card">
+                    <p class="product">Product</p>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {% if product.featured_image %}
+                            <div class="featured-image-container">
+                                <img src="{{ product.featured_image.url }}" alt="Featured Image"
+                                    class="featured-image img-fluid">
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-8">
+                            <h5 class="product_name">{{ product.product_name }}</h5>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p class="price">Price: ${{ product.price }}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            {% if product.delivery_charges %}
+                            <p style="color: black;">Delivery Charges: ${{ product.delivery_charges }}
+                            </p>
+                            {% else %}
+                            <p class="delivery_charges" style="color: green;"><strong>Free Delivery</strong></p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Order Confirmation Modal -->
+<div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-labelledby="orderConfirmationModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="orderConfirmationModalLabel">Confirm Your Order</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Product:</strong> {{ product.product_name }}</p>
+                <p><strong>Quantity:</strong> <span id="confirmQuantity">{{ initial_quantity }}</span></p>
+                <p style="margin-top: 1em;"><strong>Selected Color:</strong> <span id="confirmColor">{{ cart.color.name
+                        }}</span></p>
+                <p><strong>Delivery Method:</strong> <span id="confirmDeliveryMethod">{{ form.delivery_method.value
+                        }}</span></p>
+                <p><strong>Estimated Delivery Date:</strong> <span id="confirmEstimatedDate">{{ estimated_delivery_date
+                        }}</span></p>
+                <p><strong>Total Price:</strong> $<span id="confirmTotalPrice">{{ total_price }}</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" id="confirmOrderButton">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const confirmOrderButton = document.getElementById('confirmOrderButton');
+        const quantityInput = document.getElementById('id_quantity');
+        const deliveryMethodSelect = document.getElementById('id_delivery_method');
+        const colorSelect = document.getElementById('id_color');
+        const confirmQuantity = document.getElementById('confirmQuantity');
+        const confirmColor = document.getElementById('confirmColor');
+        const confirmDeliveryMethod = document.getElementById('confirmDeliveryMethod');
+        const expressChargeElement = document.getElementById('expressCharge');
+        const confirmTotalPrice = document.getElementById('confirmTotalPrice');
+        const confirmEstimatedDate = document.getElementById('confirmEstimatedDate');
+
+        const productPrice = parseFloat('{{ product.price }}');
+        const deliveryCharges = parseFloat('{{ product.delivery_charges }}') || 0;
+        const expressDeliveryCharge = 20; // Fixed express charge
+
+        // Update modal values when quantity or delivery method changes
+        quantityInput.addEventListener('input', updateModal);
+        deliveryMethodSelect.addEventListener('change', updateModal);
+        if (colorSelect) {
+            colorSelect.addEventListener('change', updateModal);
+        }
+
+        function updateModal() {
+            const quantity = parseInt(quantityInput.value) || 1;
+            const deliveryMethod = deliveryMethodSelect.value;
+            const deliveryMethodText = deliveryMethodSelect.options[deliveryMethodSelect.selectedIndex].text;
+            const selectedColor = colorSelect ? colorSelect.options[colorSelect.selectedIndex].text : "{{ cart.color.name }}";
+
+            const isExpress = deliveryMethod === 'express';
+            const deliveryDays = isExpress ? 2 : 5;
+            const estimatedDeliveryDate = calculateDeliveryDate(deliveryDays);
+            const totalDeliveryCharge = deliveryCharges + (isExpress ? expressDeliveryCharge : 0);
+            const totalPrice = (productPrice * quantity + totalDeliveryCharge).toFixed(2);
+
+            // Update both the modal and form fields with new values
+            confirmQuantity.innerText = quantity;
+            confirmDeliveryMethod.innerText = deliveryMethodText;
+            confirmEstimatedDate.innerText = estimatedDeliveryDate;
+            confirmTotalPrice.innerText = totalPrice;
+            confirmColor.innerText = selectedColor;
+
+            // Also update the form's estimated delivery date field
+            document.getElementById('estimated_delivery_date').value = estimatedDeliveryDate;
+
+            // Display express charge message if applicable
+            expressChargeElement.style.display = isExpress ? 'block' : 'none';
+        }
+
+        // Helper function to calculate future date
+        function calculateDeliveryDate(days) {
+            const date = new Date();
+            date.setDate(date.getDate() + days);
+            return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+        }
+
+        // Initialize modal values on page load
+        updateModal();
+
+        confirmOrderButton.addEventListener('click', function () {
+            document.getElementById('order-form').submit();
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,127 @@
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$bg-color: #faf6f1;
+$secondary-bg-color: #080808;
+
+
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col1: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+
+
+body {
+    background-color: lighten($bg-col1, 7%);
+}
+
+.profile-container {
+    background-color: darken($primary-col1, 10%);
+    padding: 20px;
+}
+
+.profile-heading {
+    color: $accent-col2; 
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-picture-section {
+    margin-bottom: 30px;
+    
+    .profile-picture {
+        border: 2px solid white;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .profile-email {
+        font-size: 1.2rem;
+        color: white; 
+    }
+
+    .btn-edit {
+        background-color: $accent-col2;
+        border-color: $accent-col2;
+        color: $primary-col1;
+        font-weight: bold;
+    }
+}
+
+.profile-info-section, 
+.profile-bio-section, 
+.profile-account-section,
+.profile-contact-section,
+.social-media-accounts-section,
+.payment-method-section, 
+.profile-settings-section {
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+
+    h3 {
+        color: $accent-col2;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: $text-color;
+        font-size: 1rem;
+    }
+}
+
+.social-media-accounts-section {
+    p {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        font-size: 1.1rem;
+
+        i {
+            color: $primary-col1;
+            font-size: 1.8rem;
+            margin-right: 10px;
+        }
+
+        a {
+            color: $primary-col1;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+
+.btn-pass, 
+.btn-email {
+    background-color: $accent-col2;
+    border-color: $accent-col2;
+    color: $primary-col1;
+    font-weight: bold;
+
+    &:hover {
+        background-color: $accent-col2;
+    }
+}

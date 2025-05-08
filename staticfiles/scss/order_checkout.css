@@ -1,0 +1,116 @@
+/* Color Variables */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #faf6f1;
+  color: #000000;
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+/* Headings */
+h2 {
+  color: rgb(67, 67, 190);
+  font-weight: bold;
+  text-align: center;
+}
+
+h4 {
+  color: #c98d56;
+  font-weight: bold;
+}
+
+h5 {
+  color: #080808;
+}
+
+/* Order Summary Section */
+.order-summary {
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.product-detail {
+  background-color: #f7f7f7;
+  border-radius: 6px;
+  color: #3f2914;
+}
+
+.product_name {
+  color: rgb(67, 67, 190);
+}
+
+.stock {
+  margin-top: 6em;
+  font-weight: bold;
+}
+
+.price {
+  font-weight: bold;
+  margin-bottom: 0.7em;
+}
+
+.featured-image {
+  width: 100%;
+  height: 200px;
+  border: 2px solid #c98d56;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+/* Order Form */
+.order-form {
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.form-label {
+  color: #080808;
+  font-weight: 600;
+}
+
+.form-control {
+  background-color: #faf6f1;
+  border: 1px solid #eddecb;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  border-color: rgb(67, 67, 190);
+  box-shadow: 0 0 0 0.2rem rgba(67, 67, 190, 0.25);
+}
+
+/* Quantity and Delivery Method */
+#id_quantity,
+#id_delivery_method {
+  max-width: 100%;
+}
+
+/* Button */
+.btn-primary {
+  background-color: rgb(67, 67, 190);
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #ffffff;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #6969cb;
+}
+
+.text-end {
+  text-align: end;
+}/*# sourceMappingURL=order_checkout.css.map */

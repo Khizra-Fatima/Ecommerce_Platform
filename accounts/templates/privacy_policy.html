@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load form_filters %}  
+
+{% block title %}Register{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/privacy_policy.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Privacy Policy</h1>
+<p>Last updated: 1/3/2025</p>
+<p>
+    At [Your E-Commerce Platform Name], we value your privacy and are committed to protecting your personal data. This Privacy Policy explains how we collect, use, and manage the information you provide to us when using our platform.
+    
+    #### Data Collection
+    We collect and process the following data:
+    - Name
+    - Email address
+    - Profile picture (if logging in via Facebook or other social media platforms)
+    - Shipping and billing addresses
+    - Phone number
+    - Order history
+    - Payment details (processed securely via third-party services)
+    
+    #### Data Usage
+    The information we collect is used for:
+    - Account creation and authentication
+    - Fulfilling and tracking orders
+    - Providing customer support
+    - Improving our services and user experience
+    - Sending promotional updates (if opted in)
+    
+    #### Data Sharing
+    We do not sell your data. However, we may share it with:
+    - Payment processors to complete transactions
+    - Shipping carriers to deliver orders
+    - Legal authorities when required by law
+    
+    #### Data Security
+    We implement industry-standard measures to ensure your data is stored securely. 
+    
+    #### Your Rights
+    You have the right to:
+    - Access your personal data
+    - Update or correct your data
+    - Request data deletion
+    - Opt out of marketing communications
+    
+    #### Contact
+    For any questions or concerns regarding this policy or your data, contact us at [Your Contact Email].
+    
+    #### Updates
+    We may update this Privacy Policy from time to time. Please review it periodically for changes.
+    
+    By using our platform, you agree to this Privacy Policy.
+    </p>
+{% endblock %}

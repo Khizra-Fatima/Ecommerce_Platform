@@ -1,0 +1,136 @@
+.container {
+  margin-top: 3rem;
+  /* Tabbed Filters */
+  /* Notifications Grid */
+}
+.container .notification-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.container .notification-header h1 {
+  font-size: 2.5rem;
+  color: rgb(67, 67, 190);
+}
+.container .notification-header .btn-clear {
+  margin-top: 1rem;
+  background-color: #c98d56;
+  color: #f7f7f7;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+}
+.container .notification-header .btn-clear:hover {
+  background-color: #b37339;
+}
+.container .notification-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid rgb(67, 67, 190);
+}
+.container .notification-tabs .tab {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: rgb(67, 67, 190);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+.container .notification-tabs .tab.active {
+  border-bottom: 2px solid #c98d56;
+  color: #c98d56;
+}
+.container .notification-tabs .tab:hover {
+  color: #d5a77d;
+}
+.container .notification-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.container .notification-grid .notification-card {
+  height: 150px;
+  background-color: #ffffff;
+  border: 1px solid #8f8fd8;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.container .notification-grid .notification-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+.container .notification-grid .notification-card .card-header {
+  background-color: #b5b5e5;
+  padding: 1rem;
+  border-bottom: 1px solid #6969cb;
+  color: #f7f7f7;
+  font-size: 1.25rem;
+  font-weight: bold;
+  border-radius: 12px 12px 0 0;
+}
+.container .notification-grid .notification-card .card-body {
+  padding: 1rem;
+}
+.container .notification-grid .notification-card .card-body .message {
+  color: #000000;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.container .notification-grid .notification-card .card-body .date {
+  color: #000000;
+  font-size: 0.875rem;
+}
+.container .notification-grid .notification-card .card-body .btn-delete {
+  background-color: #c98d56;
+  color: #f7f7f7;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}
+.container .notification-grid .notification-card .card-body .btn-delete:hover {
+  background-color: #b37339;
+}
+
+/* Animation for cards */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Scale and fade-in effect */
+.fade-in {
+  animation: scaleFadeIn 0.5s ease-in-out;
+}
+
+@keyframes scaleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.no-results {
+  font-size: 1.2rem;
+  color: #6c757d;
+  opacity: 0.8;
+  margin-top: 20px;
+  text-align: center;
+}/*# sourceMappingURL=notifications.css.map */

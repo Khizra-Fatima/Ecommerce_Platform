@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load notifications_tags %}
+
+{% block title %}User Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/user_dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}" id="navbar-brand" style="font-size: 1.3em;">E-commerce
+            Platform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% load notifications_tags %}
+            <div class="ms-auto d-flex justify-content-end">
+                <div class="notification-icon btn-group dropstart">
+                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell-fill"></i>
+                        {% get_notifications as notifications %}
+                        <span class="badge bg-danger" {% if notification_count == 0 %}style="display:none;"{% endif %}>
+                            {{ notification_count }}
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        {% for notification in notifications %}
+                        <li>
+                            <a class="dropdown-item notification-item" href="#"
+                                data-notification-id="{{ notification.id }}">
+                                {{ notification.message }}
+                            </a>
+                        </li>
+                        {% empty %}
+                        <li><a class="dropdown-item text-muted">No new notifications</a></li>
+                        {% endfor %}
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'notifications' %}">Visit Notification Page</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-lg-2 col-md-3 sidebar">
+            <h2 class="mb-4 profile_heading">{{ user.first_name }}'s Profile</h2>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'user_profile' user.id %}"><i class="bi bi-person-circle"></i>
+                        Profile</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#" data-url="{% url 'order_list' %}"><i
+                            class="bi bi-box-seam"></i> Order History</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-url="{% url 'all_reviews' %}"><i
+                            class="bi bi-star"></i> Reviews</a>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'wishlisted_product' %}">
+                        <i class="bi bi-bookmarks"></i> Wishlist
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#" data-url="{% url 'cart_products' %}">
+                        <i class="bi bi-cart3"></i> Shopping Cart</a></li>
+                <li class="nav-item"><a class="nav-link no-ajax" href="{% url 'inbox' %}"><i class="bi bi-chat-right-dots"></i> Messages</a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" data-url="{% url 'notifications' %}">
+                        <i class="bi bi-bell"></i> Notifications
+                    <span class="badge bg-danger" id="unread-count">{{ unread_count }}</span>
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="#" data-url="{% url 'support' %}"><i
+                            class="bi bi-headset"></i> Support</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" data-url="{% url 'account_settings' %}"><i
+                            class="bi bi-person-gear"></i> Account Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link no-ajax" href="{% url 'logout' %}">
+                        <i class="bi bi-box-arrow-left"></i> Logout
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+        <main id="main-content" class="col-lg-10 col-md-9">
+            <!-- Content for the selected section will be loaded here -->
+        </main>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        // Load content via AJAX when sidebar links are clicked
+        $('.nav-link').click(function (e) {
+            if (!$(this).hasClass('no-ajax')) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                if (!url) return;
+
+                $('.nav-link').removeClass('active');
+                $(this).addClass('active');
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    beforeSend: function () {
+                        $('#main-content').html('<div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>');
+                    },
+                    success: function (response) {
+                        $('#main-content').html(response);
+                        $('#main-content').focus();
+
+                        // Reinitialize scripts
+                        initializeNotificationTabs();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('AJAX error:', status, error);
+                        alert('An error occurred while loading the content.');
+                    }
+                });
+            }
+        });
+
+        // Initial script execution
+        initializeNotificationTabs();
+    });
+
+    // Function to initialize notification tab filters
+    function initializeNotificationTabs() {
+        const tabs = document.querySelectorAll(".tab");
+        const cards = document.querySelectorAll(".notification-card");
+        const noResultsMessage = document.querySelector(".no-results");
+        const grid = document.querySelector(".notification-grid");
+
+        if (!tabs.length || !cards.length) {
+            console.error("Tabs or Cards are not defined. Check your HTML.");
+            return;
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+
+                const filter = tab.getAttribute("data-filter");
+                let hasVisibleCard = false;
+
+                cards.forEach(card => {
+                    const type = card.getAttribute("data-type");
+
+                    if (filter === "all" || filter === type) {
+                        card.style.display = "block";
+                        hasVisibleCard = true;
+                    } else {
+                        card.style.display = "none";
+                    }
+                });
+
+                noResultsMessage.style.display = hasVisibleCard ? "none" : "block";
+                grid.scrollIntoView({ behavior: "smooth" });
+            });
+        });
+    }
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".notification-icon .dropdown-menu").addEventListener("click", function (event) {
+            let item = event.target.closest(".notification-item"); // Check if clicked element is a notification
+            if (!item) return;
+
+            let notificationId = item.dataset.notificationId;
+            if (!notificationId) return;
+
+            // Send AJAX request to mark as read
+            fetch(`/activities/mark-as-read/${notificationId}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json'
+                },
+            }).then(response => response.json()).then(data => {
+                if (data.success) {
+                    item.remove(); // ✅ Remove the clicked notification from dropdown
+
+                    // Check if dropdown is empty, show "No new notifications" message
+                    let remainingNotifications = document.querySelectorAll(".notification-item");
+                    if (remainingNotifications.length === 0) {
+                        let dropdownMenu = document.querySelector(".notification-icon .dropdown-menu");
+                        dropdownMenu.innerHTML = `<li><a class="dropdown-item text-muted">No new notifications</a></li>`;
+                    }
+
+                    updateNotificationCount(); // ✅ Fetch updated count and update badge
+                }
+            }).catch(error => console.error("Error updating notification:", error));
+        });
+
+
+        function updateNotificationCount() {
+            fetch("/activities/notification-count/")  // Create this API
+                .then(response => response.json())
+                .then(data => {
+                    let badge = document.querySelector(".notification-icon .badge");
+                    if (data.count > 0) {
+                        badge.innerText = data.count;
+                        badge.style.display = "inline-block";
+                    } else {
+                        badge.style.display = "none"; // Hide badge when no unread notifications left
+                    }
+                });
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                document.cookie.split(';').forEach(cookie => {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith(name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.split('=')[1]);
+                    }
+                });
+            }
+            return cookieValue;
+        }
+    });
+</script>
+{% endblock %}

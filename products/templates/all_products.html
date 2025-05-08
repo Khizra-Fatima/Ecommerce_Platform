@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}All Products{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/all_product.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h2>Your Products</h2>
+
+<!-- Container for Tabs and Create Product button -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs" id="productTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="published-tab" data-bs-toggle="tab" data-bs-target="#published"
+                type="button" role="tab" aria-controls="published" aria-selected="true">Published Products</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="draft-tab" data-bs-toggle="tab" data-bs-target="#draft" type="button"
+                role="tab" aria-controls="draft" aria-selected="false">Draft Products</button>
+        </li>
+    </ul>
+
+    <!-- Create Product Button -->
+    <a href="{% url 'create_product' %}" class="btn btn-primary">Create New Product</a>
+</div>
+
+<hr>
+
+<!-- Tab Content -->
+<div class="tab-content" id="productTabContent">
+    <!-- Published Products Section -->
+    <div class="tab-pane fade show active" id="published" role="tabpanel" aria-labelledby="published-tab">
+        <h3>Published Products</h3>
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                {% if product.publish_status == 'published' %}
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="product-card">
+                        <!-- Featured Image -->
+                        {% if product.featured_image %}
+                        <div class="featured-image-container">
+                            <img src="{{ product.featured_image.url }}" alt="Featured Image"
+                                class="featured-image img-fluid">
+                        </div>
+                        {% endif %}
+                        <h5><a href="{% url 'product_detail' product.id %}">{{ product.product_name }}</a></h5>
+                        <div class="product-info">
+                            <p class="price">Price: ${{ product.price }}</p>
+                            <p class="stock">Stock: {{ product.stock }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% if products|length == 0 %}
+                <p class="col-12">No published products available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Draft Products Section -->
+    <div class="tab-pane fade" id="draft" role="tabpanel" aria-labelledby="draft-tab">
+        <h3>Draft Products</h3>
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                {% if product.publish_status == 'draft' %}
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <!-- Featured Image -->
+                        {% if product.featured_image %}
+                        <div class="featured-image-container">
+                            <img src="{{ product.featured_image.url }}" alt="Featured Image"
+                                class="featured-image img-fluid">
+                        </div>
+                        {% endif %}
+                        <h5><a href="{% url 'product_detail' product.id %}">{{ product.product_name }}</a></h5>
+                        <div class="product-info">
+                            <p class="price">Price: ${{ product.price }}</p>
+                            <p class="stock">Stock: {{ product.stock }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+                {% if products|length == 0 %}
+                <p class="col-12">No draft products available.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

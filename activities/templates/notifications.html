@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Seller Dashboard{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/notifications.css' %}">
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container mt-5">
+    <div class="notification-header d-flex justify-content-between">
+        <h1>Your Notifications</h1>
+        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#clearNotificationModal">
+            Delete all Your notifications
+        </button>
+    </div>
+
+    {% if messages %}
+    <div class="alert alert-info mt-3">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Tabbed Filters -->
+    <div class="notification-tabs">
+        <div class="tab active" data-filter="all">All</div>
+        <div class="tab" data-filter="unread">Unread</div>
+        <div class="tab" data-filter="read">Read</div>
+        <div class="tab" data-filter="order_update">Order Updates</div>
+        {% if user.role == 'seller' %}
+        <div class="tab" data-filter="review">Reviews</div>
+        {% endif %}
+    </div>
+
+    <!-- Notifications Grid -->
+    <div class="notification-grid">
+        {% if notifications %}
+        {% for all_notifications in notifications %}
+        <div class="notification-card w-100" data-item-id="{{ all_notifications.id }}"
+            data-type="{{ all_notifications.notification_type }}">
+            <div class="card-header">
+                {{ all_notifications.get_notification_type_display }}
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-11 col-11">
+                        <p class="message mb-1">{{ all_notifications.message }}</p>
+                        <p class="date mb-1">Added on: {{ all_notifications.creation_date|date:"F d, Y" }}</p>
+                    </div>
+                    <div class="col-lg-1 col-1">
+                        {% if request.user == all_notifications.receiver %}
+                        <button class="btn-delete" data-bs-toggle="modal"
+                            data-bs-target="#deleteModal{{ all_notifications.id }}">
+                            Delete
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Confirmation Modal -->
+        <div class="modal fade" id="deleteModal{{ all_notifications.id }}" tabindex="-1" role="dialog"
+            aria-labelledby="deleteModalLabel{{ all_notifications.id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel{{ all_notifications.id }}">Delete Notification</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete this notification: "{{ all_notifications.message }}"?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <form method="POST" action="{% url 'delete_list_notification' all_notifications.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="call-to-action my-2 text-center">
+            <p class="text-muted">No Notifications Available</p>
+        </div>
+        {% endif %}
+        <p class="no-results text-muted text-center mt-4" style="display: none;" aria-live="polite">
+            No notifications for this filter.
+        </p>
+    </div>
+</div>
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tabs = document.querySelectorAll(".tab");
+        const cards = document.querySelectorAll(".notification-card");
+        const noResultsMessage = document.querySelector(".no-results");
+        const grid = document.querySelector(".notification-grid");
+
+        console.log("Tabs found:", tabs); // Debug log
+        console.log("Cards found:", cards); // Debug log
+
+        if (tabs.length === 0 || cards.length === 0) {
+            console.error("Tabs or Cards are not defined. Check your HTML.");
+            return;
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                // Remove active class from all tabs and add it to the clicked tab
+                tabs.forEach(t => t.classList.remove("active"));
+                tab.classList.add("active");
+
+                const filter = tab.getAttribute("data-filter");
+                let hasVisibleCard = false;
+
+                // Loop through all cards and display/hide based on filter
+                cards.forEach(card => {
+                    const type = card.getAttribute("data-type");
+
+                    if (filter === "all" || filter === type) {
+                        card.style.display = "block"; // Show the card
+                        hasVisibleCard = true;
+                    } else {
+                        card.style.display = "none"; // Hide the card
+                    }
+                });
+
+                // Show or hide the "no results" message
+                noResultsMessage.style.display = hasVisibleCard ? "none" : "block";
+
+                // Scroll the grid into view when tabs are clicked
+                grid.scrollIntoView({ behavior: "smooth" });
+            });
+        });
+    });
+
+</script>
+{% endblock %}

@@ -1,0 +1,576 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% load review_filters %}
+
+{% block title %}Product Details{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/product_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}" id="navbar-brand">E-commerce Platform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'cart_products' %}"><i style="font-size: 1.3em;"
+                            class="fa-solid fa-cart-shopping"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<div class="container-fluid content-section">
+    <div class="product-detail-container">
+        <div class="row">
+            <div class="col-lg-2 p-0">
+                <div class="media-container">
+                    <!-- Extra images -->
+                    <div class="product-image">
+                        <img src="{{ product.featured_image.url }}" alt="{{ product.product_name }}">
+                    </div>
+                    <div class="product-image">
+                        <img src="{{ product.featured_image.url }}" alt="{{ product.product_name }}">
+                    </div>
+
+                    <!-- Video Section -->
+                    {% if product.product_video %}
+                    <div class="product-video">
+                        <video controls>
+                            <source src="{{ product.product_video.url }}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-5 col-12 p-0">
+                <!-- Image & Video Section -->
+                <div class="media-container">
+                    <div class="product-image-main">
+                        <img src="{{ product.featured_image.url }}" alt="{{ product.product_name }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-12">
+                <!-- Product Information Section -->
+                <div class="product-info col-md-9">
+                    <p><span>Size:</span> {{ product.size }}</p>
+                    <h2>{{ product.product_name }}</h2>
+                    <div class="d-flex align-items-center justify-content-start gap-2 price-related">
+                        {% if product.sale_price %}
+                        <p class="old-price">${{ product.price }}</p>
+                        <p class="price">${{ product.sale_price }}</p>
+                        {% else %}
+                        <p class="price">${{ product.price }}</p>
+                        {% endif %}
+                        <p>&</p>
+                        {% if product.delivery_charges %}
+                        <p>Delivery Charges: ${{ product.delivery_charges }}</p>
+                        {% else %}
+                        <p class="delivery_charges"><strong>Free Delivery</strong></p>
+                        {% endif %}
+                    </div>
+                    <p class="limited-text">{{ product.description }}</p>
+                    <p><strong>Stock:</strong> {{ product.stock }} ({{ product.stock_status }})</p>
+                    <div class="product-container">
+                        <div class="quantity-selector">
+                            <button class="qty-btn decrease">-</button>
+                            <input type="text" value="1" class="qty-input" id="quantity" max="{{ product.stock }}">
+                            <button class="qty-btn increase">+</button>
+                        </div>
+                        <button type="button" class="add-to-cart" id="btn-cart" data-bs-toggle="modal"
+                            data-bs-target="#AddCartModal{{ product.id }}">
+                            ADD TO CART
+                        </button>
+                        <!--<a class="btn-buy" href="{% url 'order_checkout_page' product.id %}">BUY NOW</a>-->
+                    </div>
+
+                    <!-- Features Section -->
+                    <div class="product-features">
+                        <h4>Features:</h4>
+                        <ul class="features-list">
+                            {% for feature in features_list %}
+                            <li>{{ feature }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Cart Modal -->
+            <div class="modal fade" id="AddCartModal{{ product.id }}" tabindex="-1"
+                aria-labelledby="AddCartModalLabel{{ product.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg"> <!-- Increase modal width -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="AddCartModalLabel{{ product.id }}">
+                                Add {{ product.product_name }} to Your Cart
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Colors Section -->
+                            <div class="product-colors">
+                                <p>Selected Quantity: <span class="selectedQuantity">1</span></p>
+                                <label for="color-{{ product.id }}">Select a Color:</label>
+                                <select class="color-select" id="color-{{ product.id }}" name="color" required>
+                                    {% for color in product.colors.all %}
+                                        <option value="{{ color.id }}">{{ color.name }}</option>
+                                    {% endfor %}
+                                </select>                                
+                            </div>
+
+                            <!-- Hidden input field to store quantity -->
+                            <input type="hidden" id="modal-quantity-{{ product.id }}" name="quantity" value="1">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary confirm-add-to-cart"
+                                data-product-id="{{ product.id }}">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit & Delete buttons -->
+    <div class="product-actions">
+        {% if can_edit %}
+        <a href="{% url 'edit_product' product.id %}" class="btn btn-edit">Edit</a>
+        {% endif %}
+        {% if can_delete %}
+        <button type="button" class="btn btn-delete" data-bs-toggle="modal"
+            data-bs-target="#deleteModal{{ product.id }}">
+            Delete
+        </button>
+        {% endif %}
+    </div>
+
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal{{ product.id }}" tabindex="-1"
+        aria-labelledby="deleteModalLabel{{ product.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel{{ product.id }}">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this product "{{ product.product_name }}"?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    Form inside Modal for Deletion
+                    <form method="POST" action="{% url 'delete_product' product.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <ul class="nav nav-tabs" id="productTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="product-tab" data-bs-toggle="tab" data-bs-target="#product-info"
+                type="button" role="tab" aria-controls="product-info" aria-selected="true">
+                Product Details
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="seller-tab" data-bs-toggle="tab" data-bs-target="#seller-info" type="button"
+                role="tab" aria-controls="seller-info" aria-selected="false">
+                Seller Details (Visit Store & MSG Them)
+            </button>
+        </li>
+    </ul>
+
+    <!-- Tab Content -->
+    <div class="tab-content" id="productTabsContent">
+        <!-- Product Info Tab -->
+        <div class="tab-pane fade show active" id="product-info" role="tabpanel" aria-labelledby="product-tab">
+            <div class="product-info-sec">
+                <p>{{ product.description }}</p>
+                <p><strong>Weight:</strong> {{ product.weight }} {{ product.weight_unit }}</p>
+                <p><strong>Dimensions:</strong> {{ product.height }}"H x {{ product.width }}"W x {{ product.depth }}"D
+                    ({{ product.dimension_unit }})</p>
+
+
+                <!-- Colors Section -->
+                <div class="product-colors">
+                    <p><strong>Available Colors:</strong></p>
+                    <div class="color-circles">
+                        {% for color in product.colors.all %}
+                        <div class="color-circle" style="--dynamic-color: {{ color.hex_code }};"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Materials Section -->
+                <div class="product-materials">
+                    <p><strong>Materials:</strong></p>
+                    <ul class="list-unstyled d-flex flex-wrap gap-2">
+                        {% for material in product.materials.all %}
+                        <li>{{ material.name }},</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seller Info Tab -->
+        <div class="tab-pane fade" id="seller-info" role="tabpanel" aria-labelledby="seller-tab">
+            <div class="seller-detail-section">
+                <div class="upper_sec">
+                    <p><strong>Owner:</strong> {{ product.store.owner.first_name }} {{ product.store.owner.last_name }}
+                    </p>
+                    <p><strong>Store Name:</strong> {{ product.store.name }}</p>
+                    <div class="store-logo">
+                        {% if product.store.featured_image %}
+                        <img src="{{ product.store.featured_image.url }}" alt="{{ product.store.name }} logo">
+                        {% else %}
+                        <img src="{% static 'store_logo/default_store_logo.jpg' %}" alt="Default logo">
+                        {% endif %}
+                    </div>
+                    <p><strong>Join Date:</strong> {{ product.store.created_at|date:"F j, Y" }}</p>
+                </div>
+                <div class="lower_sec">
+                    <p><strong>Description:</strong> {{ product.store.description }}</p>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p><strong>Contact:</strong> {{ product.store.store_number }}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p><strong>Store Location:</strong> {{ product.store.store_location }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <p><strong>Return Policy:</strong> {{ product.store.return_policy }}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p><strong>Shipping Policy:</strong> {{ product.store.shipping_policy }}</p>
+                        </div>
+                    </div>
+                    <ul class="link-container d-flex gap-3">
+                        <li>
+                            {% if product.store %}
+                            <a class="store_link" href="{% url 'seller_store' product.store.id %}">Visit Store</a>
+                            {% else %}
+                            <span>No store available</span>
+                            {% endif %}
+                        </li>
+                        <li>
+                            <a class="msg_link" href="{% url 'message' product.owner.id %}">Message <i class="bi bi-send-fill"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <div class="reviews-section">
+        <h4>Customer Reviews</h4>
+        {% if reviews %}
+        {% for review in reviews %}
+        <div class="review">
+            <p class="rating"><strong>{{ review.owner.first_name }} {{ review.owner.last_name }}</strong> - {{ review.rating|render_stars }}</p>
+            <p>{{ review.comment }}</p>
+            <p>{{ review.created_at|date:"F j, Y" }}</p>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p>No reviews yet. Be the first to review this product!</p>
+        {% endif %}
+    </div>
+
+    <div class="related-products-section">
+        <h3>Related Products</h3>
+        <div class="row">
+            {% for related_product in related_products %}
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="product-card">
+                    <button class="wishlist-btn btn btn-link" data-product-id="{{ related_product.id }}"
+                        aria-label="Wishlist this Product">
+                        <i
+                            class="bi {% if related_product.id in user_wishlist %}bi-bookmarks-fill{% else %}bi-bookmarks{% endif %}"></i>
+                    </button>
+                    {% if related_product.sale_price %}
+                    <p class="sale">Sale!</p>
+                    {% endif %}
+                    {% if related_product.featured_image %}
+                    <div class="featured-image-container">
+                        <img src="{{ related_product.featured_image.url }}" alt="Featured Image"
+                            class="featured-image img-fluid">
+                    </div>
+                    {% endif %}
+                    <h5><a href="{% url 'product_detail' related_product.id %}">{{ related_product.product_name }}</a>
+                    </h5>
+                    <div class="product-info">
+                        <p class="price">Price: ${{ related_product.price }}</p>
+                        <p class="stock">Stock: {{ related_product.stock }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p>No related products available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-cta pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Find us</h4>
+                            <span>Springfield, IL 62704 United States</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Call us</h4>
+                            <span>+1-800-555-1234 (Mon-Fri, 9am-5pm EST)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Mail us</h4>
+                            <span>support@yourecommerceplatform.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-content pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <h3>Ecommerce Platform</h3>
+                        </div>
+                        <div class="footer-text">
+                            <p>Discover timeless elegance and quality craftsmanship. Shop with confidence and explore
+                                our exclusive collections tailored for your lifestyle.</p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Follow us</span>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Useful Links</h3>
+                        </div>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">about</a></li>
+                            <li><a href="#">services</a></li>
+                            <li><a href="#">portfolio</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Expert Team</a></li>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Latest News</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="footer-text mb-25">
+                            <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="text" placeholder="Email Address">
+                                <button><i class="bi bi-send-fill"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                    <div class="copyright-text">
+                        <p>Copyright &copy; 2018, All Right Reserved</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".confirm-add-to-cart").forEach((button) => {
+    button.addEventListener("click", function () {
+        let productId = this.getAttribute("data-product-id");
+        let modal = this.closest(".modal");
+
+        let colorSelectElement = modal.querySelector(".color-select");
+        let selectedColor = colorSelectElement ? colorSelectElement.value : "";
+
+        let selectedQuantityElement = modal.querySelector("input[name='quantity']");  // Read from hidden input
+        let selectedQuantity = selectedQuantityElement ? parseInt(selectedQuantityElement.value) || 1 : 1;
+
+        if (!selectedColor) {
+            alert("Please select a color before adding to cart.");
+            return;
+        }
+
+        let url = `/cart/add-in-cart/${productId}/`;
+
+        fetch(url, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ color: selectedColor, quantity: selectedQuantity })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+                alert(data.message);
+                let modalInstance = bootstrap.Modal.getInstance(modal);
+                modalInstance.hide();  // Close modal
+            } else {
+                alert("Error: " + data.message);
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    });
+});
+
+    // Function to get CSRF token
+    function getCSRFToken() {
+        let token = document.querySelector("[name=csrfmiddlewaretoken]")?.value;
+        if (!token) {
+            token = document.querySelector("meta[name='csrf-token']")?.getAttribute("content");
+        }
+        return token;
+    }
+
+    // Quantity Selector
+    document.querySelectorAll(".quantity-selector").forEach((selector) => {
+        const decreaseBtn = selector.querySelector(".decrease");
+        const increaseBtn = selector.querySelector(".increase");
+        const qtyInput = selector.querySelector(".qty-input");
+        const maxStock = parseInt(qtyInput.getAttribute("max")) || 1;
+
+        function validateQuantity() {
+            let currentValue = parseInt(qtyInput.value) || 1;
+            if (currentValue < 1) qtyInput.value = 1;
+            if (currentValue > maxStock) qtyInput.value = maxStock;
+        }
+
+        decreaseBtn.addEventListener("click", function () {
+            let currentValue = parseInt(qtyInput.value) || 1;
+            if (currentValue > 1) {
+                qtyInput.value = currentValue - 1;
+            }
+        });
+
+        increaseBtn.addEventListener("click", function () {
+            let currentValue = parseInt(qtyInput.value) || 1;
+            if (currentValue < maxStock) {
+                qtyInput.value = currentValue + 1;
+            }
+        });
+
+        qtyInput.addEventListener("input", validateQuantity);
+    });
+
+        // Handle "Add to Cart" button click
+    document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", function () {
+            let productContainer = this.closest(".product-container");
+            let qtyInput = productContainer.querySelector(".qty-input");
+            let selectedQuantity = qtyInput ? qtyInput.value : "1";
+
+            let modalId = this.getAttribute("data-bs-target");
+            let modal = document.querySelector(modalId);
+
+            let quantityDisplay = modal.querySelector(".selectedQuantity");
+            let modalQuantityInput = modal.querySelector("input[name='quantity']");  // New hidden input
+
+            if (quantityDisplay) {
+                quantityDisplay.textContent = selectedQuantity;
+            }
+            if (modalQuantityInput) {
+                modalQuantityInput.value = selectedQuantity;  // Store the correct quantity in the hidden input
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

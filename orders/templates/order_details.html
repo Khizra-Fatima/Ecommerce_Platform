@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Order Details{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/order_details.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Order Details</h2>
+    <h5 class="mb-4">Order id: {{ order.order_id }}</h5>
+
+    <!-- Product Summary Section -->
+    <div class="order-summary mb-4">
+        <h4>Product Details</h4>
+        <div class="product-detail card p-3 mb-3">
+            <div class="row">
+                <div class="col-md-5">
+                    {% if order.product.featured_image %}
+                    <img src="{{ order.product.featured_image.url }}" alt="Product Image" class="img-fluid">
+                    {% endif %}
+                </div>
+                <div class="col-md-7">
+                    <h5>{{ order.product.product_name }}</h5>
+                    <p><strong>Price:</strong> ${{ order.product.price }}</p>
+                    <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+                    <p><strong>Color:</strong> {{ order.color }}</p>
+                    <p><strong>Total Price:</strong> ${{ order.total_price }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Information Section -->
+    <div class="customer-info mb-4">
+        <h4>Customer Information</h4>
+        <div class="card p-3">
+            <p><strong>First Name:</strong> {{ order.first_name }}</p>
+            <p><strong>Last Name:</strong> {{ order.last_name }}</p>
+            <p><strong>Email:</strong> {{ order.email }}</p>
+            <p><strong>Phone Number:</strong> {{ order.phone_number }}</p>
+            <p><strong>Address:</strong> {{ order.address }}</p>
+        </div>
+    </div>
+
+    <!-- Delivery Information Section -->
+    <div class="delivery-info mb-4">
+        <h4>Delivery Information</h4>
+        <div class="card p-3">
+            <p><strong>Delivery Method:</strong> {{ order.delivery_method|title }}</p>
+            <p><strong>Estimated Delivery Date:</strong> {{ order.estimated_delivery_date|date:"F d, Y" }}</p>
+            {% if order.delivery_charges > 0 %}
+            <p><strong>Delivery Charges:</strong> ${{ order.delivery_charges }}</p>
+            {% else %}
+            <p><strong>Delivery Charges:</strong> Free</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

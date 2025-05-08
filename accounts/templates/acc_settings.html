@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Account Settings{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/acc_settings.css' %}">
+{% endblock %}
+
+{% block content %}
+<a href="#" class="delete-account-btn">
+    <i class="bi bi-person-dash"></i> Delete Your Account
+  </a>
+{% endblock %}

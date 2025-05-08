@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}{{ profile.owner.first_name }}'s Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if has_permission %}
+<div class="profile-container container">
+    <h1 class="profile-heading">{{ profile.owner.first_name }}'s Profile</h1>
+
+    <!-- Profile Picture -->
+    <div class="profile-picture-section text-center mb-4">
+        <img src="{{ profile.image.url }}" alt="Profile Picture" class="profile-picture rounded-circle"
+            style="width: 150px; height: 150px;">
+        <p class="font-weight-bold mt-2 profile-email">{{ profile.owner.email }}</p>
+        
+        {% if request.user.id == profile.owner.id %}
+        <a href="{% url 'edit_profile' owner_id=profile.owner.id %}" class="btn btn-edit">Edit Profile</a>
+        {% endif %}
+    </div>
+
+    <!-- Personal Info -->
+    <div class="profile-info-section mt-4">
+        <h3>Personal Information</h3>
+        <p><strong>Full Name:</strong> {{ profile.owner.first_name }} {{ profile.owner.last_name }}</p>
+        <p><strong>Email:</strong> {{ profile.owner.email }}</p>
+    </div>
+
+    <!-- Bio -->
+    <div class="profile-bio-section mt-4">
+        <h3>Bio</h3>
+        <p>{{ profile.bio|default:"No bio available" }}</p>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="profile-contact-section mt-4">
+        <h3>Contact Information</h3>
+        <p><strong>Phone Number:</strong> {{ profile.phone_number|default:"Not Provided" }}</p>
+        <p><strong>Address:</strong> {{ profile.address|default:"Not Provided" }}</p>
+    </div>
+
+    <!-- Account Information -->
+    <div class="profile-account-section mt-4">
+        <h3>Account Details</h3>
+        <p><strong>Role:</strong> {{ profile.owner.get_role_display }}</p>
+        <p><strong>Member Since:</strong> {{ profile.owner.date_joined|date:"F j, Y" }}</p>
+    </div>
+
+    <!-- Social media Account -->
+    <div class="social-media-accounts-section mt-4">
+        <h3>Social Media Links</h3>
+
+        <!-- Instagram -->
+        <p><i class="bi bi-instagram"></i>
+            {% if profile.instagram %}
+            <a href="{{ profile.instagram }}" target="_blank">{{ profile.instagram }}</a>
+            {% else %}
+            <span>No Instagram link added</span>
+            {% endif %}
+        </p>
+
+        <!-- Twitter -->
+        <p><i class="bi bi-twitter"></i>
+            {% if profile.twitter %}
+            <a href="{{ profile.twitter }}" target="_blank">{{ profile.twitter }}</a>
+            {% else %}
+            <span>No Twitter link added</span>
+            {% endif %}
+        </p>
+
+        <!-- Facebook -->
+        <p><i class="bi bi-facebook"></i>
+            {% if profile.facebook %}
+            <a href="{{ profile.facebook }}" target="_blank">{{ profile.facebook }}</a>
+            {% else %}
+            <span>No Facebook link added</span>
+            {% endif %}
+        </p>
+    </div>
+
+    {% if request.user.role == "customer" %}
+    <!-- Payment Method -->
+    <div class="payment-method-section mt-4">
+        <h3>Payment Method</h3>
+        <p>{{ profile.payment|default:"Didn't choose yet" }}</p>
+    </div>
+    {% endif %}
+    
+
+    {% if request.user.id == profile.owner.id %}
+    <!-- Security & Settings -->
+    <div class="profile-settings-section mt-4">
+        <h3>Security & Settings</h3>
+        <a href="{% url 'edit_profile' owner_id=profile.owner.id %}" class="btn btn-pass">Change Password</a>
+        <a href="{% url 'edit_profile' owner_id=profile.owner.id %}" class="btn btn-email">Change Email</a>
+    </div>
+    {% endif %}
+</div>
+{% else %}
+<p>You do not have permission to view this profile.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Orders{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/seller_orders.css' %}">
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div class="container">
+    <h1>Your Orders</h1>
+
+    {% if seller_orders %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>Customer</th>
+                <th>Products</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Order Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in seller_orders %}
+            <tr>
+                <td>{{ order.order_id }}</td>
+                <td>{{ order.created_at|date:"F j, Y" }}</td>
+                <td>{{ order.first_name }} {{ order.last_name }}</td>
+                <td>{{ order.product.product_name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td class="price">${{ order.total_price }}</td>
+                <td>
+                    <span class="status-label 
+                        {% if order.status == 'pending' %}status-pending
+                        {% elif order.status == 'processing' %}status-processing
+                        {% elif order.status == 'shipped' %}status-shipped
+                        {% elif order.status == 'out_for_delivery' %}status-out-for-delivery
+                        {% elif order.status == 'delivered' %}status-delivered
+                        {% elif order.status == 'cancelled' %}status-cancelled
+                        {% endif %}">
+                        {{ order.get_status_display }}
+                    </span>
+                    <a href="#" class="update-link" data-bs-toggle="modal" data-bs-target="#updateOrderModal{{ order.id }}">Update</a>
+                </td>
+            </tr>
+            
+            <!-- Order Status Update Modal -->
+            <div class="modal fade" id="updateOrderModal{{ order.id }}" tabindex="-1" role="dialog" 
+                 aria-labelledby="updateOrderModalLabel{{ order.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Update Order Status for Order {{ order.order_id }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" action="{% url 'update_order_status' order.id %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="status-{{ order.id }}">Order Status</label>
+                                    <select name="status" id="status-{{ order.id }}" class="form-control">
+                                        {% for key, value in order.STATUS_CHOICES %}
+                                        <option value="{{ key }}" {% if order.status == key %}selected{% endif %}>{{ value }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+    {% else %}
+    <p>No orders found.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('shown.bs.modal', function () {
+            modal.removeAttribute('aria-hidden');
+        });
+
+        modal.addEventListener('hidden.bs.modal', function () {
+            modal.setAttribute('aria-hidden', 'true');
+        });
+    });
+</script>
+{% endblock %}

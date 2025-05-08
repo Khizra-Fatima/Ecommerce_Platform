@@ -1,0 +1,149 @@
+body {
+  background-color: #f6ebdf;
+}
+
+.container {
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 20px;
+}
+.container h1 {
+  color: #2E2E2E;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.container .table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+}
+.container .table th {
+  background-color: #2E2E2E;
+  color: #ffffff;
+  padding: 15px;
+  text-align: left;
+  font-weight: normal;
+  border-bottom: 3px solid #C29B0C;
+}
+.container .table td {
+  padding: 15px;
+  border-bottom: 1px solid #2E2E2E;
+}
+.container .table tr:nth-child(even) {
+  background-color: #faf6f1;
+}
+.container .table tr:hover {
+  background-color: #c98d56;
+  color: #ffffff;
+}
+.container .table td:nth-last-child(2) {
+  font-weight: bold;
+}
+.container p {
+  text-align: center;
+  color: #000000;
+  font-size: 1.1em;
+}
+
+.status-pending {
+  background-color: #f1c232;
+  color: #ffffff;
+}
+
+.status-processing {
+  background-color: #6aa84f;
+  color: #ffffff;
+}
+
+.status-shipped {
+  background-color: #3d85c6;
+  color: #ffffff;
+}
+
+.status-out-for-delivery {
+  background-color: #ff9900;
+  color: #ffffff;
+}
+
+.status-delivered {
+  background-color: #4a86e8;
+  color: #ffffff;
+}
+
+.status-cancelled {
+  background-color: #cc0000;
+  color: #ffffff;
+}
+
+.status-label {
+  padding: 5px 7px 5px 10px;
+  border-radius: 4px;
+}
+
+.update-link {
+  background-color: #2E2E2E;
+  color: white;
+  margin-left: 0.4em;
+  padding: 0.5em 1em;
+  border-radius: 7px;
+}
+
+.price {
+  color: #d5aa0d !important;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.modal-header {
+  background-color: #2E2E2E;
+  color: white;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 16px;
+}
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  font-weight: 500;
+  color: #2E2E2E;
+}
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  color: #2E2E2E;
+}
+.form-group select:focus {
+  border-color: #2E2E2E;
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(46, 46, 46, 0.2);
+}
+
+.btn-primary {
+  background-color: #2E2E2E;
+  border-color: #2E2E2E;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 4px;
+}
+.btn-primary:hover {
+  background-color: #151515;
+  border-color: #151515;
+}/*# sourceMappingURL=seller_orders.css.map */

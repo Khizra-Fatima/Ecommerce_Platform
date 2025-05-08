@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Overview{% endblock %}
+
+
+
+
+{% block content %}
+<div class="mt-3">
+    <h1>Welcome, {{ user.first_name }}!</h1>
+
+    <!-- Quick Stats Section -->
+    <div class="quick-stats-sec" style="max-height: 200px;">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Orders</h5>
+                        <p>{{ orders.count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Products</h5>
+                        <p>{{ products.count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Sellers</h5>
+                        <p>{{ sellers }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Customers</h5>
+                        <p>{{ customers }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Users</h5>
+                        <p>{{ users }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Total Revenue</h5>
+                        <p>${{ total_revenue|floatformat:2 }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

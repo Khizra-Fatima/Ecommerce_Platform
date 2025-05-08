@@ -1,0 +1,118 @@
+h2 {
+  text-align: center;
+  color: rgb(67, 67, 190);
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.nav-tabs .nav-link {
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid rgb(67, 67, 190);
+  border-bottom-color: transparent;
+  margin-right: 5px;
+  padding: 10px 15px;
+}
+.nav-tabs .nav-link:hover {
+  color: rgb(67, 67, 190);
+  background-color: #ffffff;
+}
+.nav-tabs .nav-link.active {
+  color: #ffffff;
+  background-color: rgb(67, 67, 190);
+  border-color: rgb(67, 67, 190) rgb(67, 67, 190) transparent;
+}
+
+.btn-primary {
+  background-color: rgb(67, 67, 190);
+  border-color: rgb(67, 67, 190);
+  padding: 10px 20px;
+}
+.btn-primary:hover {
+  background-color: #353599;
+  border-color: #353599;
+}
+
+.product-card {
+  background-color: #ffffff;
+  border: 1px solid #b5b5e5;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+}
+.product-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.featured-image-container {
+  margin-bottom: 15px;
+}
+
+.featured-image {
+  width: 100%;
+  height: 200px;
+  border: 2px solid rgb(67, 67, 190);
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+h3 {
+  color: rgb(67, 67, 190);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.product-card h5 {
+  font-size: 18px;
+  color: rgb(67, 67, 190);
+  margin-bottom: 10px;
+}
+.product-card h5 a {
+  color: inherit;
+  text-decoration: none;
+}
+.product-card h5 a:hover {
+  color: #c98d56;
+}
+
+.product-card p {
+  font-size: 16px;
+  color: #000000;
+}
+
+.product-card p.price {
+  font-weight: bold;
+  color: #c98d56;
+}
+
+p.empty-message {
+  color: #080808;
+  font-style: italic;
+  text-align: center;
+}
+
+.container .row {
+  margin-top: 20px;
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  color: #000000;
+  margin-top: 10px;
+}
+.product-info .price {
+  color: #c98d56;
+}
+.product-info .stock {
+  font-weight: normal;
+  color: #000000;
+}/*# sourceMappingURL=all_product.css.map */
