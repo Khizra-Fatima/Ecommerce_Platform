@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load form_filters %}  
+
+{% block title %}Register{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/data_deletion.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Data Deletion Policy</h1>
+<p>If you wish to delete your account and associated data from [Your E-Commerce Platform Name], follow the steps below:
+    
+    1. Contact us at [Your Contact Email] with the subject line: "Data Deletion Request."
+    2. Provide the email address or username associated with your account.
+    
+    Alternatively, log in to your account and navigate to the account settings page to initiate a data deletion request (if implemented).
+    
+    #### Timeline
+    Your data deletion request will be processed within [Insert Timeframe, e.g., 7 business days]. Once completed, all your personal information, including order history, will be permanently removed from our system.
+    
+    If you have any concerns or require additional information, contact us at [Your Contact Email].
+    
+    </p>
+{% endblock %}

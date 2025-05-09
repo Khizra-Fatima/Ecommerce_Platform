@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Conversation{% endblock %}
+
+
+{% block content %}
+<div class="message sent">
+    <div class="message-content">
+        <p>{{ message.msg_content }}</p>
+    </div>
+    <div class="message-meta">
+        {{ message.timestamp|date:"M d, Y H:i" }}
+    </div>
+</div>
+
+{% endblock %}

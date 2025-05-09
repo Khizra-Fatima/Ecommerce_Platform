@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Message{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/msginput.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Send a Message to {{ recipient.first_name }}</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.msg_content.label_tag }}
+            {{ form.msg_content }}
+            {% if form.msg_content.errors %}
+            <div class="text-danger">
+                {{ form.msg_content.errors|join:", " }}
+            </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary" id="send-btn">Send</button>
+        <a href="{% url 'inbox' %}" class="btn btn-secondary">Back to Inbox</a>
+    </form>
+</div>
+{% endblock %}
+

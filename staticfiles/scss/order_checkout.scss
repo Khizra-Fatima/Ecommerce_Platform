@@ -1,0 +1,126 @@
+/* Color Variables */
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$background-color: #faf6f1;
+$secondary-background-color: #ffffff;
+$third-background-color: #080808;
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: $background-color;
+    color: $text-color;
+}
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Headings */
+h2 {
+    color: $primary-color;
+    font-weight: bold;
+    text-align: center;
+}
+
+h4 {
+    color: $accent-color;
+    font-weight: bold;
+}
+
+h5 {
+    color: $third-background-color;
+}
+
+/* Order Summary Section */
+.order-summary {
+    background-color: $secondary-background-color;
+    border: 1px solid darken($secondary-background-color, 10%);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.product-detail {
+    background-color: $secondary-text-color;
+    border-radius: 6px;
+    color: darken($accent-color, 40%);
+}
+
+.product_name {
+    color: $primary-color;
+}
+
+.stock {
+    margin-top: 6em;
+    font-weight: bold;
+}
+
+.price {
+    font-weight: bold;
+    margin-bottom: 0.7em;
+}
+
+// Featured image styling
+.featured-image {
+    width: 100%;
+    height: 200px;
+    border: 2px solid $accent-color;
+    border-radius: 5px;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Order Form */
+.order-form {
+    background-color: $secondary-background-color;
+    border: 1px solid darken($secondary-background-color, 10%);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.form-label {
+    color: $third-background-color;
+    font-weight: 600;
+}
+
+.form-control {
+    background-color: $background-color;
+    border: 1px solid darken($background-color, 10%);
+    border-radius: 4px;
+}
+
+.form-control:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 0.2rem rgba(67, 67, 190, 0.25);
+}
+
+/* Quantity and Delivery Method */
+#id_quantity,
+#id_delivery_method {
+    max-width: 100%;
+}
+
+/* Button */
+.btn-primary {
+    background-color: $primary-color;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    color: $secondary-background-color;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: lighten($primary-color, 10%);
+}
+
+.text-end {
+    text-align: end;
+}
+
+
+

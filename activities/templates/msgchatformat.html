@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Conversation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/msgchatformat.css' %}">
+{% endblock %}
+
+{% block content %}
+<div>
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="mb-4 conversation-heading">Conversation with {{ other_user.first_name }}</h1>
+        <ul class="ms-auto">
+            {% if user.role == 'coadmin' %}
+            <li class="link-item"><a class="dashboard-link" href="{% url 'admin_dashboard' %}">Back to Dashboard</a></li>
+            {% elif user.role == 'seller' %}
+            <li class="link-item"><a class="dashboard-link" href="{% url 'seller_dashboard' %}">Back to Dashboard</a></li>
+            {% elif user.role == 'customer' %}
+            <li class="link-item"><a class="dashboard-link" href="{% url 'user_dashboard' %}">Back to Dashboard</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div class="chat-container">
+        <div class="messages" id="messages">
+            {% for message in messages %}
+            <div class="message {% if message.sender == user %}sent{% else %}received{% endif %}">
+                <div class="message-content">
+                    <p>{{ message.msg_content }}</p>
+                </div>
+                <div class="message-meta">
+                    {{ message.timestamp|date:"M d, Y H:i" }}
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-muted">No messages yet. Start the conversation!</p>
+            {% endfor %}
+        </div>
+
+        <!-- Fixed Message Input Box -->
+        <form id="message-form" method="POST" action="{% url 'chatformat' user_id=other_user.id %}">
+            {% csrf_token %}
+            <div class="message-input-container">
+                {{ form.msg_content }}
+                <button type="submit" class="btn btn-send" id="send-btn">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+{% block script %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var messagesDiv = document.getElementById("messages");
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+        document.getElementById("message-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var form = this;
+            var formData = new FormData(form);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: { "X-Requested-With": "XMLHttpRequest" }
+            })
+                .then(response => response.text())
+                .then(html => {
+                    var messageContainer = document.createElement("div");
+                    messageContainer.innerHTML = html;
+                    messagesDiv.appendChild(messageContainer.firstElementChild);
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                    form.reset();
+                })
+                .catch(error => console.error("Error:", error));
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Leave Review{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/leave_review.css' %}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+
+<!-- Error and Success Messages -->
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="container">
+    <div class="stars">
+        <form action="{% url 'leave_review' order.id %}" method="post">
+            {% csrf_token %}
+            <input class="star star-5" id="star-5-2" type="radio" name="rating" value="5" />
+            <label class="star star-5" for="star-5-2"></label>
+            <input class="star star-4" id="star-4-2" type="radio" name="rating" value="4" />
+            <label class="star star-4" for="star-4-2"></label>
+            <input class="star star-3" id="star-3-2" type="radio" name="rating" value="3" />
+            <label class="star star-3" for="star-3-2"></label>
+            <input class="star star-2" id="star-2-2" type="radio" name="rating" value="2" />
+            <label class="star star-2" for="star-2-2"></label>
+            <input class="star star-1" id="star-1-2" type="radio" name="rating" value="1" />
+            <label class="star star-1" for="star-1-2"></label>
+
+            <div class="rev-box">
+                <textarea class="p-2" style="width: 350px;" name="comment" rows="4" placeholder="Brief Review"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success">Submit Review</button>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

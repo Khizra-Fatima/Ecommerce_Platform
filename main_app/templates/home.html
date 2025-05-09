@@ -1,0 +1,647 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}E-commerce Platform{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/home.css' %}">
+<link rel="stylesheet" href="https://md-aqil.github.io/images/swiper.min.css">
+{% endblock %}
+
+
+{% block content %}
+<nav class="navbar navbar-expand-lg shadow py-3">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'home' %}" id="navbar-brand">E-commerce Platform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                <!-- Role-specific dashboards -->
+                {% if user.role == 'coadmin' %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                {% elif user.role == 'seller' %}
+                {% with user.owned_stores.first as store %}
+                {% if store %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'seller_store' store.id %}">My Store</a>
+                </li>
+                {% endif %}
+                {% endwith %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'seller_dashboard' %}">Dashboard</a></li>
+                {% elif user.role == 'customer' %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+<div class="hero-section" id="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="hero-content">
+                    <h5>Welcome to Our E-commerce Platform</h5>
+                    <h1>Elevate Your Space with Our Product's Elegance.</h1>
+                    <p>Starting from just <span><strong>$150.00</strong></span></p>
+                    <a href="{% url 'buynow' %}" class="btn buynow-btn">Buy Now</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-images">
+                    <div class="image-wrapper image1">
+                        <img class="image1" src="{% static 'images/sofa8.jpg' %}" alt="Image 1">
+                    </div>
+                    <div class="image-wrapper overlay">
+                        <img class="image2" src="{% static 'images/Untitled design.png' %}" alt="Image 2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Feature section -->
+<section class="feature-section">
+    <div class="container my-5">
+        <div class="row text-center">
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-basket"></i>
+                <h4 class="my-3">Quality Products</h4>
+                <p>We offer a wide range of high-quality products to suit your needs.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-tags"></i>
+                <h4 class="my-3">Best Offers</h4>
+                <p>Get the best deals on premium furniture with exclusive discounts and special offers.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-credit-card"></i>
+                <h4 class="my-3">Secure Payments</h4>
+                <p>Your transactions are 100% secure with our encrypted payment systems.</p>
+            </div>
+            <div class="col-md-3 mb-4">
+                <i class="bi bi-truck"></i>
+                <h4 class="my-3">Fast Delivery</h4>
+                <p>Enjoy quick and reliable delivery, no matter where you are.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="category-section">
+    <div class="product-categories">
+        <div class="container">
+            <div class="row">
+                <div class="category-content">
+                    <h2>Product Category</h2>
+                    <p>Discover our luxurious collection of furniture designed to transform your living spaces with
+                        elegance and comfort. From cozy beds to stylish sofas and timeless chairs, each piece in our
+                        range embodies exceptional craftsmanship, premium quality, and sophisticated design. Create a
+                        home that reflects your unique taste with furniture built to inspire and endure.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <figure class="img-container">
+                        <img class="image1" src="{% static 'images/bed.jpg' %}" alt="Image 1">
+                        <figcaption class="img-content">
+                            <h2 class="title">Beds</h2>
+                            <h5 class="category">Indulge in ultimate relaxation with our premium beds, combining
+                                comfort
+                                and
+                                style. Crafted with precision, our beds offer timeless designs and exceptional
+                                durability
+                                for your dream sanctuary.</h5>
+                        </figcaption>
+                        <span class="img-content-hover">
+                            <h2 class="title">Beds</h2>
+                            <h5 class="category">Indulge in ultimate relaxation with our premium beds, combining comfort
+                                and
+                                style. Crafted with precision, our beds offer timeless designs and exceptional
+                                durability
+                                for your dream sanctuary.</h5>
+                        </span>
+                    </figure>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <figure class="img-container">
+                        <img class="image1" src="{% static 'images/chair.jpg' %}" alt="Image 1">
+                        <figcaption class="img-content">
+                            <h2 class="title">Chairs</h2>
+                            <h5 class="category">Experience comfort redefined with our exquisite chairs. From classic to
+                                contemporary designs, each chair is crafted to enhance your space, offering
+                                functionality
+                                and lasting elegance.</h5>
+                        </figcaption>
+                        <span class="img-content-hover">
+                            <h2 class="title">Chairs</h2>
+                            <h5 class="category">Experience comfort redefined with our exquisite chairs. From classic to
+                                contemporary designs, each chair is crafted to enhance your space, offering
+                                functionality
+                                and lasting elegance.</h5>
+                        </span>
+                    </figure>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <figure class="img-container">
+                        <img class="image1" src="{% static 'images/sofa10.jpg' %}" alt="Image 1">
+                        <figcaption class="img-content">
+                            <h2 class="title">Sofas</h2>
+                            <h5 class="category">Transform your living room with our elegant sofas. Designed for comfort
+                                and
+                                versatility, our collection features stunning pieces that elevate your home with style
+                                and
+                                unmatched craftsmanship.</h5>
+                        </figcaption>
+                        <span class="img-content-hover">
+                            <h2 class="title">Sofas</h2>
+                            <h5 class="category">Transform your living room with our elegant sofas. Designed for comfort
+                                and
+                                versatility, our collection features stunning pieces that elevate your home with style
+                                and
+                                unmatched craftsmanship.</h5>
+                        </span>
+                    </figure>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="top_products-section">
+    <div class="container">
+        <div class="content">
+            <p>MOST POPULAR</p>
+            <h1>Discover the Most Popular Additions at Your Top Favorite Platform</h1>
+        </div>
+        <div class="row" id="product-list">
+            {% for product in top_products %}
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="product-card">
+                    <button class="wishlist-btn btn btn-link" data-product-id="{{ product.id }}"
+                        aria-label="Wishlist this Product">
+                        <i
+                            class="bi {% if product.id in user_wishlist_ids %}bi-bookmarks-fill{% else %}bi-bookmarks{% endif %}"></i>
+                    </button>
+                    {% if product.sale_price %}
+                    <p class="sale">Sale!</p>
+                    {% endif %}
+                    {% if product.featured_image %}
+                    <div class="featured-image-container">
+                        <img src="{{ product.featured_image.url }}" alt="Featured Image"
+                            class="featured-image img-fluid">
+                    </div>
+                    {% endif %}
+                    <h5><a href="{% url 'product_detail' product.id %}">{{ product.product_name }}</a></h5>
+                    <div class="product-info">
+                        <p class="price">Price: ${{ product.price }}</p>
+                        <p class="stock">Stock: {{ product.stock }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<section class="complimentary-section">
+    <div class="complimentary-content">
+        <h1>"Discover Timeless Elegance – Explore Our Exquisite Furniture Collections"</h1>
+        <p>Starting from just $150.00</p>
+        <a href="{% url 'buynow' %}" class="complimentary-btn">Buy Now</a>
+    </div>
+</section>
+
+
+
+
+<section class="testimonial-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-5">
+                <section class="testimonial-img-sec">
+                    <div class="container">
+                        <div class="slider">
+                            <input type="radio" name="testimonial" id="t-1">
+                            <input type="radio" name="testimonial" id="t-2">
+                            <input type="radio" name="testimonial" id="t-3" checked>
+                            <input type="radio" name="testimonial" id="t-4">
+                            <input type="radio" name="testimonial" id="t-5">
+                            <div class="testimonials">
+                                <label class="item img-1" for="t-1">
+                                </label>
+                                <label class="item img-2" for="t-2">
+                                </label>
+                                <label class="item img-3" for="t-3">
+                                </label>
+                                <label class="item img-4" for="t-4">
+                                </label>
+                                <label class="item img-5" for="t-5">
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-lg-7">
+                <div class="testimonial-content-sec">
+                    <div id="Descriptioncarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item">
+                                <i class="bi bi-quote"></i>
+                                <h4>From ordering to delivery, everything was smooth. The furniture is not just stylish
+                                    but
+                                    also durable. I love how it adds a luxurious touch to my home!</h4>
+                                <p>-Aisha Rahman</p>
+                            </div>
+                            <div class="carousel-item">
+                                <i class="bi bi-quote"></i>
+                                <h4>This platform stands out with its premium furniture and excellent service. The
+                                    quality
+                                    is worth every penny, and I get compliments from guests all the time!</h4>
+                                <p>-James Carter</p>
+                            </div>
+                            <div class="carousel-item active">
+                                <i class="bi bi-quote"></i>
+                                <h4>Finding premium furniture that matches my style was a challenge until I discovered
+                                    this
+                                    platform. The designs are unique, and the delivery was seamless. Highly recommend!
+                                </h4>
+                                <p>-Emily Johnson</p>
+                            </div>
+                            <div class="carousel-item">
+                                <i class="bi bi-quote"></i>
+                                <h4>I appreciate the attention to detail in every piece. The furniture I bought exceeded
+                                    my
+                                    expectations, and the customization options were a great bonus!</h4>
+                                <p>-Daniel Nguyen</p>
+                            </div>
+                            <div class="carousel-item">
+                                <i class="bi bi-quote"></i>
+                                <h4>I was amazed by the quality and elegance of the furniture! The craftsmanship is
+                                    outstanding, and the customer service was beyond helpful. My living room now looks
+                                    like
+                                    a dream!</h4>
+                                <p>-Sophia Martinez</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<section class="latest_products-section">
+    <div class="container">
+        <div class="content">
+            <p>MOST Recent</p>
+            <h1>Our Latest Addition</h1>
+        </div>
+        <div class="row" id="product-list">
+            {% for product in latest_products %}
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="product-card">
+                    <button class="wishlist-btn btn btn-link" data-product-id="{{ product.id }}"
+                        aria-label="Wishlist this Product">
+                        <i
+                            class="bi {% if product.id in user_wishlist %}bi-bookmarks-fill{% else %}bi-bookmarks{% endif %}"></i>
+                    </button>
+                    {% if product.sale_price %}
+                    <p class="sale">Sale!</p>
+                    {% endif %}
+                    {% if product.featured_image %}
+                    <div class="featured-image-container">
+                        <img src="{{ product.featured_image.url }}" alt="Featured Image"
+                            class="featured-image img-fluid">
+                    </div>
+                    {% endif %}
+                    <h5><a href="{% url 'product_detail' product.id %}">{{ product.product_name }}</a></h5>
+                    <div class="product-info">
+                        <p class="price">Price: ${{ product.price }}</p>
+                        <p class="stock">Stock: {{ product.stock }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<section class="about-section">
+    <div class="row align-items-center">
+        <!-- Left: Image -->
+        <div class="col-lg-6 p-0">
+            <img src="{% static 'images/about-me.jpg' %}" alt="Elegant Tableware" class="img-fluid">
+        </div>
+
+        <!-- Right: Text -->
+        <div class="col-lg-6 d-flex flex-column justify-content-center p-5 content">
+            <div class="content-div">
+                <h1 class="mb-3">Elevate Your Living Spaces with Timeless Elegance</h1>
+                <p class="mb-4">Discover exceptional craftsmanship and artisan design that transforms your home into a
+                    masterpiece of comfort and style.</p>
+                <div class="btn-div">
+                    <a href="{% url 'buynow' %}" class="btn btn-lg buynow-btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="partner-section">
+    <div class="container">
+        <section class="customer-logos slider">
+            <div class="slide"><i class="bi bi-asterisk">Logoipsum</i></div>
+            <div class="slide"><i class="bi bi-back">Logoipsum</i></div>
+            <div class="slide"><i class="bi bi-circle-half">Logoipsum</i></div>
+            <div class="slide"><i class="bi bi-flower3">Logoipsum</i></div>
+            <div class="slide"><i class="bi bi-bounding-box-circles">Logoipsum</i></div>
+            <div class="slide"><i class="bi bi-intersect">Logoipsum</i></div>
+            <div class="slide"><i class="bi bi-bullseye">Logoipsum</i></div>
+        </section>
+    </div>
+</section>
+
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-cta pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Find us</h4>
+                            <span>Springfield, IL 62704 United States</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Call us</h4>
+                            <span>+1-800-555-1234 (Mon-Fri, 9am-5pm EST)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Mail us</h4>
+                            <span>support@yourecommerceplatform.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-content pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <h3>Ecommerce Platform</h3>
+                        </div>
+                        <div class="footer-text">
+                            <p>Discover timeless elegance and quality craftsmanship. Shop with confidence and explore
+                                our exclusive collections tailored for your lifestyle.</p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Follow us</span>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Useful Links</h3>
+                        </div>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">about</a></li>
+                            <li><a href="#">services</a></li>
+                            <li><a href="#">portfolio</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Expert Team</a></li>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Latest News</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="footer-text mb-25">
+                            <p>It is not functional, just a dummy</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="text" placeholder="Email Address">
+                                <button><i class="bi bi-send-fill"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                    <div class="copyright-text">
+                        <p>Copyright &copy; 2018, All Right Reserved</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+
+<script>
+    const imgContent = document.querySelectorAll('.img-content-hover');
+
+    function showImgContent(e) {
+        for (var i = 0; i < imgContent.length; i++) {
+            x = e.pageX;
+            y = e.pageY;
+            imgContent[i].style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        }
+    };
+
+    document.addEventListener('mousemove', showImgContent);
+
+
+
+
+    var galleryThumbs = new Swiper('.gallery-thumbs', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: '2',
+        // coverflowEffect: {
+        //   rotate: 50,
+        //   stretch: 0,
+        //   depth: 100,
+        //   modifier: 1,
+        //   slideShadows : true,
+        // },
+
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 50,
+            modifier: 6,
+            slideShadows: false,
+        },
+
+    });
+
+
+
+    $(document).ready(function () {
+        $('.customer-logos').slick({
+            slidesToShow: 6,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 1500,
+            arrows: false,
+            dots: false,
+            pauseOnHover: false,
+            responsive: [{
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 4
+                }
+            }, {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 3
+                }
+            }]
+        });
+    });
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const testimonials = document.querySelectorAll('.slider input[name="testimonial"]');
+        const descriptionCarousel = new bootstrap.Carousel(document.getElementById('Descriptioncarousel'));
+
+        // Sync clicking an image with the description carousel
+        testimonials.forEach((input, index) => {
+            input.addEventListener('change', function () {
+                descriptionCarousel.to(index); // Move description carousel to corresponding index
+            });
+        });
+
+        // Sync Bootstrap carousel movement with image selection (faster update)
+        document.getElementById('Descriptioncarousel').addEventListener('slide.bs.carousel', function (event) {
+            let newIndex = event.to; // Get the new active slide index
+
+            // Uncheck all testimonial radios immediately
+            testimonials.forEach(input => input.checked = false);
+
+            // Check the corresponding testimonial radio instantly
+            if (testimonials[newIndex]) {
+                testimonials[newIndex].checked = true;
+            }
+        });
+    });
+
+
+    $(document).ready(function () {
+        $('.wishlist-btn').on('click', function () {
+            var productId = $(this).data('product-id');
+            var button = $(this);
+
+            $.ajax({
+                url: `/activities/wishlist/${productId}/`,
+                type: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+                success: function (response) {
+                    if (response.status === 'wishlisted') {
+                        // Change icon to solid to indicate product is wishlisted
+                        button.find('i').removeClass('bi-bookmarks').addClass('bi-bookmarks-fill');
+                    } else {
+                        // Change icon back to outline to indicate product is removed from wishlist
+                        button.find('i').removeClass('bi-bookmarks-fill').addClass('bi-bookmarks');
+                    }
+                },
+                error: function () {
+                    console.error('Error processing wishlist request.');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

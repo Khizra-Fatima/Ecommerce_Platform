@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Shopping Cart{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/cart.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="cart-header">
+        <h1>Cart</h1>
+    </div>
+
+    {% if messages %}
+    <div class="alert alert-info mt-3">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="row g-3">
+        {% if shopping_cart_products %}
+        <div class="cart-table-container col-lg-9">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Color</th>
+                        <th>Quantity</th>
+                        <th>Buy Now</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cart_product in shopping_cart_products %}
+                    <tr>
+                        <td>
+                            {% if request.user == cart_product.user %}
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{ cart_product.id }}"
+                                class="btn btn-delete btn-cross"><i class="bi bi-x"></i></a>
+
+                            <!-- Delete Confirmation Modal -->
+                            <div class="modal fade" id="deleteModal{{ cart_product.id }}" tabindex="-1"
+                                aria-labelledby="deleteModalLabel{{ cart_product.id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ cart_product.id }}">Confirm
+                                                Delete</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure you want to remove this item from your cart?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cancel</button>
+                                            <form method="POST"
+                                                action="{% url 'delete_cart_product' cart_product.id %}">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td class="product-info"><img src="{{ cart_product.product.featured_image.url }}"
+                                alt="{{ cart_product.product.product_name }}"></td>
+                        <td class="product-info">
+                            <a href="{% url 'product_detail' cart_product.product.id %}">{{ cart_product.product.product_name }}</a>
+                        </td>
+                        <td>${{ cart_product.product.price }}</td>
+                        <td>{{ cart_product.color }}</td>
+                        <td>{{ cart_product.quantity }}</td>
+                        <td> <a href="{% url 'order_checkout_page' cart_product.product.id %}"
+                                class="btn btn-outline-primary btn-buy">Buy Now</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="cart-summary col-lg-3">
+            <div class="cart-div">
+                <div class="head-div">
+                    <h5>Cart totals</h5>
+                </div>
+
+                <p><strong>Total Quantity:</strong> {{ total_quantity }}</p>
+                <p><strong>Total:</strong> ${{ cart_total }}</p>
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#clearCartModal">
+                    Clear Your Cart
+                </button>
+            </div>
+        </div>
+    </div>
+    {% else %}
+
+    <!-- Message and Discover Products button if cart is empty -->
+    <div class="call-to-action my-2">
+        <p class="text-muted">Your cart is empty. Start shopping now!</p>
+        <a href="{% url 'buynow' %}" class="btn btn-primary">Discover Products</a>
+    </div>
+    {% endif %}
+
+    <!-- Clear Cart Confirmation Modal -->
+    <div class="modal fade" id="clearCartModal" tabindex="-1" aria-labelledby="clearCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="clearCartModalLabel">Clear Your Cart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove all items from your cart?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form method="POST" action="{% url 'clear_cart' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Clear Cart</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

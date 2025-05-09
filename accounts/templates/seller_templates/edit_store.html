@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load form_tags %}
+
+{% block title %}Edit Your Store{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/edit_store.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="edit_store_container">
+    <h1>Edit Your Store</h1>
+
+    <form action="{% url 'edit_store' store.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="form-group">
+            {{ form.name.label_tag }}
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.store_number.label_tag }}
+            {{ form.store_number }}
+            {{ form.store_number.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.store_location.label_tag }}
+            {{ form.store_location }}
+            {{ form.store_location.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.featured_image.label_tag }}
+            {{ form.featured_image }}
+            {{ form.featured_image.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.banner_image.label_tag }}
+            {{ form.banner_image }}
+            {{ form.banner_image.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.opening_hours.label_tag }}
+            {{ form.opening_hours }}
+            {{ form.opening_hours.errors }}
+        </div>
+
+        <div class="form-group">
+            {{ form.closing_hours.label_tag }}
+            {{ form.closing_hours }}
+            {{ form.closing_hours.errors }}
+        </div>
+
+        <div class="row">
+        <div class="form-group col-lg-6">
+            {{ form.return_policy.label_tag }}
+            {{ form.return_policy }}
+            {{ form.return_policy.errors }}
+        </div>
+
+        <div class="form-group col-lg-6">
+            {{ form.shipping_policy.label_tag }}
+            {{ form.shipping_policy }}
+            {{ form.shipping_policy.errors }}
+        </div>
+    </div>
+
+        <button type="submit" class="btn btn-update">Update Store</button>
+    </form>
+</div>
+{% endblock %}

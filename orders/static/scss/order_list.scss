@@ -1,0 +1,195 @@
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$background-color: #faf6f1;
+$secondary-background-color: #ffffff;
+$third-background-color: #080808;
+
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col2: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+body {
+    background-color: lighten($bg-col1, 7%) !important;
+}
+
+// Container Styling
+.container {
+    background-color: lighten($bg-col1, 7%) !important;
+    padding: 2rem;
+    color: $text-color;
+    margin-bottom: 3em;
+}
+
+// Order Header
+.orders-header h1 {
+    color: $primary-col1;
+    font-weight: bold;
+}
+
+.text-muted {
+    color: $secondary-text-color;
+}
+
+// Order Items
+.orders-item {
+    max-height: fit-content;
+    background-color: $secondary-background-color;
+    border: 1px solid lighten($primary-col1, 20%);
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+
+    .card-body {
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .product-name {
+        margin: 0;
+        font-size: 1.2rem;
+        color: $primary-col1;
+
+        a {
+            text-decoration: none;
+            color: $primary-col1;
+
+            &:hover {
+                color: darken($primary-col1, 10%);
+            }
+        }
+    }
+
+
+    .featured-image-container {
+        margin-bottom: 15px;
+        text-align: center;
+
+        .featured-image {
+            border-radius: 0.25rem;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 200px;
+            border: 2px solid $primary-col1;
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .price {
+        margin-top: 0.7em;
+        font-size: 1rem;
+        color: $accent-color;
+    }
+
+    .card-footer {
+        background-color: $primary-col1;
+        color: $secondary-text-color;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+
+        .btn {
+            color: $secondary-background-color;
+            border: 1px solid $secondary-background-color;
+            font-size: 0.8rem;
+            transition: background-color 0.3s;
+
+            &:hover {
+                background-color: white;
+                color: $primary-col1;
+                border: 1px solid $primary-col1;
+            }
+        }
+
+        .btn-delete {
+            background-color: $accent-col2;
+            border-color: $accent-col2;
+            color: $primary-col1;
+
+            &:hover {
+                background-color: darken($accent-col2, 10%);
+            }
+        }
+    }
+}
+
+// Empty Cart Message
+.text-center {
+    .text-muted {
+        color: darken($secondary-text-color, 20%);
+    }
+
+    .btn-outline-primary {
+        color: $primary-color;
+        border-color: $primary-color;
+
+        &:hover {
+            background-color: $primary-color;
+            color: $secondary-background-color;
+        }
+    }
+}
+
+p {
+
+    .status-pending {
+        background-color: #f1c232;
+        color: #ffffff;
+    }
+
+    .status-processing {
+        background-color: #6aa84f;
+        color: #ffffff;
+    }
+
+    .status-shipped {
+        background-color: #3d85c6;
+        color: #ffffff;
+    }
+
+    .status-out-for-delivery {
+        background-color: #ff9900;
+        color: #ffffff;
+    }
+
+    .status-delivered {
+        background-color: #4a86e8;
+        color: #ffffff;
+    }
+
+    .status-cancelled {
+        background-color: #cc0000;
+        color: #ffffff;
+    }
+
+    .status-label {
+        padding: 5px 7px 5px 10px;
+        border-radius: 4px;
+    }
+
+    .update-link {
+        background-color: $accent-color;
+        color: white;
+        margin-left: 0.4em;
+        padding: 0.5em 1em;
+        border-radius: 7px;
+    }
+}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Edit Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/edit_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="edit-profile-container container">
+    <h1>Edit Profile</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Profile Form -->
+        <div class="profile-section">
+            <h3>Profile Information</h3>
+            {{ profile_form.as_p }}
+        </div>
+
+        <!-- User Information Form (Email) -->
+        <div class="user-section">
+            <h3>Account Information</h3>
+            {{ user_form.as_p }}
+        </div>
+
+        <!-- Password Change Form -->
+        <div class="password-section">
+            <h3>Change Password</h3>
+        
+            <label for="id_old_password">Old Password:</label>
+            <input type="password" name="old_password" id="id_old_password" class="form-control">
+        
+            <label for="id_new_password1">New Password:</label>
+            <input type="password" name="new_password1" id="id_new_password1" class="form-control">
+        
+            <label for="id_new_password2">Confirm New Password:</label>
+            <input type="password" name="new_password2" id="id_new_password2" class="form-control">
+        
+            <button type="submit" name="password_submit" class="btn btn-pass">Change Password</button>
+        </div>
+
+
+        
+        
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-save mt-3">Save Changes</button>
+    </form>
+
+    <!-- Success Message -->
+    {% if messages %}
+    <div class="mt-4">
+        {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

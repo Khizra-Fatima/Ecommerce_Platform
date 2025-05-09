@@ -1,0 +1,279 @@
+// Color Variables
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$background-color: #faf6f1;
+$secondary-background-color: #ffffff;
+$third-background-color: #080808;
+
+
+
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col1: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+
+
+
+// Apply Bootstrap color overrides
+body {
+    background-color: lighten($bg-col1, 7%);
+    color: $text-col1!important;
+}
+
+// Container styling
+.support-container {
+    background-color: $secondary-background-color;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
+    h1 {
+        color: $primary-col1;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+    }
+
+    p {
+        color: $text-color;
+        margin-bottom: 2rem;
+    }
+}
+
+// Section titles
+.support-section h2 {
+    color: $primary-col1;
+    font-size: 1.5rem;
+    font-weight: 600;
+    border-bottom: 2px solid $primary-col3;
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+}
+
+.support-section h3 {
+    color: lighten($primary-col1, 10%);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+}
+
+// Lists styling
+.support-section ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        color: $text-color;
+
+        strong {
+            color: $accent-col2;
+        }
+    }
+}
+
+// Contact Information Section
+.support-section ul li {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: $text-color;
+}
+
+// Contact Information styles
+.support-section:last-of-type {
+    padding-top: 1.5rem;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+
+        li {
+            font-size: 1rem;
+            color: $third-background-color;
+
+            strong {
+                color: $accent-col2;
+            }
+        }
+    }
+}
+
+// Buttons and links styling
+a, .btn {
+    color: $primary-color;
+    &:hover {
+        color: $accent-color;
+    }
+}
+
+// General typography
+.text-center {
+    color: $text-color;
+}
+
+// Additional custom classes
+.support-container .text-center {
+    color: $text-color;
+}
+
+.text-muted {
+    color: $secondary-text-color !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.faqs {
+    margin-top: 1em;
+    .faq-container {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .accordion {
+        border: none!important;
+
+        .accordion-item {
+            border-bottom: 1px solid darken($primary-col1, 0%);
+            border-top: none;
+            border-left: none;
+            border-right: none;
+
+            button[aria-expanded='true'] {
+                border-bottom: 1px solid $accent-color;
+            }
+        }
+
+        button {
+            position: relative;
+            display: block;
+            text-align: left;
+            width: 100%;
+            padding: 1em 0;
+            color: $accent-col2;
+            font-size: 1rem;
+            font-weight: 400;
+            border: none;
+            background: none;
+            outline: none;
+
+            &:hover,
+            &:focus {
+                cursor: pointer;
+                color: $accent-color;
+
+                &::after {
+                    cursor: pointer;
+                    color: $accent-color;
+                    border: 1px solid $accent-color;
+                }
+            }
+
+            .accordion-title {
+                padding: 1em 1.5em 1em 0.3em;
+            }
+
+            .icon {
+                margin-right: 1em;
+                display: inline-block;
+                position: absolute;
+                color: $accent-col2;
+                top: 18px;
+                right: 0;
+                width: 22px;
+                height: 22px;
+                border: 1px solid;
+                border-radius: 22px;
+
+                &::before {
+                    display: block;
+                    position: absolute;
+                    content: '';
+                    top: 9px;
+                    left: 5px;
+                    width: 10px;
+                    height: 2px;
+                    background: currentColor;
+                }
+
+                &::after {
+                    display: block;
+                    position: absolute;
+                    content: '';
+                    top: 5px;
+                    left: 9px;
+                    width: 2px;
+                    height: 10px;
+                    background: currentColor;
+                }
+            }
+        }
+
+        button[aria-expanded='true'] {
+            color: $accent-color;
+
+            .icon {
+                &::after {
+                    width: 0;
+                }
+            }
+
+            +.accordion-content {
+                opacity: 1;
+                max-height: 9em;
+                transition: all 200ms linear;
+                will-change: opacity, max-height;
+            }
+        }
+
+        .accordion-content {
+            padding-right: 1em;
+            padding-left: 0.3em;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 200ms linear, max-height 200ms linear;
+            will-change: opacity, max-height;
+
+            p {
+                color: $text-color;
+                font-size: 0.97rem;
+                line-height: 1.3em;
+                font-weight: 300;
+                margin: 2em 0;
+            }
+        }
+    }
+}

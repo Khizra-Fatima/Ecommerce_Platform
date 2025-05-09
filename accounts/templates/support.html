@@ -1,0 +1,420 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Support{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/support.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="support-container container my-5">
+    <h1 class="text-center mb-4">Support</h1>
+    <p class="text-center">Welcome to the Support Page! We’re here to help you get the most out of our platform, whether
+        you’re a customer or a seller. Below are some frequently asked questions and resources to assist you. If you
+        still need help, please feel free to reach out directly to our support team.</p>
+
+    <!-- Account & Profile Management Section -->
+    <section class="support-section mb-5">
+        <h2>1. Account & Profile Management</h2>
+        <ul>
+            <li><strong>How do I update my account information?</strong><br>
+                You can update your personal information, contact details, and other profile settings by navigating to
+                the Account Settings section in your dashboard.</li>
+            <li><strong>How do I delete my account?</strong><br>
+                If you wish to delete your account, please ensure that any pending orders are completed and all products
+                are removed (for sellers). Then, visit the Account Settings section and follow the deletion steps
+                provided.</li>
+        </ul>
+    </section>
+
+    <!-- Order & Delivery Information Section -->
+    <section class="support-section mb-5">
+        <h2>2. Order & Delivery Information</h2>
+        <h3>Customers:</h3>
+        <ul>
+            <li><strong>Tracking My Order:</strong><br>
+                You can track the status of your order in your Order History section, where you’ll find the estimated
+                delivery date and current status.</li>
+            <li><strong>Delivery Options:</strong><br>
+                During checkout, you’ll be able to choose your preferred delivery option, such as Standard or Express.
+            </li>
+            <li><strong>Order Issues:</strong><br>
+                If you experience any problems with your order (e.g., incorrect or damaged items), please contact the
+                seller directly, or use the Report Issue button on your order details page.</li>
+        </ul>
+        <h3>Sellers:</h3>
+        <ul>
+            <li><strong>Managing Orders:</strong><br>
+                Go to the Orders section of your dashboard to view, process, and update order statuses. Be sure to
+                update the delivery status promptly to keep customers informed.</li>
+            <li><strong>Handling Returns:</strong><br>
+                Ensure that your return policy is clearly stated in your store details, and respond promptly to any
+                customer inquiries regarding returns or exchanges.</li>
+        </ul>
+    </section>
+
+    <!-- Product Listings (For Sellers) Section -->
+    <section class="support-section mb-5">
+        <h2>3. Product Listings (For Sellers)</h2>
+        <ul>
+            <li><strong>How do I add or update my products?</strong><br>
+                Go to the Product Management section to add new listings or update existing ones. Make sure your product
+                descriptions, prices, and images accurately represent each item.</li>
+            <li><strong>Why isn’t my product showing in my store?</strong><br>
+                To make products visible, ensure they’re published and set to “available” status. Draft products or
+                those with restricted availability won’t appear in your store listing.</li>
+        </ul>
+    </section>
+
+    <!-- Payments & Refunds Section -->
+    <section class="support-section mb-5">
+        <h2>4. Payments & Refunds</h2>
+        <h3>Customers:</h3>
+        <ul>
+            <li><strong>Refunds:</strong><br>
+                If a refund is approved (based on the seller’s return policy), you’ll see the funds returned to your
+                original payment method within the specified processing time.</li>
+            <li><strong>Secure Payments:</strong><br>
+                All transactions are encrypted for security, and we never store sensitive payment information.</li>
+        </ul>
+        <h3>Sellers:</h3>
+        <ul>
+            <li><strong>Receiving Payments:</strong><br>
+                Funds from sales are deposited into your account after orders are marked as delivered. Please ensure
+                your bank details are up-to-date.</li>
+            <li><strong>Processing Refunds:</strong><br>
+                To issue a refund, go to the order details page and follow the refund process. Refunds must comply with
+                your store’s return policy.</li>
+        </ul>
+        
+        {% if user.role == 'coadmin' %}
+        <h2 style="margin-top: 2em;">5. Frequently Asked Questions</h2>
+        <h3>Seller FAQs</h3>
+        <section class="faqs">
+            <div class="faq-container">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">How do I
+                                register as a seller?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Register on our platform, select the seller role, and complete the onboarding process,
+                                including providing details or you can fill the details later.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">What fees do you
+                                charge?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>We charge a small commission on each sale. Refer to our pricing and commission policy for
+                                detailed information.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title">How do I add
+                                products to my store?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Log in to your seller account, go to the "Manage Products" section, and add details, images,
+                                and prices for your furniture.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">How are payments
+                                processed?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Payments are processed securely via Easypaisa or direct bank transfer. Payouts are made
+                                weekly/monthly (as per policy).</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">Can I customize
+                                my store?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Yes, you can upload a store banner, logo, and description to make your store unique.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-6" aria-expanded="false"><span class="accordion-title">What should I do
+                                if a customer requests a return?</span><span class="icon"
+                                aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>You’ll be notified of return requests. Approve or deny them based on the return policy. Our
+                                support team can assist you if needed.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-7" aria-expanded="false"><span class="accordion-title">How do I manage
+                                inventory?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Use the "Inventory Management" feature in your seller dashboard to update stock levels and
+                                track inventory.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-8" aria-expanded="false"><span class="accordion-title">What support is
+                                available for sellers?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Sellers have access to a dedicated support team and a help center with resources on boosting
+                                sales and managing your store.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <h3>Customer FAQs</h3>
+        <section class="faqs">
+            <div class="faq-container">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">How do I place
+                                an order?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Browse our furniture categories, add items to your cart, and proceed to checkout to complete
+                                your purchase.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">What payment
+                                methods are available?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>We accept Easypaisa, credit/debit cards, and other local payment options. Details will be
+                                provided during checkout.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title">Can I track my
+                                order?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Yes, you can track your order through the "My Orders" section in your account dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">What is the
+                                return policy?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Returns are accepted within 7 days of delivery for eligible items. The furniture must be in
+                                its original condition. Refer to our return policy for more details.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">How are shipping
+                                costs calculated?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Shipping costs depend on the delivery location, size, and weight of the furniture. You’ll see
+                                the total shipping cost during checkout.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-6" aria-expanded="false"><span class="accordion-title">What should I do
+                                if my furniture arrives damaged?</span><span class="icon"
+                                aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Please contact our support team within 24 hours of delivery with photos of the damaged item.
+                                We’ll guide you through the resolution process.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-7" aria-expanded="false"><span class="accordion-title">Do you offer
+                                assembly services?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Assembly services may be offered for certain items. Check the product details or contact us
+                                for more information.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-8" aria-expanded="false"><span class="accordion-title">How can I
+                                contact customer support?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>You can reach us through the "Contact Us" page, email, or live chat. We’re here to help with
+                                any queries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% elif user.role == 'seller' %}
+        <section class="faqs">
+            <div class="faq-container">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">How do I
+                                register as a seller?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Register on our platform, select the seller role, and complete the onboarding process,
+                                including providing details or you can fill the details later.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">What fees do you
+                                charge?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>We charge a small commission on each sale. Refer to our pricing and commission policy for
+                                detailed information.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title">How do I add
+                                products to my store?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Log in to your seller account, go to the "Manage Products" section, and add details, images,
+                                and prices for your furniture.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">How are payments
+                                processed?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Payments are processed securely via Easypaisa or direct bank transfer. Payouts are made
+                                weekly/monthly (as per policy).</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">Can I customize
+                                my store?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Yes, you can upload a store banner, logo, and description to make your store unique.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-6" aria-expanded="false"><span class="accordion-title">What should I do
+                                if a customer requests a return?</span><span class="icon"
+                                aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>You’ll be notified of return requests. Approve or deny them based on the return policy. Our
+                                support team can assist you if needed.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-7" aria-expanded="false"><span class="accordion-title">How do I manage
+                                inventory?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Use the "Inventory Management" feature in your seller dashboard to update stock levels and
+                                track inventory.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-8" aria-expanded="false"><span class="accordion-title">What support is
+                                available for sellers?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Sellers have access to a dedicated support team and a help center with resources on boosting
+                                sales and managing your store.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% elif user.role == 'customer' %}
+        <section class="faqs">
+            <div class="faq-container">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button id="accordion-button-1" aria-expanded="false"><span class="accordion-title">How do I place
+                                an order?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Browse our furniture categories, add items to your cart, and proceed to checkout to complete
+                                your purchase.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-2" aria-expanded="false"><span class="accordion-title">What payment
+                                methods are available?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>We accept Easypaisa, credit/debit cards, and other local payment options. Details will be
+                                provided during checkout.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-3" aria-expanded="false"><span class="accordion-title">Can I track my
+                                order?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Yes, you can track your order through the "My Orders" section in your account dashboard.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-4" aria-expanded="false"><span class="accordion-title">What is the
+                                return policy?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Returns are accepted within 7 days of delivery for eligible items. The furniture must be in
+                                its original condition. Refer to our return policy for more details.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-5" aria-expanded="false"><span class="accordion-title">How are shipping
+                                costs calculated?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Shipping costs depend on the delivery location, size, and weight of the furniture. You’ll see
+                                the total shipping cost during checkout.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-6" aria-expanded="false"><span class="accordion-title">What should I do
+                                if my furniture arrives damaged?</span><span class="icon"
+                                aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Please contact our support team within 24 hours of delivery with photos of the damaged item.
+                                We’ll guide you through the resolution process.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-7" aria-expanded="false"><span class="accordion-title">Do you offer
+                                assembly services?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>Assembly services may be offered for certain items. Check the product details or contact us
+                                for more information.</p>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <button id="accordion-button-8" aria-expanded="false"><span class="accordion-title">How can I
+                                contact customer support?</span><span class="icon" aria-hidden="true"></span></button>
+                        <div class="accordion-content">
+                            <p>You can reach us through the "Contact Us" page, email, or live chat. We’re here to help with
+                                any queries.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </section>
+
+
+
+
+
+    <!-- Additional Support & Contact Information Section -->
+    <section class="support-section">
+        <h2>6. Additional Support & Contact Information</h2>
+        <p>If you can’t find an answer to your question here, please contact our support team:</p>
+        <ul>
+            <li><strong>Email:</strong> support@yourecommerceplatform.com</li>
+            <li><strong>Phone:</strong> +1-800-555-1234 (Mon-Fri, 9am-5pm EST)</li>
+        </ul>
+    </section>
+</div>
+{% endblock %}
+
+
+
+{% block script %}
+<script>
+    const items = document.querySelectorAll(".accordion button");
+
+    function toggleAccordion() {
+        const itemToggle = this.getAttribute('aria-expanded');
+
+        for (i = 0; i < items.length; i++) {
+            items[i].setAttribute('aria-expanded', 'false');
+        }
+
+        if (itemToggle == 'false') {
+            this.setAttribute('aria-expanded', 'true');
+        }
+    }
+
+    items.forEach(item => item.addEventListener('click', toggleAccordion));
+</script>
+{% endblock %}

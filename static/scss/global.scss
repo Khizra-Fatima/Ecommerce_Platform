@@ -1,0 +1,289 @@
+// Color scheme variables
+$primary-color: #4B0082;
+$accent-color: #D4AF37;
+$text-color: #000000;
+$secondary-text-color: #FDF3E7;
+$background-color: #faf6f1;
+$accent-background-color: #3b221e;
+$secondary-background-color: #B29B7B;
+$third-background-color: #161616;
+
+
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col1: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+
+// Fonts
+$primary-font: 'Roboto Regular', 'sans-serif';
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    color: $text-color;
+    font-family: $primary-font;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+p {
+    line-height: normal;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.chat-bot-div {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+
+    .chat-icon {
+        color: white;
+    }
+
+    #chat-bot {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        max-width: 40px;
+
+        .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            background: $primary-col1;
+            color: $primary-col1;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+
+            .user {
+                visibility: hidden;
+                font-size: 0.9rem;
+                position: absolute;
+                top: -30px;
+                background: white;
+                color: $primary-color;
+                padding: 5px 10px;
+                border-radius: 5px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                white-space: nowrap;
+                opacity: 0;
+                transition: all 0.3s ease-in-out;
+                margin-bottom: 0.8em;
+            }
+
+            &:hover {
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+
+                .user {
+                    visibility: visible;
+                    opacity: 1;
+                }
+            }
+
+            i {
+                font-size: 1.8rem;
+            }
+        }
+
+        .messenger {
+            background-color: white;
+            width: 320px;
+            height: 0;
+            overflow: hidden;
+            border: 1px solid rgba($primary-col1, 1); // Default border
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transition: height 0.3s ease-in-out, border 0.3s ease-in-out;
+
+            &.expanded {
+                height: 420px;
+                border: 1px solid rgba($text-color, 0.1); // Border appears when expanded
+            }
+
+            &:not(.expanded) {
+                border: none; // Remove the border when collapsed
+            }
+
+            .chatroom {
+                padding: 15px;
+                height: 360px;
+                overflow-y: auto;
+                background-color: lighten($bg-col1, 11%);
+                display: flex;
+                flex-direction: column;
+
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: $accent-color;
+                    border-radius: 5px;
+                }
+
+                .message {
+                    max-width: 75%;
+                    padding: 10px 15px;
+                    border-radius: 10px;
+                    font-size: 0.9rem;
+                    line-height: 1.4;
+                    margin-bottom: 8px;
+                    word-wrap: break-word;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                    width: fit-content;
+                }
+
+                // User messages (right side)
+                .user-msg {
+                    align-self: flex-start !important;
+                    background: $bg-col4;
+                    color: $primary-col1;
+                    border-bottom-right-radius: 2px; // Makes it visually distinct
+                }
+
+                // Bot messages (left side)
+                .bot-msg {
+                    align-self: flex-end;
+                    background: white;
+                    color: $primary-col1;
+                    border-bottom-left-radius: 2px;
+                }
+            }
+
+            .type-area {
+                display: flex;
+                align-items: center;
+                padding: 10px;
+                background: $bg-col4;
+                border-top: 1px solid rgba($text-color, 0.1);
+
+                input.typing {
+                    flex: 1;
+                    border: 1px solid rgba($text-color, 0.2);
+                    border-radius: 5px;
+                    padding: 8px;
+                    font-size: 0.9rem;
+                    color: $text-color;
+
+                    &::placeholder {
+                        color: rgba($text-color, 0.5);
+                    }
+
+                    &:focus {
+                        border-color: lighten($accent-col2, 7%);
+                        outline: none;
+                    }
+                }
+
+                span.send {
+                    margin-left: 10px;
+                    cursor: pointer;
+                    color: $primary-color;
+                    font-size: 1.5rem;
+
+                    i {
+                        transition: transform 0.2s ease;
+                    }
+
+                    &:hover i {
+                        transform: scale(1.2);
+                    }
+                }
+            }
+        }
+
+    }
+}

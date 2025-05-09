@@ -1,0 +1,112 @@
+/* Color Variables */
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$background-color: #faf6f1;
+$secondary-background-color: #ffffff;
+$third-background-color: #080808;
+
+
+body {
+    background-color: white;
+}
+
+/* General Container Styling */
+.container {
+    max-width: 1000px;
+    background-color: $background-color;
+    padding: 2rem;
+    box-shadow: 0 4px 8px $accent-color;
+}
+
+/* Header Styling */
+h2 {
+    color: $primary-color;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Order ID */
+h2.order-id {
+    font-size: 1.2rem;
+    color: $accent-color;
+}
+
+/* Card Styling */
+.card {
+    background-color: $secondary-background-color;
+    border: 1px solid lighten($primary-color, 40%);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+/* Product Summary Section */
+.order-summary h4,
+.customer-info h4,
+.delivery-info h4 {
+    color: $primary-color;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.product-detail {
+    .row {
+        display: flex;
+        align-items: center;
+    }
+
+    img {
+        max-width: 100%;
+        height: 300px;
+        border-radius: 4px;
+        border: 1px solid $accent-color;
+    }
+
+    h5 {
+        font-size: 1.2rem;
+        color: $text-color;
+        margin-top: 0.5rem;
+        margin-bottom: 2em;
+    }
+
+    p {
+        color: $text-color;
+        margin: 0.8rem 0;
+    }
+
+    .price {
+        color: $accent-color;
+        font-weight: bold;
+    }
+}
+
+/* Customer and Delivery Info */
+.customer-info, .delivery-info {
+    p {
+        color: $text-color;
+        margin: 0.3rem 0;
+
+        strong {
+            color: darken($primary-color, 15%);
+        }
+    }
+}
+
+
+
+/* Buttons */
+.btn-primary {
+    background-color: $primary-color;
+    border: none;
+    &:hover {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+}

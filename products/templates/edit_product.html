@@ -1,0 +1,304 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load form_tags %}
+
+
+{% block title %}Edit Your Product{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/edit_product.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="edit_product_container">
+    <h1>Edit Your Porduct</h1>
+
+    <form action="{% url 'edit_product' product.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Product Name -->
+        <div class="form-group">
+            {{ form.product_name.label_tag }}
+            {{ form.product_name }}
+            {% if form.product_name.errors %}
+            <div class="text-danger">{{ form.product_name.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Category -->
+        <div class="form-group">
+            {{ form.category.label_tag }}
+            {{ form.category }}
+            {% if form.category.errors %}
+            <div class="text-danger">{{ form.category.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            {{ form.description.label_tag }}
+            {{ form.description }}
+            {% if form.description.errors %}
+            <div class="text-danger">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Stock and Stock Status -->
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="id_stock">Stock:</label>
+                {{ form.stock }}
+                {% if form.stock.errors %}
+                <div class="invalid-feedback">{{ form.stock.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            <div class="form-group col-md-9">
+                {{ form.stock_status.label_tag }}
+                {{ form.stock_status|add_class:"form-control-sm" }}
+                {% if form.stock_status.errors %}
+                <div class="text-danger">{{ form.stock_status.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="form-group">
+            {{ form.features.label_tag }}
+            {{ form.features }}
+            {% if form.features.errors %}
+            <div class="text-danger">{{ form.features.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Colors, Size, Weight, Materials, Dimensions -->
+        <div class="row">
+            <div class="form-group col-md-5">
+                <label>{{ form.colors.label }}</label>
+                <div class="color-circles color-selection">
+                    {% for color in colors %}
+                    <label class="color-circle">
+                        <input type="checkbox" name="colors" value="{{ color.pk }}" style="display: none;"
+                               {% if color in selected_colors %} checked {% endif %}>
+                        <span class="color-indicator" style="--dynamic-color: {{ color.hex_code }};"></span>
+                    </label>
+                {% endfor %}
+                </div>
+                {% if form.colors.errors %}
+                <div class="text-danger">{{ form.colors.errors }}</div>
+                {% endif %}
+            </div>
+
+
+            <!-- Other product fields like size, weight, dimensions, etc. -->
+            <div class="col-md-7">
+                <div class="form-group">
+                    {{ form.size.label_tag }}
+                    {{ form.size }}
+                    {% if form.size.errors %}
+                    <div class="text-danger">{{ form.size.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-5">
+                        {{ form.weight.label_tag }}
+                        {{ form.weight }}
+                        {% if form.weight.errors %}
+                        <div class="text-danger">{{ form.weight.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group col-md-7">
+                        {{ form.weight_unit.label_tag }}
+                        {{ form.weight_unit }}
+                        {% if form.weight_unit.errors %}
+                        <div class="text-danger">{{ form.weight_unit.errors }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-md-9 ">
+                <label>{{ form.materials.label }}</label>
+                <div class="material-whole">
+                    <div class="material-boxes material-selection">
+                        {% for material in form.materials %}
+                        <label class="material-box">
+                            {{ material.tag }} <!-- This renders the checkbox input -->
+                            <span class="material-label">{{ material.choice_label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% if form.materials.errors %}
+                <div class="text-danger">{{ form.materials.errors }}</div>
+                {% endif %}
+            </div>
+
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="id_height">Height:</label>
+                    {{ form.height }}
+                    {% if form.height.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.height.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_width">Width:</label>
+                    {{ form.width }}
+                    {% if form.width.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.width.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_depth">Depth:</label>
+                    {{ form.depth }}
+                    {% if form.depth.errors %}
+                    <div class="invalid-feedback">
+                        {{ form.depth.errors.0 }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.dimension_unit.label_tag }}
+                    {{ form.dimension_unit }}
+                    {% if form.dimension_unit.errors %}
+                    <div class="text-danger">{{ form.dimension_unit.errors }}</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Image -->
+        <div class="form-group">
+            {{ form.featured_image.label_tag }}
+            {{ form.featured_image }}
+            {% if form.featured_image.errors %}
+            <div class="text-danger">
+                {% for error in form.featured_image.errors %}
+                <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Video -->
+        <div class="form-group">
+            {{ form.product_video.label_tag }}
+            {{ form.product_video }}
+            {% if form.product_video.errors %}
+            <div class="text-danger">{{ form.product_video.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Price, Sale Price, Delivery Charges -->
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label for="id_price">Price:</label>
+                {{ form.price }}
+                {% if form.price.errors %}
+                <div class="invalid-feedback">
+                    {{ form.price.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="form-group col-md-4">
+                <label for="id_sale_price">Sale Price:</label>
+                {{ form.sale_price }}
+                {% if form.sale_price.errors %}
+                <div class="invalid-feedback">
+                    {{ form.sale_price.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Delivery Charges -->
+            <div class="form-group col-md-4">
+                <label for="id_delivery_charges">Delivery Charges:</label>
+                {{ form.delivery_charges }}
+                {% if form.delivery_charges.errors %}
+                <div class="invalid-feedback">
+                    {{ form.delivery_charges.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Tags Field -->
+        <div class="form-group">
+            <label for="id_tags">Tags (comma separated):</label>
+            <input type="text" name="tags" id="id_tags" value="{{ form.instance.tags.all|join:',' }}" class="form-control" />
+            {% if form.tags.errors %}
+                <div class="text-danger">{{ form.tags.errors }}</div>
+            {% endif %}
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-save">Save Changes</button>
+            <a href="{% url 'product_detail' product.id %}" class="btn btn-cancel">Cancel</a>
+        </div>
+
+        <!-- Error and Success Messages -->
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Add a click event to each color circle
+        const colorCircles = document.querySelectorAll('.color-circle');
+
+        colorCircles.forEach(circle => {
+            circle.addEventListener('click', function () {
+                const checkbox = circle.querySelector('input[type="checkbox"]');
+
+                // Toggle checkbox state when the circle is clicked
+                checkbox.checked = !checkbox.checked;
+
+                // Toggle outline based on selection
+                const colorIndicator = circle.querySelector('.color-indicator');
+                if (checkbox.checked) {
+                    colorIndicator.style.border = '2px solid #11656b';  // Selected outline
+                } else {
+                    colorIndicator.style.border = '2px solid transparent';  // Remove outline
+                }
+            });
+        });
+    });
+
+
+
+
+
+    document.querySelectorAll('.material-box').forEach(function (box) {
+        box.addEventListener('click', function () {
+            this.classList.toggle('selected');
+        });
+    });
+</script>
+{% endblock %}

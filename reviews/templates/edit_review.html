@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Edit Review{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/edit_review.css' %}">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center">Edit Your Review</h1>
+
+<div class="container">
+    <div class="stars">
+        <form action="{% url 'edit_review' review.id %}" method="POST">
+            {% csrf_token %}
+            <input class="star star-5" id="star-5-2" type="radio" name="rating" value="5" {% if review.rating == 5 %}checked{% endif %} />
+            <label class="star star-5" for="star-5-2"></label>
+            <input class="star star-4" id="star-4-2" type="radio" name="rating" value="4" {% if review.rating == 4 %}checked{% endif %} />
+            <label class="star star-4" for="star-4-2"></label>
+            <input class="star star-3" id="star-3-2" type="radio" name="rating" value="3" {% if review.rating == 3 %}checked{% endif %} />
+            <label class="star star-3" for="star-3-2"></label>
+            <input class="star star-2" id="star-2-2" type="radio" name="rating" value="2" {% if review.rating == 2 %}checked{% endif %} />
+            <label class="star star-2" for="star-2-2"></label>
+            <input class="star star-1" id="star-1-2" type="radio" name="rating" value="1" {% if review.rating == 1 %}checked{% endif %} />
+            <label class="star star-1" for="star-1-2"></label>            
+
+            <div class="rev-box">
+                <textarea name="comment" class="p-2" style="width: 350px;" rows="4" placeholder="Brief Review">{{ review.comment }}</textarea>
+            </div>            
+
+            <!-- Action Buttons -->
+            <div class="buttons form-group mt-3">
+                <button type="submit" class="btn btn-success">Save Changes</button>
+                <a href="{% url 'all_reviews' %}" class="btn btn-warning">Cancel</a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

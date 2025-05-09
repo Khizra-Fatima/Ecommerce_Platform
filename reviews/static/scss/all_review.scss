@@ -1,0 +1,147 @@
+/* Color Variables */
+$primary-color: rgb(67, 67, 190);
+$accent-color: #c98d56;
+$text-color: #000000;
+$secondary-text-color: #f7f7f7;
+$background-color: #faf6f1;
+$secondary-background-color: #ffffff;
+$third-background-color: #080808;
+
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col2: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+
+
+
+body {
+  background-color: lighten($bg-col1, 7%);
+}
+
+h2 {
+  text-align: center;
+  color: $primary-col1;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.container {
+  max-width: 65%;
+  margin: auto;
+}
+
+.review-card {
+  background-color: $secondary-background-color;
+  color: $text-color;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-height: 275px;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.product-name {
+  font-size: 1.5rem;
+  color: $primary-col1 !important;
+  margin-bottom: 0.5rem;
+}
+
+.review-rating {
+  font-size: 1.7rem;
+  color: rgb(255, 196, 0);
+}
+
+.review-comment {
+  font-size: 1rem;
+  margin: 0.8rem 0;
+  line-height: 1.4;
+  color: $text-color;
+}
+
+.review-date {
+  font-size: 0.9rem;
+  color: $secondary-text-color;
+}
+
+.text-warning {
+  color: #f7c70f;
+}
+
+.text-secondary {
+  color: #d3d3d3;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+
+.review-card p {
+  margin: 0.5rem 0;
+}
+
+.review-card {
+  margin: 1.5rem 0;
+}
+
+.featured-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.featured-image {
+  width: 80%;
+  height: 210px;
+  border: 2px solid $primary-col1;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: center;
+  margin-left: 5.2em;
+  margin-top: 0.2em;
+}
+
+.no-reviews {
+  text-align: center;
+  color: $secondary-text-color;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+.order-detail {
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: 1px solid $primary-col1;
+  
+  &:hover {
+    background-color: $primary-col1;
+    color: white;
+  }
+}
+
+.review-actions {
+  margin-top: 1.7em;
+
+  i {
+    font-size: 1em;
+  }
+}

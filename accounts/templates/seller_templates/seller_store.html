@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Your Store{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'scss/seller_store.css' %}">
+{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm py-2">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold p-2" href="{% url 'home' %}" id="navbar-brand"
+            style="font-size: 1.3em;">E-commerce Platform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if has_permission %}
+                <li> {% load notifications_tags %}
+                    <div class="ms-auto d-flex justify-content-end">
+                        <div class="notification-icon btn-group dropstart">
+                            <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="bi bi-bell-fill"></i>
+                                {% get_notifications as notifications %}
+                                <span class="badge bg-danger">{{ notification_count }}</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {% for notification in notifications %}
+                                <li><a class="dropdown-item" href="#">{{ notification.message }}</a></li>
+                                {% empty %}
+                                <li><a class="dropdown-item text-muted">No new notifications</a></li>
+                                {% endfor %}
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="{% url 'notifications' %}">Visit Notification
+                                        Page</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'seller_dashboard' %}">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'inbox' %}">Messages</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'seller_orders' %}">Orders</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#">My Store</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link active" href="{% url 'home' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="store-container">
+    <div class="store-banner">
+        {% if store.banner_image %}
+        <img src="{{ store.banner_image.url }}" alt="{{ store.name }} banner">
+        {% else %}
+        <img src="{% static 'store_banners/default_store_banner.jpg' %}" alt="Default banner">
+        {% endif %}
+    </div>
+
+    <div class="store-details">
+        <div class="store-logo">
+            {% if store.featured_image %}
+            <img src="{{ store.featured_image.url }}" alt="{{ store.name }} logo">
+            {% else %}
+            <img src="{% static 'store_logo/default_store_logo.jpg' %}" alt="Default logo">
+            {% endif %}
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="store-info">
+                    <h1>{{ store.name }}</h1>
+                    <p>{{ store.description }}</p>
+
+                    <h3>Store Information</h3>
+                    <ul>
+                        <li><strong>Owner:</strong> {{ store.owner.first_name }} {{ store.owner.last_name }}</li>
+                        <li><strong>Opening Hours:</strong> {{ store.opening_hours }}</li>
+                        <li><strong>Closing Hours:</strong> {{ store.closing_hours }}</li>
+                        <li><strong>Return Policy:</strong> {{ store.return_policy|linebreaks }}</li>
+                        <li><strong>Shipping Policy:</strong> {{ store.shipping_policy|linebreaks }}</li>
+
+                        {% if has_permission %}
+                        <li>
+                            <div class="store-actions">
+                                <a href="{% url 'edit_store' store.id %}" class="btn btn-edit">Edit Store</a>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 text-center products-sec">
+                <div class="container">
+                    <div class="row">
+                        {% if products %}
+                        {% for product in products %}
+                        <div class="col-md-4 col-sm-6 col-12">
+                            <div class="product-card">
+                                <button class="wishlist-btn btn btn-link" data-product-id="{{ product.id }}" aria-label="Wishlist this Product">
+                                    <i class="bi {% if product.id in user_wishlist %}bi-bookmarks-fill{% else %}bi-bookmarks{% endif %}"></i>
+                                </button>
+                                {% if product.sale_price %}
+                                <p class="sale">Sale!</p>
+                                {% endif %}
+                                <!-- Featured Image -->
+                                {% if product.featured_image %}
+                                <div class="featured-image-container">
+                                    <img src="{{ product.featured_image.url }}" alt="{{ product.product_name }}"
+                                        class="featured-image img-fluid">
+                                </div>
+                                {% endif %}
+                                <h5>
+                                    <a href="{% url 'product_detail' product.id %}">{{ product.product_name }}</a>
+                                </h5>
+                                <div class="product-info">
+                                    <p class="price">Price: ${{ product.price }}</p>
+                                    <p class="stock">Stock: {{ product.stock }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        <!-- Pagination Controls -->
+                        <div class="col-12 pagination-controls">
+                            {% if products.has_previous %}
+                                <a href="?page={{ products.previous_page_number }}" class="pagination-btn prev">Previous</a>
+                            {% endif %}
+                        
+                            <span class="pagination-text">Page {{ products.number }} of {{ products.paginator.num_pages }}</span>
+                        
+                            {% if products.has_next %}
+                                <a href="?page={{ products.next_page_number }}" class="pagination-btn next">Next</a>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <p class="col-12">No published products available.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="footer-cta pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Find us</h4>
+                            <span>Springfield, IL 62704 United States</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Call us</h4>
+                            <span>+1-800-555-1234 (Mon-Fri, 9am-5pm EST)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-md-4 mb-30">
+                    <div class="single-cta">
+                        <div class="cta-text">
+                            <h4>Mail us</h4>
+                            <span>support@yourecommerceplatform.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-content pt-5 pb-5">
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-logo">
+                            <h3>Ecommerce Platform</h3>
+                        </div>
+                        <div class="footer-text">
+                            <p>Discover timeless elegance and quality craftsmanship. Shop with confidence and explore
+                                our exclusive collections tailored for your lifestyle.</p>
+                        </div>
+                        <div class="footer-social-icon">
+                            <span>Follow us</span>
+                            <a href="#"><i class="bi bi-facebook"></i></a>
+                            <a href="#"><i class="bi bi-whatsapp"></i></a>
+                            <a href="#"><i class="bi bi-instagram"></i></a>
+                            <a href="#"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-30">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Useful Links</h3>
+                        </div>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">about</a></li>
+                            <li><a href="#">services</a></li>
+                            <li><a href="#">portfolio</a></li>
+                            <li><a href="#">Contact</a></li>
+                            <li><a href="#">About us</a></li>
+                            <li><a href="#">Our Services</a></li>
+                            <li><a href="#">Expert Team</a></li>
+                            <li><a href="#">Contact us</a></li>
+                            <li><a href="#">Latest News</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-50">
+                    <div class="footer-widget">
+                        <div class="footer-widget-heading">
+                            <h3>Subscribe</h3>
+                        </div>
+                        <div class="footer-text mb-25">
+                            <p>Don’t miss to subscribe to our new feeds, kindly fill the form below.</p>
+                        </div>
+                        <div class="subscribe-form">
+                            <form action="#">
+                                <input type="text" placeholder="Email Address">
+                                <button><i class="bi bi-send-fill"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 text-center text-lg-left">
+                    <div class="copyright-text">
+                        <p>Copyright &copy; 2018, All Right Reserved</p>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 d-none d-lg-block text-right">
+                    <div class="footer-menu">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Terms</a></li>
+                            <li><a href="#">Privacy</a></li>
+                            <li><a href="#">Policy</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+{% endblock %}
+
+
+
+
+
+
+{% block script %}
+<script>
+$(document).ready(function () {
+    $('.wishlist-btn').on('click', function () {
+        var productId = $(this).data('product-id');
+        var button = $(this);
+
+        $.ajax({
+            url: `/activities/wishlist/${productId}/`,
+            type: 'POST',
+            data: {
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            success: function (response) {
+                if (response.status === 'wishlisted') {
+                    // Change icon to solid to indicate product is wishlisted
+                    button.find('i').removeClass('bi-bookmarks').addClass('bi-bookmarks-fill');
+                } else {
+                    // Change icon back to outline to indicate product is removed from wishlist
+                    button.find('i').removeClass('bi-bookmarks-fill').addClass('bi-bookmarks');
+                }
+            },
+            error: function () {
+                console.error('Error processing wishlist request.');
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
