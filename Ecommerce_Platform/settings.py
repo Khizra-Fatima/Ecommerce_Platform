@@ -165,7 +165,7 @@ USE_TZ = True
 
 
 # Global static files location (shared across apps)
-STATIC_URL = 'static/'
+STATIC_URL = '/ecommerce-static/'
 
 
 # Directory where collectstatic will place collected files
@@ -184,7 +184,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Media files (uploaded files by users)
-MEDIA_URL = '/media/'
+MEDIA_URL = '/ecommerce-media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
