@@ -1,1 +1,76 @@
-/*# sourceMappingURL=msginput.css.map */
+.container {
+  background-color: #212121;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 800px;
+  margin: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  color: #D3D3FF;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.mb-3 label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: block;
+  color: #D3D3FF;
+}
+.mb-3 textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #D3D3FF;
+  border-radius: 5px;
+  color: white;
+  resize: none;
+}
+.mb-3 textarea:focus {
+  outline: none;
+  border-color: #a0a0ff;
+  box-shadow: 0 0 5px rgba(211, 211, 255, 0.8);
+}
+.mb-3 .text-danger {
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+#send-btn {
+  background-color: #D3D3FF;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  color: #2E2E2E;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#send-btn:hover {
+  background-color: #a0a0ff;
+}
+#send-btn:disabled {
+  background-color: white;
+  cursor: not-allowed;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid #D3D3FF;
+  color: #D3D3FF;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+.btn-secondary:hover {
+  background-color: #D3D3FF;
+  color: #2E2E2E;
+}/*# sourceMappingURL=msginput.css.map */

@@ -1,35 +1,56 @@
-/* Color Variables */
+// Color scheme variables
+$primary-col1: #2E2E2E;
+$primary-col2: #612718;
+$primary-col3: #7F684E;
+
+$accent-col1: #CD7F32;
+$accent-col2: #C29B0C;
+$accent-col3: #97593F;
+$accent-col4: #B29B7B;
+
+$text-col1: #131313;
+$text-col2: #FFFFFF;
+
+$bg-col1: #EEDAC3;
+$bg-col2: #FAF9F6;
+$bg-col3: #9fa6c5;
+$bg-col4: #D3D3FF;
+
+
 body {
-  background-color: #f6ebdf;
+  background-color: lighten($bg-col1, 7%);
 }
+
 
 .container {
   width: 93%;
   max-width: 450px;
   text-align: center;
-  margin: 4% auto;
+  margin: 2% auto;
   padding: 30px 0;
-  background: #080808;
+  background: darken($primary-col1, 15%);
   color: #EEE;
   border-radius: 5px;
   border: thin solid #444;
   overflow: hidden;
 }
 
+h1 {
+    margin-top: 1em;
+    color: $primary-col1;
+    font-weight: bold;
+}
+
 hr {
   margin: 20px;
   border: none;
-  border-bottom: thin solid rgba(255, 255, 255, 0.1);
+  border-bottom: thin solid rgba(255, 255, 255, .1);
 }
 
 div.title {
   font-size: 2em;
 }
 
-h1 span {
-  font-weight: 300;
-  color: #Fd4;
-}
 
 div.stars {
   width: 270px;
@@ -45,21 +66,22 @@ label.star {
   padding: 10px;
   font-size: 36px;
   color: #444;
-  transition: all 0.2s;
+  transition: all .2s;
 }
 
-input.star:checked ~ label.star:before {
-  content: "\f005";
+input.star:checked~label.star:before {
+  content: '\f005';
   color: #FD4;
-  transition: all 0.25s;
+  transition: all .25s;
 }
 
-input.star-5:checked ~ label.star:before {
+
+input.star-5:checked~label.star:before {
   color: #FE7;
   text-shadow: 0 0 20px #952;
 }
 
-input.star-1:checked ~ label.star:before {
+input.star-1:checked~label.star:before {
   color: #F62;
 }
 
@@ -68,7 +90,7 @@ label.star:hover {
 }
 
 label.star:before {
-  content: "\f006";
+  content: '\f006';
   font-family: FontAwesome;
 }
 
@@ -94,16 +116,20 @@ textarea.review {
   display: block;
 }
 
+
+
 label.review {
   display: block;
-  transition: opacity 0.25s;
+  transition: opacity .25s;
 }
 
-input.star:checked ~ .rev-box {
+
+
+input.star:checked~.rev-box {
   height: 125px;
   overflow: visible;
 }
 
-.btn-success {
-  margin-top: 1em;
-}/*# sourceMappingURL=leave_review.css.map */
+.buttons {
+    text-align: left;
+}
