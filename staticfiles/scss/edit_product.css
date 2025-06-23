@@ -1,32 +1,27 @@
-body {
-  background-color: #f6ebdf;
-}
-
 .edit_product_container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 30px;
-  background-color: #080808;
+  background-color: #ffffff;
+  border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 .edit_product_container h1 {
-  color: #C29B0C;
+  color: rgb(67, 67, 190);
   font-size: 28px;
   text-align: center;
   margin-bottom: 20px;
 }
 .edit_product_container .form-group {
   margin-bottom: 20px;
-  color: white;
 }
 .edit_product_container .form-group label {
-  color: #C29B0C;
+  color: #000000;
+  font-weight: bold;
   display: block;
   margin-bottom: 5px;
 }
-.edit_product_container .form-group input,
-.edit_product_container .form-group select,
-.edit_product_container .form-group textarea {
+.edit_product_container .form-group input, .edit_product_container .form-group select, .edit_product_container .form-group textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -39,42 +34,45 @@ body {
   font-size: 14px;
   margin-top: 5px;
 }
-.edit_product_container .btn {
+.edit_product_container .form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.edit_product_container .form-buttons .btn {
   padding: 12px 20px;
   font-size: 16px;
   border: none;
   border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.edit_product_container .btn.btn-save {
-  background-color: #C29B0C;
-  color: #2E2E2E;
+.edit_product_container .form-buttons .btn.btn-primary {
+  background-color: rgb(67, 67, 190);
+  color: #f7f7f7;
 }
-.edit_product_container .btn.btn-save:hover {
-  background-color: #927509;
+.edit_product_container .form-buttons .btn.btn-primary:hover {
+  background-color: #353599;
 }
-.edit_product_container .btn.btn-cancel {
+.edit_product_container .form-buttons .btn.btn-secondary {
   background-color: #c98d56;
-  color: #2E2E2E;
+  color: #f7f7f7;
 }
-.edit_product_container .btn.btn-cancel:hover {
+.edit_product_container .form-buttons .btn.btn-secondary:hover {
   background-color: #b37339;
 }
-
-.messages {
+.edit_product_container .messages {
   margin-bottom: 20px;
 }
-.messages .alert {
+.edit_product_container .messages .alert {
   padding: 10px;
   border-radius: 5px;
 }
-.messages .alert.alert-success {
+.edit_product_container .messages .alert.alert-success {
   background-color: #b5b5e5;
   color: rgb(67, 67, 190);
 }
-.messages .alert.alert-danger, .messages .alert.alert-error {
+.edit_product_container .messages .alert.alert-danger, .edit_product_container .messages .alert.alert-error {
   background-color: #eedbca;
   color: #c98d56;
 }
@@ -109,8 +107,7 @@ body {
 
 /* Style for selected color (outline) */
 input[type=checkbox]:checked + .color-indicator {
-  border: 2px solid #11656b;
-  /* Outline color for selected circles */
+  border: 2px solid #11656b; /* Outline color for selected circles */
 }
 
 .color-circle input[type=checkbox] {
@@ -122,10 +119,6 @@ input[type=checkbox]:checked + .color-indicator {
   max-width: 100%;
   height: 93%;
 }
-.material-whole label {
-  color: #2E2E2E !important;
-  font-weight: bold;
-}
 
 .material-selection {
   max-width: 100%;
@@ -134,17 +127,13 @@ input[type=checkbox]:checked + .color-indicator {
 
 .material-boxes {
   display: flex;
-  flex-wrap: wrap;
-  /* Allows the boxes to wrap onto the next line */
-  gap: 10px;
-  /* Space between the boxes */
+  flex-wrap: wrap; /* Allows the boxes to wrap onto the next line */
+  gap: 10px; /* Space between the boxes */
 }
 
 .material-box {
-  display: inline-flex;
-  /* Allows the content to size according to the material name */
-  align-items: center;
-  /* Vertically centers the text inside the box */
+  display: inline-flex; /* Allows the content to size according to the material name */
+  align-items: center; /* Vertically centers the text inside the box */
   padding: 10px;
   border: 2px solid #ccc;
   cursor: pointer;
@@ -153,8 +142,7 @@ input[type=checkbox]:checked + .color-indicator {
 }
 
 .material-box input[type=checkbox] {
-  display: none;
-  /* Hide the default checkbox */
+  display: none; /* Hide the default checkbox */
 }
 
 /* Styling for when a material is selected */

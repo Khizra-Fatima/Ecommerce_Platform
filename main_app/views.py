@@ -24,7 +24,7 @@ def home(request):
     top_products = Product.objects.filter(id__in=product_ids)
     user_wishlist_ids = set()
     if request.user.is_authenticated:
-        user_wishlist_ids = set(Wishlist.objects.filter(user=request.user).values_list('_id', flat=True))
+        user_wishlist_ids = set(Wishlist.objects.filter(user=request.user).values_list('id', flat=True))
 
     # Get 3 most recently added products
     latest_products = Product.objects.order_by('-created_at')[:4]

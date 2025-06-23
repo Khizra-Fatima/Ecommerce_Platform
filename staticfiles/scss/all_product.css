@@ -1,40 +1,41 @@
 h2 {
   text-align: center;
-  color: #2E2E2E;
+  color: rgb(67, 67, 190);
   font-size: 50px;
   margin-bottom: 20px;
 }
 
 .nav-tabs .nav-link {
-  color: white;
-  background-color: #2E2E2E;
-  border: 1px solid #2E2E2E;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid rgb(67, 67, 190);
   border-bottom-color: transparent;
   margin-right: 5px;
   padding: 10px 15px;
 }
 .nav-tabs .nav-link:hover {
-  background-color: #151515;
+  color: rgb(67, 67, 190);
+  background-color: #ffffff;
 }
 .nav-tabs .nav-link.active {
-  color: #2E2E2E;
-  background-color: white;
-  border-color: #2E2E2E #2E2E2E transparent;
+  color: #ffffff;
+  background-color: rgb(67, 67, 190);
+  border-color: rgb(67, 67, 190) rgb(67, 67, 190) transparent;
 }
 
 .btn-primary {
-  background-color: #2E2E2E;
-  border-color: #2E2E2E;
-  color: white;
+  background-color: rgb(67, 67, 190);
+  border-color: rgb(67, 67, 190);
   padding: 10px 20px;
 }
 .btn-primary:hover {
-  background-color: #151515;
+  background-color: #353599;
+  border-color: #353599;
 }
 
 .product-card {
   background-color: #ffffff;
-  border: 1px solid #7b7b7b;
+  border: 1px solid #b5b5e5;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
@@ -53,7 +54,7 @@ h2 {
 .featured-image {
   width: 100%;
   height: 200px;
-  border: 2px solid #2E2E2E;
+  border: 2px solid rgb(67, 67, 190);
   border-radius: 5px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -62,14 +63,14 @@ h2 {
 }
 
 h3 {
-  color: #2E2E2E;
+  color: rgb(67, 67, 190);
   margin-bottom: 20px;
   text-align: center;
 }
 
 .product-card h5 {
   font-size: 18px;
-  color: #2E2E2E;
+  color: rgb(67, 67, 190);
   margin-bottom: 10px;
 }
 .product-card h5 a {
@@ -77,7 +78,7 @@ h3 {
   text-decoration: none;
 }
 .product-card h5 a:hover {
-  color: #C29B0C;
+  color: #c98d56;
 }
 
 .product-card p {
@@ -87,7 +88,7 @@ h3 {
 
 .product-card p.price {
   font-weight: bold;
-  color: #C29B0C;
+  color: #c98d56;
 }
 
 p.empty-message {
@@ -109,7 +110,7 @@ p.empty-message {
   margin-top: 10px;
 }
 .product-info .price {
-  color: #C29B0C;
+  color: #c98d56;
 }
 .product-info .stock {
   font-weight: normal;

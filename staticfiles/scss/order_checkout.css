@@ -1,50 +1,48 @@
 /* Color Variables */
 body {
-  background-color: white;
+  font-family: Arial, sans-serif;
+  background-color: #faf6f1;
+  color: #000000;
 }
 
 /* Container */
 .container {
-  max-width: 1300px;
+  max-width: 800px;
   margin: auto;
 }
 
 /* Headings */
 h2 {
-  color: #612718;
+  color: rgb(67, 67, 190);
   font-weight: bold;
-  text-align: left;
-  font-size: 2.3em;
+  text-align: center;
 }
 
 h4 {
-  color: #612718;
+  color: #c98d56;
   font-weight: bold;
+}
+
+h5 {
+  color: #080808;
 }
 
 /* Order Summary Section */
 .order-summary {
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
   padding: 20px;
 }
 
 .product-detail {
-  background-color: transparent;
+  background-color: #f7f7f7;
+  border-radius: 6px;
   color: #3f2914;
-  padding: 1em 0;
 }
 
 .product_name {
-  color: #612718;
-  font-size: 1.2em;
-  margin-left: 1em;
-  margin-top: 2.2em;
-}
-
-.product {
-  margin-left: 1.5em;
-  font-size: 1.2em;
-  color: #2E2E2E;
-  font-weight: bold;
+  color: rgb(67, 67, 190);
 }
 
 .stock {
@@ -55,14 +53,12 @@ h4 {
 .price {
   font-weight: bold;
   margin-bottom: 0.7em;
-  margin-left: 1.5em;
-  color: #612718;
 }
 
 .featured-image {
   width: 100%;
-  height: 120px;
-  margin-left: 1.5em;
+  height: 200px;
+  border: 2px solid #c98d56;
   border-radius: 5px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -72,38 +68,26 @@ h4 {
 
 /* Order Form */
 .order-form {
-  background-color: transparent;
-  border: none;
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
   border-radius: 8px;
-}
-.order-form h5 {
-  color: #612718;
-  border-bottom: 1px solid #9e4027;
-  font-size: 1.4em;
-  margin-top: 2em;
-  margin-bottom: 1em;
+  padding: 20px;
 }
 
 .form-label {
-  color: #545454;
+  color: #080808;
+  font-weight: 600;
 }
 
 .form-control {
-  background-color: white;
-  border: 1px solid #e1e1e1;
+  background-color: #faf6f1;
+  border: 1px solid #eddecb;
   border-radius: 4px;
 }
 
 .form-control:focus {
-  border: 1px solid #e1e1e1;
-  box-shadow: 0 0 0 0 rgba(67, 67, 190, 0.25);
-}
-
-input,
-select,
-textarea {
-  padding: 12px 10px 12px 10px !important;
-  font-size: 1.05em !important;
+  border-color: rgb(67, 67, 190);
+  box-shadow: 0 0 0 0.2rem rgba(67, 67, 190, 0.25);
 }
 
 /* Quantity and Delivery Method */
@@ -113,20 +97,18 @@ textarea {
 }
 
 /* Button */
-.btn-order {
-  width: 100%;
-  background-color: white;
-  border: 1px solid #612718;
-  border-radius: 0px;
+.btn-primary {
+  background-color: rgb(67, 67, 190);
+  border: none;
   padding: 10px 20px;
   font-weight: bold;
-  color: #612718;
+  color: #ffffff;
+  border-radius: 6px;
   transition: background-color 0.3s ease;
-  margin-bottom: 4em;
 }
-.btn-order:hover {
-  background-color: #612718;
-  color: white;
+
+.btn-primary:hover {
+  background-color: #6969cb;
 }
 
 .text-end {

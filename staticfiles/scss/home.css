@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 .container-fluid {
   padding-left: 2em;
   padding-right: 2em;
@@ -37,7 +38,6 @@ body {
   position: relative;
 }
 .hero-section .hero-content {
-  margin-left: -1em;
   color: #2E2E2E;
   text-align: left;
 }
@@ -75,7 +75,6 @@ body {
   color: #2E2E2E;
 }
 .hero-section .hero-images {
-  margin-left: 3em;
   position: relative;
   display: inline-block;
   width: -moz-fit-content;
@@ -96,7 +95,7 @@ body {
 }
 .hero-section .hero-images .image-wrapper .image2 {
   display: block;
-  width: 350px;
+  width: 400px;
   height: 325px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -119,7 +118,7 @@ body {
   color: #C29B0C;
 }
 .feature-section h4 {
-  color: #2E2E2E;
+  color: #612718;
 }
 .feature-section p {
   color: #000000;

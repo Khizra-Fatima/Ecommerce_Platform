@@ -1,16 +1,12 @@
-body {
-  background-color: #f6ebdf !important;
-}
-
 .container {
-  background-color: #f6ebdf !important;
+  background-color: white;
   padding: 2rem;
   color: #000000;
   margin-bottom: 3em;
 }
 
 .orders-header h1 {
-  color: #2E2E2E;
+  color: rgb(67, 67, 190);
   font-weight: bold;
 }
 
@@ -22,7 +18,7 @@ body {
   max-height: -moz-fit-content;
   max-height: fit-content;
   background-color: #ffffff;
-  border: 1px solid #616161;
+  border: 1px solid #8f8fd8;
   border-radius: 0.5rem;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -36,14 +32,14 @@ body {
 .orders-item .product-name {
   margin: 0;
   font-size: 1.2rem;
-  color: #2E2E2E;
+  color: rgb(67, 67, 190);
 }
 .orders-item .product-name a {
   text-decoration: none;
-  color: #2E2E2E;
+  color: rgb(67, 67, 190);
 }
 .orders-item .product-name a:hover {
-  color: #151515;
+  color: #353599;
 }
 .orders-item .featured-image-container {
   margin-bottom: 15px;
@@ -54,19 +50,19 @@ body {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   width: 100%;
   height: 200px;
-  border: 2px solid #2E2E2E;
+  border: 2px solid rgb(67, 67, 190);
   -o-object-fit: cover;
      object-fit: cover;
   -o-object-position: center;
      object-position: center;
 }
-.orders-item .price {
-  margin-top: 0.7em;
-  font-size: 1rem;
+.orders-item .price,
+.orders-item .stock {
+  font-size: 0.9rem;
   color: #c98d56;
 }
 .orders-item .card-footer {
-  background-color: #2E2E2E;
+  background-color: rgb(67, 67, 190);
   color: #f7f7f7;
   padding: 0.5rem;
   display: flex;
@@ -79,17 +75,14 @@ body {
   transition: background-color 0.3s;
 }
 .orders-item .card-footer .btn:hover {
-  background-color: white;
-  color: #2E2E2E;
-  border: 1px solid #2E2E2E;
+  background-color: #6969cb;
 }
 .orders-item .card-footer .btn-delete {
-  background-color: #C29B0C;
-  border-color: #C29B0C;
-  color: #2E2E2E;
+  background-color: #c98d56;
+  border-color: #c98d56;
 }
 .orders-item .card-footer .btn-delete:hover {
-  background-color: #927509;
+  background-color: #b37339;
 }
 
 .text-center .text-muted {

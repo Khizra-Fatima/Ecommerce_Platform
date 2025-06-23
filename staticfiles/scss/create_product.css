@@ -1,17 +1,13 @@
-body {
-  background-color: #f6ebdf;
-}
-
 .create-product-container {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 30px;
-  background-color: #080808;
+  background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 .create-product-container h2 {
-  color: #C29B0C;
+  color: rgb(67, 67, 190);
   font-size: 28px;
   text-align: center;
   margin-bottom: 20px;
@@ -20,13 +16,12 @@ body {
   margin-bottom: 20px;
 }
 .create-product-container .form-group label {
-  color: #C29B0C;
+  color: #000000;
+  font-weight: bold;
   display: block;
   margin-bottom: 5px;
 }
-.create-product-container .form-group input,
-.create-product-container .form-group select,
-.create-product-container .form-group textarea {
+.create-product-container .form-group input, .create-product-container .form-group select, .create-product-container .form-group textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -49,22 +44,21 @@ body {
   font-size: 16px;
   border: none;
   border-radius: 6px;
-  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
 }
-.create-product-container .form-buttons .btn.btn-publish {
-  background-color: #C29B0C;
-  color: #2E2E2E;
+.create-product-container .form-buttons .btn.btn-primary {
+  background-color: rgb(67, 67, 190);
+  color: #f7f7f7;
 }
-.create-product-container .form-buttons .btn.btn-publish:hover {
-  background-color: #927509;
+.create-product-container .form-buttons .btn.btn-primary:hover {
+  background-color: #353599;
 }
-.create-product-container .form-buttons .btn.btn-draft {
+.create-product-container .form-buttons .btn.btn-secondary {
   background-color: #c98d56;
   color: #f7f7f7;
 }
-.create-product-container .form-buttons .btn.btn-draft:hover {
+.create-product-container .form-buttons .btn.btn-secondary:hover {
   background-color: #b37339;
 }
 .create-product-container .messages {
@@ -113,8 +107,7 @@ body {
 
 /* Style for selected color (outline) */
 input[type=checkbox]:checked + .color-indicator {
-  border: 2px solid #11656b;
-  /* Outline color for selected circles */
+  border: 2px solid #11656b; /* Outline color for selected circles */
 }
 
 .color-circle input[type=checkbox] {
@@ -126,10 +119,6 @@ input[type=checkbox]:checked + .color-indicator {
   max-width: 100%;
   height: 93%;
 }
-.material-whole label {
-  color: #2E2E2E !important;
-  font-weight: bold;
-}
 
 .material-selection {
   max-width: 100%;
@@ -138,17 +127,13 @@ input[type=checkbox]:checked + .color-indicator {
 
 .material-boxes {
   display: flex;
-  flex-wrap: wrap;
-  /* Allows the boxes to wrap onto the next line */
-  gap: 10px;
-  /* Space between the boxes */
+  flex-wrap: wrap; /* Allows the boxes to wrap onto the next line */
+  gap: 10px; /* Space between the boxes */
 }
 
 .material-box {
-  display: inline-flex;
-  /* Allows the content to size according to the material name */
-  align-items: center;
-  /* Vertically centers the text inside the box */
+  display: inline-flex; /* Allows the content to size according to the material name */
+  align-items: center; /* Vertically centers the text inside the box */
   padding: 10px;
   border: 2px solid #ccc;
   cursor: pointer;
@@ -157,8 +142,7 @@ input[type=checkbox]:checked + .color-indicator {
 }
 
 .material-box input[type=checkbox] {
-  display: none;
-  /* Hide the default checkbox */
+  display: none; /* Hide the default checkbox */
 }
 
 /* Styling for when a material is selected */
