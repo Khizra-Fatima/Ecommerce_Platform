@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 // Color scheme variables
 $primary-color: #4B0082;
 $accent-color: #D4AF37;
@@ -52,7 +53,7 @@ body {
 
 body {
   color: $text-color;
-  font-family: $primary-font;
+  font-family: $primary-font !important;
   overflow-x: hidden;
 }
 
