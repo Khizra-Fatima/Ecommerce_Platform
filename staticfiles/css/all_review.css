@@ -1,10 +1,15 @@
 /* Color Variables */
+body {
+  background-color: #f6ebdf;
+}
+
 h2 {
   text-align: center;
-  color: rgb(67, 67, 190);
+  color: #2E2E2E;
   margin-bottom: 2rem;
   font-size: 2.2rem;
   font-weight: bold;
+  margin-top: 1em;
 }
 
 .container {
@@ -17,7 +22,7 @@ h2 {
   color: #000000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  max-height: 250px !important;
+  max-height: 275px;
 }
 .review-card:hover {
   transform: translateY(-5px);
@@ -26,7 +31,7 @@ h2 {
 
 .product-name {
   font-size: 1.5rem;
-  color: #c98d56;
+  color: #2E2E2E !important;
   margin-bottom: 0.5rem;
 }
 
@@ -77,7 +82,7 @@ p {
 .featured-image {
   width: 80%;
   height: 210px;
-  border: 2px solid rgb(67, 67, 190);
+  border: 2px solid #2E2E2E;
   border-radius: 5px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -96,14 +101,15 @@ p {
 
 .order-detail {
   transition: background-color 0.3s ease, color 0.3s ease;
+  border: 1px solid #2E2E2E;
 }
 .order-detail:hover {
-  background-color: rgb(67, 67, 190);
-  color: #ffffff;
+  background-color: #2E2E2E;
+  color: white;
 }
 
 .review-actions {
-  margin-top: 10%;
+  margin-top: 1.7em;
 }
 .review-actions i {
   font-size: 1em;

@@ -11,14 +11,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .navbar .navbar-brand {
-  color: #C29B0C;
+  color: #2E2E2E;
   font-weight: bold;
   font-size: 1.5rem;
   transition: color 0.3s;
   padding-left: 1em;
 }
 .navbar .navbar-brand:hover {
-  color: #C29B0C;
+  color: #2E2E2E;
 }
 
 .bi-bell-fill {

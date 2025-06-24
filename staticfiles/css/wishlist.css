@@ -2,7 +2,7 @@
 .main_sec {
   max-width: 900px;
   padding: 2rem;
-  background: #ffffff !important;
+  background: transparent;
   border-radius: 12px;
 }
 
@@ -11,7 +11,7 @@
   margin-bottom: 1.5rem;
 }
 .Wishlist-header h1 {
-  color: rgb(67, 67, 190);
+  color: #2E2E2E;
   font-weight: bold;
   margin-bottom: 0.5rem;
 }
@@ -30,7 +30,7 @@
   display: flex;
   align-items: stretch;
   justify-content: space-between;
-  background-color: #faf6f1;
+  background-color: white;
   border: 1px solid #dbdbf2;
   border-radius: 8px;
   padding: 1rem 1.5rem;
@@ -44,15 +44,15 @@
 .wishlist-list .wishlist-item .product-name {
   margin: 0;
   font-size: 1.2rem;
-  color: rgb(67, 67, 190);
+  color: #2E2E2E;
   font-weight: 600;
 }
 .wishlist-list .wishlist-item .product-name a {
   text-decoration: none;
-  color: rgb(67, 67, 190);
+  color: #2E2E2E;
 }
 .wishlist-list .wishlist-item .product-name a:hover {
-  color: #353599;
+  color: #151515;
 }
 .wishlist-list .wishlist-item small {
   display: block;
@@ -64,22 +64,25 @@
   text-align: right;
 }
 .wishlist-list .wishlist-item .product-info .price {
-  color: #c98d56;
+  color: #C29B0C;
+  font-weight: bold;
 }
 .wishlist-list .wishlist-item .product-info .stock {
   font-weight: normal;
   color: #000000;
 }
-.wishlist-list .wishlist-item .btn {
+.wishlist-list .wishlist-item .btn-view,
+.wishlist-list .wishlist-item .btn-delete {
   margin-top: 1rem;
   align-self: flex-end;
-  color: rgb(67, 67, 190);
-  border-color: #c98d56;
+  color: #2E2E2E;
+  border-color: #2E2E2E;
   transition: color 0.3s ease, background-color 0.3s ease;
 }
-.wishlist-list .wishlist-item .btn:hover {
-  color: #ffffff;
-  background-color: #c98d56;
+.wishlist-list .wishlist-item .btn-view:hover,
+.wishlist-list .wishlist-item .btn-delete:hover {
+  color: white;
+  background-color: #2E2E2E;
 }
 .wishlist-list .text-center {
   color: #080808;
@@ -94,7 +97,7 @@
 .featured-image {
   width: 200px;
   height: 120px;
-  border: 2px solid rgb(67, 67, 190);
+  border: 2px solid #2E2E2E;
   border-radius: 5px;
   -o-object-fit: cover;
      object-fit: cover;
@@ -102,11 +105,14 @@
      object-position: center;
 }
 
-.modal-header {
-  background-color: rgb(67, 67, 190);
-  color: #ffffff;
+.modal {
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-.modal-footer {
-  justify-content: space-between;
+.modal-backdrop.fade {
+  transition: opacity 0s !important;
+}
+
+.modal.fade {
+  transition: opacity 0s !important;
 }/*# sourceMappingURL=wishlist.css.map */
