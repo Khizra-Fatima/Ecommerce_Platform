@@ -1,4 +1,4 @@
-from django.shortcuts import render
+  GNU nano 7.2                                               main_app/views.py                                                        from django.shortcuts import render
 from django.http import JsonResponse
 from products.models import Product, Color
 from activities.models import Wishlist
@@ -15,9 +15,9 @@ from orders.models import OrderCheckoutUserInfo
 def home(request):
     # Get top ordered products
     top_ordered_products = (
-        OrderCheckoutUserInfo.objects.values('product')  
-        .annotate(order_count=Count('order_id'))  
-        .order_by('-order_count')[:12]  
+        OrderCheckoutUserInfo.objects.values('product')
+        .annotate(order_count=Count('order_id'))
+        .order_by('-order_count')[:12]
     )
 
     product_ids = [item['product'] for item in top_ordered_products]
@@ -29,8 +29,7 @@ def home(request):
     # Get 3 most recently added products
     latest_products = Product.objects.order_by('-created_at')[:4]
 
-    return render(request, 'home.html', {'top_products': top_products, 'latest_products': latest_products, 'user_wishlist_ids': user_wishlist_ids})
-
+    return render(request, 'home.html', {'top_products': top_products, 'latest_products': latest_products, 'user_wishlist_ids': user_>
 
 
 def explore_area(request):
@@ -69,7 +68,7 @@ def explore_area(request):
         if price_ranges:
             products = products.filter(price_q_objects)
 
-        
+
 
         query = request.GET.get('query')
         if query:
@@ -90,7 +89,7 @@ def explore_area(request):
     return render(request, 'buynow.html', {
         'products': products,
         'filter_form': filter_form,
-        'color_queryset': Color.objects.all() 
+        'color_queryset': Color.objects.all()
     })
 
 
@@ -111,12 +110,10 @@ def load_more_products(request):
             'stock': product.stock,
             'image_url': product.featured_image.url if product.featured_image else None,
         })
-    
+
     return JsonResponse({'products': product_data})
 
 
-
 def product_list(request):
-    user_wishlist = set(Wishlist.objects.filter(owner=request.user).values_list('product_id', flat=True)) if request.user.is_authenticated else set()
-    products = Product.objects.all()
+    user_wishlist = set(Wishlist.objects.filter(owner=request.user).values_list('product_id', flat=True)) if request.user.is_authenti>    products = Product.objects.all()
     return render(request, 'wishlist.html', {'products': products, 'user_wishlist': user_wishlist})
