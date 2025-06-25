@@ -29,7 +29,7 @@ def home(request):
     # Get 3 most recently added products
     latest_products = Product.objects.order_by('-created_at')[:4]
 
-    return render(request, 'home.html', {'top_products': top_products, 'latest_products': latest_products, 'user_wishlist_ids': user_>
+    return render(request, 'home.html', {'top_products': top_products, 'latest_products': latest_products, 'user_wishlist_ids': user_wishlist_ids})
 
 
 def explore_area(request):
@@ -115,5 +115,6 @@ def load_more_products(request):
 
 
 def product_list(request):
-    user_wishlist = set(Wishlist.objects.filter(owner=request.user).values_list('product_id', flat=True)) if request.user.is_authenti>    products = Product.objects.all()
+    user_wishlist = set(Wishlist.objects.filter(owner=request.user).values_list('product_id', flat=True)) if request.user.is_authenticated else set()
+    products = Product.objects.all()
     return render(request, 'wishlist.html', {'products': products, 'user_wishlist': user_wishlist})
