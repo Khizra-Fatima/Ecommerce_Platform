@@ -1,4 +1,4 @@
-  GNU nano 7.2                                               main_app/views.py                                                        from django.shortcuts import render
+from django.shortcuts import render
 from django.http import JsonResponse
 from products.models import Product, Color
 from activities.models import Wishlist
