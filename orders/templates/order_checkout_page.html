@@ -79,7 +79,7 @@
                         </div>
                     </div>
 
-                    <!-- Submit Button -->
+                    <!-- Submit button -->
                     <div class="text-end">
                         <button type="button" class="btn btn-order" data-bs-toggle="modal"
                             data-bs-target="#orderConfirmationModal">Place Order</button>
@@ -89,7 +89,6 @@
         </div>
 
         <div class="col-lg-5">
-            <!-- Product Summary Section -->
             <div class="order-summary">
                 <h4>Your Order</h4>
                 <div class="product-detail card">
@@ -128,7 +127,7 @@
     </div>
 </div>
 
-<!-- Order Confirmation Modal -->
+
 <div class="modal fade" id="orderConfirmationModal" tabindex="-1" aria-labelledby="orderConfirmationModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
@@ -173,9 +172,8 @@
 
         const productPrice = parseFloat('{{ product.price }}');
         const deliveryCharges = parseFloat('{{ product.delivery_charges }}') || 0;
-        const expressDeliveryCharge = 20; // Fixed express charge
+        const expressDeliveryCharge = 20; // fixed express charge
 
-        // Update modal values when quantity or delivery method changes
         quantityInput.addEventListener('input', updateModal);
         deliveryMethodSelect.addEventListener('change', updateModal);
         if (colorSelect) {
@@ -194,28 +192,24 @@
             const totalDeliveryCharge = deliveryCharges + (isExpress ? expressDeliveryCharge : 0);
             const totalPrice = (productPrice * quantity + totalDeliveryCharge).toFixed(2);
 
-            // Update both the modal and form fields with new values
             confirmQuantity.innerText = quantity;
             confirmDeliveryMethod.innerText = deliveryMethodText;
             confirmEstimatedDate.innerText = estimatedDeliveryDate;
             confirmTotalPrice.innerText = totalPrice;
             confirmColor.innerText = selectedColor;
 
-            // Also update the form's estimated delivery date field
             document.getElementById('estimated_delivery_date').value = estimatedDeliveryDate;
 
-            // Display express charge message if applicable
             expressChargeElement.style.display = isExpress ? 'block' : 'none';
         }
 
-        // Helper function to calculate future date
+        // function to calculate future date
         function calculateDeliveryDate(days) {
             const date = new Date();
             date.setDate(date.getDate() + days);
-            return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            return date.toISOString().split('T')[0];
         }
 
-        // Initialize modal values on page load
         updateModal();
 
         confirmOrderButton.addEventListener('click', function () {

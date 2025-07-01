@@ -71,7 +71,7 @@
                         class="btn btn-delete">Delete</a>
                     {% endif %}
                 </div>
-                <!-- Delete Confirmation Modal -->
+
                 <div class="modal fade" id="deleteModal{{ orders.id }}" tabindex="-1" role="dialog"
                     aria-labelledby="deleteModalLabel{{ orders.id }}" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -102,13 +102,11 @@
         {% endfor %}
     </div>
     {% else %}
-    <!-- Message and Discover Products button if cart is empty -->
     <div class="call-to-action my-2">
         <p class="text-muted">Your order history is empty. Start shopping now!</p>
         <a href="{% url 'buynow' %}" class="btn btn-primary">Buy Products</a>
     </div>
     {% endif %}
-    <!-- Clear Cart Confirmation Modal -->
     <div class="modal fade" id="clearOrderModal" tabindex="-1" aria-labelledby="clearOrderModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
