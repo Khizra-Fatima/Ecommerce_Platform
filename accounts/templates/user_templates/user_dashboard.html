@@ -95,7 +95,7 @@
         </nav>
 
         <main id="main-content" class="col-lg-10 col-md-9">
-            <!-- Content for the selected section will be loaded here -->
+            <!-- Content for the selected section will be here -->
         </main>
     </div>
 </div>
@@ -111,7 +111,6 @@
 {% block script %}
 <script>
     $(document).ready(function () {
-        // Load content via AJAX when sidebar links are clicked
         $('.nav-link').click(function (e) {
             if (!$(this).hasClass('no-ajax')) {
                 e.preventDefault();
@@ -131,7 +130,6 @@
                         $('#main-content').html(response);
                         $('#main-content').focus();
 
-                        // Reinitialize scripts
                         initializeNotificationTabs();
                     },
                     error: function (xhr, status, error) {
@@ -142,11 +140,9 @@
             }
         });
 
-        // Initial script execution
         initializeNotificationTabs();
     });
 
-    // Function to initialize notification tab filters
     function initializeNotificationTabs() {
         const tabs = document.querySelectorAll(".tab");
         const cards = document.querySelectorAll(".notification-card");
@@ -186,13 +182,12 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".notification-icon .dropdown-menu").addEventListener("click", function (event) {
-            let item = event.target.closest(".notification-item"); // Check if clicked element is a notification
+            let item = event.target.closest(".notification-item");
             if (!item) return;
 
             let notificationId = item.dataset.notificationId;
             if (!notificationId) return;
 
-            // Send AJAX request to mark as read
             fetch(`/activities/mark-as-read/${notificationId}/`, {
                 method: 'POST',
                 headers: {
@@ -201,23 +196,22 @@
                 },
             }).then(response => response.json()).then(data => {
                 if (data.success) {
-                    item.remove(); // ✅ Remove the clicked notification from dropdown
+                    item.remove();
 
-                    // Check if dropdown is empty, show "No new notifications" message
                     let remainingNotifications = document.querySelectorAll(".notification-item");
                     if (remainingNotifications.length === 0) {
                         let dropdownMenu = document.querySelector(".notification-icon .dropdown-menu");
                         dropdownMenu.innerHTML = `<li><a class="dropdown-item text-muted">No new notifications</a></li>`;
                     }
 
-                    updateNotificationCount(); // ✅ Fetch updated count and update badge
+                    updateNotificationCount();
                 }
             }).catch(error => console.error("Error updating notification:", error));
         });
 
 
         function updateNotificationCount() {
-            fetch("/activities/notification-count/")  // Create this API
+            fetch("/activities/notification-count/")
                 .then(response => response.json())
                 .then(data => {
                     let badge = document.querySelector(".notification-icon .badge");
@@ -225,7 +219,7 @@
                         badge.innerText = data.count;
                         badge.style.display = "inline-block";
                     } else {
-                        badge.style.display = "none"; // Hide badge when no unread notifications left
+                        badge.style.display = "none";
                     }
                 });
         }

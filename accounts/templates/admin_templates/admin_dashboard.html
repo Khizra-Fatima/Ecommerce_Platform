@@ -106,7 +106,7 @@
             <div class="p-4">
                 <h1 class="mb-4">Welcome, {{ user.first_name }}{{ user.last_name }}!</h1>
                 <p>Select a section from the sidebar to begin managing the platform.</p>
-                <!-- Placeholder for dynamic content -->
+                <!-- dynamic content -->
             </div>
         </main>
     </div>
@@ -149,7 +149,7 @@
             }
         }
 
-        // Handle AJAX loading for sidebar links
+
         $('.nav-link').click(function (e) {
             if (!$(this).hasClass('no-ajax')) {
                 e.preventDefault();
@@ -176,7 +176,6 @@
             }
         });
 
-        // Load the default section on page load
         loadDefaultSection();
     });
 
@@ -190,7 +189,7 @@
                 headers: { 'X-CSRFToken': getCookie('csrftoken') },
             }).then(response => response.json()).then(data => {
                 if (data.success) {
-                    item.classList.add('read'); // Optional: Update UI
+                    item.classList.add('read');
                 }
             });
         });

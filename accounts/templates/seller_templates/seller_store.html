@@ -116,7 +116,7 @@
                                 {% if product.sale_price %}
                                 <p class="sale">Sale!</p>
                                 {% endif %}
-                                <!-- Featured Image -->
+
                                 {% if product.featured_image %}
                                 <div class="featured-image-container">
                                     <img src="{{ product.featured_image.url }}" alt="{{ product.product_name }}"
@@ -290,10 +290,8 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if (response.status === 'wishlisted') {
-                    // Change icon to solid to indicate product is wishlisted
                     button.find('i').removeClass('bi-bookmarks').addClass('bi-bookmarks-fill');
                 } else {
-                    // Change icon back to outline to indicate product is removed from wishlist
                     button.find('i').removeClass('bi-bookmarks-fill').addClass('bi-bookmarks');
                 }
             },

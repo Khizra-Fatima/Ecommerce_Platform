@@ -13,7 +13,7 @@
 <div class="profile-container container">
     <h1 class="profile-heading">{{ profile.owner.first_name }}'s Profile</h1>
 
-    <!-- Profile Picture -->
+    <!-- Profile picture -->
     <div class="profile-picture-section text-center mb-4">
         <img src="{{ profile.image.url }}" alt="Profile Picture" class="profile-picture rounded-circle"
             style="width: 150px; height: 150px;">
@@ -37,14 +37,14 @@
         <p>{{ profile.bio|default:"No bio available" }}</p>
     </div>
 
-    <!-- Contact Information -->
+    <!-- Contact information -->
     <div class="profile-contact-section mt-4">
         <h3>Contact Information</h3>
         <p><strong>Phone Number:</strong> {{ profile.phone_number|default:"Not Provided" }}</p>
         <p><strong>Address:</strong> {{ profile.address|default:"Not Provided" }}</p>
     </div>
 
-    <!-- Account Information -->
+    <!-- Account information -->
     <div class="profile-account-section mt-4">
         <h3>Account Details</h3>
         <p><strong>Role:</strong> {{ profile.owner.get_role_display }}</p>
