@@ -5,11 +5,9 @@ from guardian.admin import GuardedModelAdmin
 
 
 class StoreAdmin(GuardedModelAdmin):
-    #admin configurations
     pass
 
 class ProfileAdmin(GuardedModelAdmin):
-    #admin configurations
     pass
 
 

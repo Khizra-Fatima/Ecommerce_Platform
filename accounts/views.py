@@ -257,7 +257,6 @@ def edit_profile(request, owner_id):
             messages.success(request, 'Profile updated successfully!')
             return redirect('user_profile', owner_id=request.user.id)
 
-    # Pass forms to the template
     context = {
         'profile_form': profile_form,
         'user_form': user_form,
@@ -294,12 +293,11 @@ def register(request):
         if form.is_valid():
             user = form.save()
             
-            # Find the correct backend and log the user in
             backend = get_backends()[0]  # Using the first backend (custom one)
             user.backend = f'{backend.__module__}.{backend.__class__.__name__}'
             
-            auth_login(request, user)  # Log in the user after registration
-            return redirect('home')  # Redirect to home or any page
+            auth_login(request, user)
+            return redirect('home')
     else:
         form = CustomUserCreationForm()
     
@@ -307,7 +305,6 @@ def register(request):
 
 
 def social_login(request, provider):
-    # Use the provider name (like 'google' or 'facebook') to authenticate the user
     return redirect(f'/social-auth/{provider}/')
 
 def privacy_policy(request):
@@ -319,21 +316,21 @@ def data_deletion(request):
 
 def user_login(request):
     if request.method == 'POST':
-        form = LoginForm(data=request.POST, request=request)  # Pass the request to the form
+        form = LoginForm(data=request.POST, request=request)
         if form.is_valid():
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             user = authenticate(request=request, email=email, password=password)
             if user is not None:
-                auth_login(request, user)  # Log in the user
-                next_url = request.GET.get('next', 'home')  # Redirect to 'next' URL or home
+                auth_login(request, user)
+                next_url = request.GET.get('next', 'home')
                 return redirect(next_url)
             else:
                 form.add_error(None, "Invalid email or password")
         else:
-            print(form.errors)  # Check the errors
+            print(form.errors)
     else:
-        form = LoginForm(request=request)  # Pass the request to the form
+        form = LoginForm(request=request)
 
     return render(request, 'login.html', {'form': form})
 
@@ -341,9 +338,10 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return redirect('home')  # Redirect to home page after logout
+    return redirect('home')
 
 
+# Pending Functionalities
 @login_required
 def delete_account(request):
     if request.method == "POST":

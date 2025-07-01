@@ -14,9 +14,6 @@ urlpatterns = [
     path('order/delete/<int:order_id>/', views.delete_order, name='delete_order'),
 
 
-
-
-
     # Seller URLs
     path('seller/dashboard/', views.seller_dashboard, name='seller_dashboard'),
     path('seller/store/<int:store_id>/', views.seller_store, name='seller_store'),

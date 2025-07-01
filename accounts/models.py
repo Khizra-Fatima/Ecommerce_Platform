@@ -11,8 +11,7 @@ from PIL import Image
 
 
 class CustomUserManager(BaseUserManager):
-    #Define a manager for the custom user model
-
+    
     def create_user(self, email, password=None, **extra_fields):
         #Create and return a regular user with an email and password.
         if not email:
@@ -41,7 +40,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     SELLER = 'seller'
     CUSTOMER = 'customer'
 
-    # Role choices using the constants
+    # Role choices
     ROLE_CHOICES = [
         (ADMIN, 'Admin'),
         (COADMIN, 'Coadmin'),
@@ -59,7 +58,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 
     USERNAME_FIELD = 'email'  # Use email as the unique identifier for authentication
-    REQUIRED_FIELDS = []  # Email & password are required by default
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
@@ -122,7 +121,6 @@ class Store(models.Model):
     banner_image = models.ImageField(default='store_banners/default_store_banner.jpg', upload_to='store_banners/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
     opening_hours = models.TimeField(null=True, blank=True)
     closing_hours = models.TimeField(null=True, blank=True)
     return_policy = models.TextField(blank=True, help_text="Specify the return policy for the store.")
@@ -130,7 +128,6 @@ class Store(models.Model):
 
 
     def save(self, *args, **kwargs):
-        # Call the real save() method first
         super().save(*args, **kwargs)
 
         # Assign object-level permission to the owner

@@ -51,7 +51,6 @@ class LoginForm(forms.Form):
     )
 
     def __init__(self, *args, **kwargs):
-        # Pop the request from kwargs
         self.request = kwargs.pop('request', None)
         super().__init__(*args, **kwargs)
 
@@ -88,7 +87,6 @@ class ProfileForm(forms.ModelForm):
 
         if image:
             try:
-                # Open the image using PIL
                 img = Image.open(image)
                 if img.height > 300 or img.width > 300:
                     output_size = (300, 300)
@@ -254,7 +252,7 @@ class StoreForm(forms.ModelForm):
         help_text="Specify the shipping policy for your store."
     )
 
-    # Additional validation for opening and closing hours
+    # Additional barrier for opening and closing hours
     def clean(self):
         cleaned_data = super().clean()
         opening_hours = cleaned_data.get("opening_hours")

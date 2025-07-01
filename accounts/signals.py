@@ -27,7 +27,7 @@ def create_store_for_seller(sender, instance, created, **kwargs):
         store_name = f"{instance.first_name}'s Store"
         store, store_created = Store.objects.get_or_create(
             owner=instance,
-            profile=profile,# Profile instance here
+            profile=profile,
             name=store_name
         )
         
