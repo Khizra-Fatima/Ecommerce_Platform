@@ -21,7 +21,7 @@ class Review(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(OrderCheckoutUserInfo, on_delete=models.CASCADE, related_name='reviews', null=True)
-    rating = models.PositiveSmallIntegerField(null=True, blank=True) #Rating between 1 and 5
+    rating = models.PositiveSmallIntegerField(null=True, blank=True)
     comment = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

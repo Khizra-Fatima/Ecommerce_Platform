@@ -16,13 +16,11 @@ def leave_reviews(request, order_id):
     if request.method == "POST":
         rating = request.POST.get("rating")
         comment = request.POST.get("comment")
-        
-        #Validate rating
+
         if rating not in ["1", "2", "3", "4", "5"]:
             messages.error(request, "Invalid rating value.")
             return redirect("leave_review", order_id=order.id)
 
-        # Save the review
         Review.objects.create(
             owner=request.user,
             product=order.product,
@@ -73,7 +71,7 @@ def edit_review(request, review_id):
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES, instance=review)
         if form.is_valid():
-            form.save()  # This saves the review with the updated data from the form
+            form.save()
             messages.success(request, 'Your review has been updated successfully!')
             return redirect('all_reviews')
         else:
