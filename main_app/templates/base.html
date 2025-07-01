@@ -116,7 +116,6 @@
         const typingInput = document.querySelector(".typing");
         const chatroom = document.querySelector(".chatroom");
 
-        // Toggle chatbox visibility
         chatBtn.addEventListener("click", () => {
             chatBtn.classList.toggle("expanded");
             setTimeout(() => {
@@ -124,7 +123,6 @@
             }, 100);
         });
 
-        // Function to add a message to the chatroom
         const addMessage = (message, sender) => {
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("message");
@@ -138,19 +136,16 @@
             }
 
             chatroom.appendChild(messageDiv);
-            chatroom.scrollTop = chatroom.scrollHeight; // Auto-scroll to the latest message
+            chatroom.scrollTop = chatroom.scrollHeight;
         };
 
-        // Send message to chatbot and display response
         const sendMessage = () => {
             const userInput = typingInput.value.trim();
             if (!userInput) return;
 
-            // Display user message
             addMessage(userInput, "user");
             typingInput.value = '';
 
-            // Fetch chatbot response
             fetch(`/chatbot/get-response/?query=${encodeURIComponent(userInput)}`)
                 .then(response => response.json())
                 .then(data => {

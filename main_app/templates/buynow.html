@@ -90,7 +90,7 @@
                     </div>
 
 
-                    <!-- Stock Status Filter as Dropdown -->
+                    <!-- Stock status filter as Dropdown -->
                     <div class="stock-status-filter col-lg-12 col-md-4">
                         <h5>Filter by Stock Status</h5>
                         <select name="stock_status" class="form-select">
@@ -101,7 +101,7 @@
                     </div>
 
 
-                    <!-- Sale Filter -->
+                    <!-- Sale filter -->
                     <div class="sale-filter col-lg-12 col-md-4">
                         <h5>Filter Sale Product</h5>
                         <div class="form-check">
@@ -110,7 +110,7 @@
                         </div>
                     </div>
 
-                    <!-- Price Filter -->
+                    <!-- Price filter -->
                     <div class="price-filter col-lg-12 col-md-4">
                         <h5>Filter by Price</h5>
                         <div class="price-filter-options">
@@ -125,7 +125,7 @@
                         </div>
                     </div>
 
-                    <!-- Size Filter -->
+                    <!-- Size filter -->
                     <div class="size-filter col-lg-12 col-md-4">
                         <h5>Filter by Size</h5>
                         {% for checkbox in filter_form.size %}
@@ -139,7 +139,7 @@
                     </div>
 
 
-                    <!-- Material Filter -->
+                    <!-- Material filter -->
                     <div class="material-filter col-lg-12 col-md-4">
                         <h5>Filter by Material</h5>
                         {% for checkbox in filter_form.materials %}
@@ -153,7 +153,7 @@
                     </div>
 
 
-                    <!-- Color Filter -->
+                    <!-- Color filter -->
                     <div class="colors-filter col-lg-12">
                         <h5>Filter by Color</h5>
                         <div class="colors-filter-child">
@@ -386,15 +386,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     productContainer.insertAdjacentHTML('beforeend', productHTML);
                 });
 
-                // Update offset for next batch
                 showMoreBtn.setAttribute('data-offset', parseInt(offset) + 8);
 
-                // Hide button if no more products
                 if (data.products.length < 8) {
                     showMoreBtn.style.display = 'none';
                 }
 
-                // Reattach event listeners for newly added wishlist buttons
                 attachWishlistEventListeners();
             });
     });
@@ -413,10 +410,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 success: function (response) {
                     if (response.status === 'wishlisted') {
-                        // Change icon to solid to indicate product is wishlisted
                         button.find('i').removeClass('bi-bookmarks').addClass('bi-bookmarks-fill');
                     } else {
-                        // Change icon back to outline to indicate product is removed from wishlist
                         button.find('i').removeClass('bi-bookmarks-fill').addClass('bi-bookmarks');
                     }
                 },
@@ -428,7 +423,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     }
 
-    // Attach wishlist event listeners on initial load
     attachWishlistEventListeners();
 });
 </script>

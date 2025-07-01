@@ -34,7 +34,6 @@ def home(request):
 
 def explore_area(request):
     filter_form = ProductFilterForm(request.GET or None)
-    # first queryset for published products
     products = Product.objects.filter(publish_status='published')
 
     if filter_form.is_valid():
@@ -83,7 +82,7 @@ def explore_area(request):
                 Q(price__icontains=query)
             ).distinct()
 
-    # Limit to 12
+    # limit to 12
     products = products[:12]
 
     return render(request, 'buynow.html', {
@@ -99,7 +98,6 @@ def load_more_products(request):
     limit = 8
     products = Product.objects.filter(publish_status='published')[offset:offset + limit]
 
-    #Product data as JSON
     product_data = []
     for product in products:
         product_data.append({

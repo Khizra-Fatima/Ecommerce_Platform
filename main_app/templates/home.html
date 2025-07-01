@@ -84,7 +84,6 @@
 
 
 
-<!-- Feature section -->
 <section class="feature-section">
     <div class="container my-5">
         <div class="row text-center">
@@ -365,12 +364,10 @@
 
 <section class="about-section">
     <div class="row align-items-center">
-        <!-- Left: Image -->
         <div class="col-lg-6 p-0">
             <img src="{% static 'images/about-me.jpg' %}" alt="Elegant Tableware" class="img-fluid">
         </div>
 
-        <!-- Right: Text -->
         <div class="col-lg-6 d-flex flex-column justify-content-center p-5 content">
             <div class="content-div">
                 <h1 class="mb-3">Elevate Your Living Spaces with Timeless Elegance</h1>
@@ -597,21 +594,17 @@
         const testimonials = document.querySelectorAll('.slider input[name="testimonial"]');
         const descriptionCarousel = new bootstrap.Carousel(document.getElementById('Descriptioncarousel'));
 
-        // Sync clicking an image with the description carousel
         testimonials.forEach((input, index) => {
             input.addEventListener('change', function () {
-                descriptionCarousel.to(index); // Move description carousel to corresponding index
+                descriptionCarousel.to(index);
             });
         });
 
-        // Sync Bootstrap carousel movement with image selection (faster update)
         document.getElementById('Descriptioncarousel').addEventListener('slide.bs.carousel', function (event) {
-            let newIndex = event.to; // Get the new active slide index
+            let newIndex = event.to;
 
-            // Uncheck all testimonial radios immediately
             testimonials.forEach(input => input.checked = false);
 
-            // Check the corresponding testimonial radio instantly
             if (testimonials[newIndex]) {
                 testimonials[newIndex].checked = true;
             }
@@ -630,10 +623,8 @@
                 headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                 success: function (response) {
                     if (response.status === 'wishlisted') {
-                        // Change icon to solid to indicate product is wishlisted
                         button.find('i').removeClass('bi-bookmarks').addClass('bi-bookmarks-fill');
                     } else {
-                        // Change icon back to outline to indicate product is removed from wishlist
                         button.find('i').removeClass('bi-bookmarks-fill').addClass('bi-bookmarks');
                     }
                 },
