@@ -58,7 +58,6 @@
                         Delete
                     </a>
 
-                    <!-- Delete Confirmation Modal -->
                     <div class="modal fade" id="deleteModal{{ wishlist.id }}" tabindex="-1"
                         aria-labelledby="deleteModalLabel{{ wishlist.id }}" aria-hidden="true"
                         data-bs-backdrop="static" data-bs-keyboard="false">
@@ -90,14 +89,12 @@
     </div>
     {% else %}
 
-    <!-- Message and Discover Products button if wishlist is empty -->
     <div class="call-to-action my-2">
         <p class="text-muted">Your Wishlist is empty. Start Discovering Now!</p>
         <a href="{% url 'buynow' %}" class="btn btn-primary">Discover Products</a>
     </div>
     {% endif %}
 
-    <!-- Clear Wishlist Confirmation Modal -->
     <div class="modal fade" id="clearWishlistModal" tabindex="-1" aria-labelledby="clearWishlistModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">

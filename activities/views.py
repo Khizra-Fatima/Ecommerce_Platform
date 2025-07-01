@@ -110,7 +110,7 @@ def clear_notification_list(request):
 
 
 @login_required
-@csrf_exempt  # Only needed if not using CSRF in headers
+@csrf_exempt
 def mark_notification_as_read(request, notification_id):
     if request.method == "POST":
         notification = get_object_or_404(Notification, id=notification_id, receiver=request.user)
@@ -170,7 +170,6 @@ def msginput(request, user_id):
 def msginbox(request):
     user = request.user
 
-    # Fetch latest messages per unique conversation (sender-receiver pair)
     conversations = (
         Message.objects.filter(Q(sender=user) | Q(receiver=user))
         .values('sender', 'receiver')
@@ -182,7 +181,7 @@ def msginbox(request):
     
     for conv in conversations:
         user1, user2 = conv['sender'], conv['receiver']
-        conversation_key = tuple(sorted([user1, user2]))  # Ensure uniqueness
+        conversation_key = tuple(sorted([user1, user2]))
         if conversation_key not in unique_conversations:
             unique_conversations[conversation_key] = conv
 
@@ -228,7 +227,6 @@ def msgchatformat(request, user_id):
             message.receiver = other_user
             message.save()
 
-            # If it's an AJAX request, return only the new message
             if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                 return render(request, 'partials/message.html', {'message': message, 'user': user})
 
@@ -241,6 +239,3 @@ def msgchatformat(request, user_id):
         return render(request, 'msgchatformat.html', {'messages': messages, 'other_user': other_user, 'form': form})
 
     return render(request, 'msgchatformat.html', {'messages': messages, 'other_user': other_user, 'form': form})
-
-
-

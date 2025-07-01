@@ -69,7 +69,7 @@ class Message(models.Model):
     read_status = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["-timestamp"]  #Latest msges show first
+        ordering = ["-timestamp"]
         indexes = [
             models.Index(fields=["sender", "receiver"]),
             models.Index(fields=["read_status"]),

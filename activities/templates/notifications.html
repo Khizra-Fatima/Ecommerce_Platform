@@ -27,7 +27,6 @@
     </div>
     {% endif %}
 
-    <!-- Tabbed Filters -->
     <div class="notification-tabs">
         <div class="tab active" data-filter="all">All</div>
         <div class="tab" data-filter="unread">Unread</div>
@@ -38,7 +37,6 @@
         {% endif %}
     </div>
 
-    <!-- Notifications Grid -->
     <div class="notification-grid">
         {% if notifications %}
         {% for all_notifications in notifications %}
@@ -65,7 +63,6 @@
             </div>
         </div>
 
-        <!-- Delete Confirmation Modal -->
         <div class="modal fade" id="deleteModal{{ all_notifications.id }}" tabindex="-1" role="dialog"
             aria-labelledby="deleteModalLabel{{ all_notifications.id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -110,8 +107,8 @@
         const noResultsMessage = document.querySelector(".no-results");
         const grid = document.querySelector(".notification-grid");
 
-        console.log("Tabs found:", tabs); // Debug log
-        console.log("Cards found:", cards); // Debug log
+        console.log("Tabs found:", tabs);
+        console.log("Cards found:", cards);
 
         if (tabs.length === 0 || cards.length === 0) {
             console.error("Tabs or Cards are not defined. Check your HTML.");
@@ -120,29 +117,26 @@
 
         tabs.forEach(tab => {
             tab.addEventListener("click", () => {
-                // Remove active class from all tabs and add it to the clicked tab
+
                 tabs.forEach(t => t.classList.remove("active"));
                 tab.classList.add("active");
 
                 const filter = tab.getAttribute("data-filter");
                 let hasVisibleCard = false;
 
-                // Loop through all cards and display/hide based on filter
                 cards.forEach(card => {
                     const type = card.getAttribute("data-type");
 
                     if (filter === "all" || filter === type) {
-                        card.style.display = "block"; // Show the card
+                        card.style.display = "block";
                         hasVisibleCard = true;
                     } else {
-                        card.style.display = "none"; // Hide the card
+                        card.style.display = "none";
                     }
                 });
 
-                // Show or hide the "no results" message
                 noResultsMessage.style.display = hasVisibleCard ? "none" : "block";
 
-                // Scroll the grid into view when tabs are clicked
                 grid.scrollIntoView({ behavior: "smooth" });
             });
         });
