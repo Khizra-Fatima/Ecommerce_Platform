@@ -25,21 +25,18 @@ def add_cart_product(request, product_id):
         selected_color_id = data.get("color")
         quantity = data.get("quantity")
 
-        # Validate quantity
         try:
             quantity = int(quantity)
-            if quantity <= 0:  # Ensure quantity is positive
+            if quantity <= 0:
                 return JsonResponse({'status': 'error', 'message': 'Invalid quantity'}, status=400)
         except (TypeError, ValueError):
             return JsonResponse({'status': 'error', 'message': 'Quantity must be a valid number'}, status=400)
 
-        # Validate color selection
         try:
             selected_color = product.colors.get(id=selected_color_id)
         except Color.DoesNotExist:
             return JsonResponse({'status': 'error', 'message': 'Invalid color selected'}, status=400)
 
-        # Get or create cart item
         cart_item, created = ShoppingCart.objects.get_or_create(
             user=request.user, 
             product=product,
@@ -49,9 +46,9 @@ def add_cart_product(request, product_id):
 
     
         if created:
-            cart_item.quantity = quantity  # Set quantity for new items
+            cart_item.quantity = quantity
         else:
-            cart_item.quantity += quantity  # Increase quantity for existing items
+            cart_item.quantity += quantity
 
             cart_item.save()
 
