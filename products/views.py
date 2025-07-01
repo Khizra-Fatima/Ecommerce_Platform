@@ -82,13 +82,10 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id, publish_status='published')
     features_list = product.features.split(',')
 
-    # Fetch product reviews
     reviews = Review.objects.filter(product=product).order_by('-created_at')
 
-    # Fetch related products (same category, excluding current product)
     related_products = Product.objects.filter(category=product.category).exclude(id=product.id)[:4]
 
-    # Check if the user has permissions for the product
     can_edit = request.user.is_authenticated and request.user.has_perm('change_product', product)
     can_delete = request.user.is_authenticated and (request.user.has_perm('delete_product', product) or request.user.is_staff)
 
@@ -162,7 +159,6 @@ def delete_product(request, product_id):
 
 class IsOwnerOrStaff(BasePermission):
     def has_object_permission(self, request, view, obj):
-        #allow read-only access to published products only
         if request.method in permissions.SAFE_METHODS:
             return obj.publish_status == 'published' or request.user == obj.owner or request.user.is_staff
         
@@ -195,10 +191,8 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
             raise PermissionDenied("Only sellers can create products.")
 
         with transaction.atomic():
-            # Save product with owner and status
             product = serializer.save(owner=user, publish_status=self.request.data.get('status', 'draft'))
 
-            # Handle fields expecting list of ids
             product.colors.set(self.request.data.getlist('colors', []))
             product.materials.set(self.request.data.getlist('materials', []))
             product.tags.set(self.request.data.getlist('tags', []))
@@ -209,18 +203,18 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
 class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     """
     - GET: Retrieve product details
-    - PUT/PATCH: Edit product (Only owner or staff)
+    - PUT: Edit product (Only owner or staff)
     - DELETE: Delete product (Only owner or staff)
     """
 
     serializer_class = ProductSerializer
-    permission_classes = [IsOwnerOrStaff]  #visitors can view, but only logged-in users can modify
+    permission_classes = [IsOwnerOrStaff]
 
     def get_queryset(self):
         user = self.request.user
         if user.is_staff or user.is_seller:
-            return Product.objects.all() #only staff and sellers can see all products
-        return Product.objects.filter(publish_status='published') #other than them can only see published products
+            return Product.objects.all()
+        return Product.objects.filter(publish_status='published')
 
 
     '''def get_object(self):

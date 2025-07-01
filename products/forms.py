@@ -76,7 +76,7 @@ class ProductForm(forms.ModelForm):
 
     colors = forms.ModelMultipleChoiceField(
         queryset=Color.objects.all(),
-        widget=forms.CheckboxSelectMultiple(),  # Allows selecting multiple colors
+        widget=forms.CheckboxSelectMultiple(),
         label="Choose Your Product Colors:",
         required=False
     )
@@ -121,7 +121,7 @@ class ProductForm(forms.ModelForm):
 
     materials = forms.ModelMultipleChoiceField(
         queryset=Material.objects.all(),
-        widget=forms.CheckboxSelectMultiple(),  # Allows selecting multiple colors
+        widget=forms.CheckboxSelectMultiple(),
         label="Choose Your Product Materials:",
         required=False
     )

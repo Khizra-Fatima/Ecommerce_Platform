@@ -3,7 +3,6 @@ from guardian.admin import GuardedModelAdmin
 from .models import Product, Tag, Category, Color, Size, Material, WeightUnit, DimensionUnit
 
 class ProductAdmin(GuardedModelAdmin):
-    #admin configurations
     pass
 
 admin.site.register(Product, ProductAdmin)

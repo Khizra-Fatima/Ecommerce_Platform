@@ -127,7 +127,7 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
 
-        # Assign object-level permissions to the owner
+        # assign object-level permissions to the owner
         assign_perm('change_product', self.owner, self)
         assign_perm('delete_product', self.owner, self)
 
