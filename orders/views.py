@@ -76,7 +76,6 @@ class OrderCheckoutView(View):
         product = get_object_or_404(Product, id=product_id)
         form = OrderCheckoutForm(request.POST, product=product)
 
-        # Fetch the cart item again for context
         cart_item = ShoppingCart.objects.filter(user=request.user, product=product).first()
         cart_color = cart_item.color if cart_item else None
         initial_quantity = cart_item.quantity if cart_item else 1
@@ -107,7 +106,6 @@ class OrderCheckoutView(View):
             messages.success(request, 'Your order has been placed successfully!')
             return redirect('order_success')
 
-        # If form is not valid, re-render checkout page with errors
         context = {
             'product': product,
             'form': form,
@@ -149,7 +147,7 @@ def seller_orders(request):
 def update_order_status(request, order_id):
     order = get_object_or_404(OrderCheckoutUserInfo, id=order_id)
 
-     #Check if the current user is the owner of the product
+    #Check if the current user is the owner of the product
     if order.product.owner != request.user:
         return HttpResponseForbidden("You are not allowed to update the status of this order.")
     
@@ -219,19 +217,17 @@ class OrderPreFillAPIView(APIView):
     def get(self, request, product_id):
         product = get_object_or_404(Product, id=product_id)
 
-        # Fetch the cart item for the current user and product
         cart_item = ShoppingCart.objects.filter(user=request.user, product=product).first()
         cart_color = cart_item.color if cart_item else None
         initial_quantity = cart_item.quantity if cart_item else 1
 
-        # Prepare pre-filled order data
         prefilled_data = {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
             'email': request.user.email,
             'phone_number': request.user.profile.phone_number,
             'address': request.user.profile.address,
-            'color': cart_color.id if cart_color else None,  # Send color ID
+            'color': cart_color.id if cart_color else None,
             'quantity': initial_quantity,
             'delivery_method': 'standard',
             'delivery_charges': product.delivery_charges or 0,
@@ -250,11 +246,9 @@ class OrderListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        #customers can see only their orders
         return OrderCheckoutUserInfo.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        #assign the logged-in user to the order (only customer)
         serializer.save(user=self.request.user)
 
 
@@ -265,9 +259,6 @@ class OrderRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-
-        #customers can access only their orders.
-        #Sellers can access orders related to their products.
         user = self.request.user
         return OrderCheckoutUserInfo.objects.filter(user=user) | OrderCheckoutUserInfo.objects.filter(product__owner=user)
 
@@ -279,7 +270,6 @@ class SellerOrdersAPIView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        #Sellers can see orders related to their products
         return OrderCheckoutUserInfo.objects.filter(product__owner=self.request.user)
     
 
@@ -290,9 +280,7 @@ class ClearOrderHistoryAPIView(generics.DestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        #Customers can delete only their orders
         return OrderCheckoutUserInfo.objects.filter(user=self.request.user)
 
     def perform_destroy(self, instance):
-        #Delete all orders for the logged-in customer
         self.get_queryset().delete()

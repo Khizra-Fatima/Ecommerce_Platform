@@ -36,11 +36,11 @@ class OrderCheckoutForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        product = kwargs.pop('product', None)  #get the product from the view
+        product = kwargs.pop('product', None)
         super().__init__(*args, **kwargs)
         
         if product:
-            self.fields['color'].queryset = Color.objects.filter(products=product)  #only available colors
+            self.fields['color'].queryset = Color.objects.filter(products=product)
 
 
 

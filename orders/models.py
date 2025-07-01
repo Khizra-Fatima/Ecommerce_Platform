@@ -66,7 +66,7 @@ class OrderCheckoutUserInfo (models.Model):
         self.estimated_delivery_date = self.calculate_estimated_delivery_date()
         super().save(*args, **kwargs)
 
-        # Assign object-level permissions
+        # assign object-level permissions
         assign_perm('view_ordercheckoutuserinfo', self.user, self)
         assign_perm('delete_ordercheckoutuserinfo', self.user, self) 
         assign_perm('view_ordercheckoutuserinfo', self.product.owner, self)

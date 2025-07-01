@@ -7,7 +7,7 @@ from .models import OrderCheckoutUserInfo
 class OrderCheckoutSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderCheckoutUserInfo
-        fields = '__all__'  # Include all fields from the model
+        fields = '__all__'
         read_only_fields = ['order_id', 'user', 'total_price', 'estimated_delivery_date']
 
     def create(self, validated_data):
@@ -27,7 +27,7 @@ class OrderCheckoutSerializer(serializers.ModelSerializer):
         express_charge = 20 if validated_data.get('delivery_method') == 'express' else 0
         validated_data['total_price'] = product.price * quantity + delivery_charges + express_charge
 
-        # Calculate estimated delivery date
+        # Calculate estimate delivery date
         delivery_days = 2 if validated_data.get('delivery_method') == 'express' else 5
         validated_data['estimated_delivery_date'] = timezone.now().date() + timedelta(days=delivery_days)
 
