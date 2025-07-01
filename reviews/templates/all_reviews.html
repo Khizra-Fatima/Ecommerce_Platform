@@ -31,7 +31,6 @@
                     {% endif %}
                 </p>
 
-                <!-- Edit & Delete buttons -->
                 <div class="review-actions">
                     {% if request.user == review.owner %}
                     <a href="{% url 'order_details' review.order.id %}"
@@ -56,7 +55,6 @@
         </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal{{ review.id }}" tabindex="-1"
         aria-labelledby="deleteModalLabel{{ review.id }}" aria-hidden="true">
         <div class="modal-dialog" role="document">
