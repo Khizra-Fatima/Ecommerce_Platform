@@ -73,7 +73,7 @@
             {% endif %}
         </div>
 
-        <!-- Colors, Size, Weight, Materials, Dimensions -->
+        <!-- Colors -->
         <div class="row">
             <div class="form-group col-md-5">
                 <label>{{ form.colors.label }}</label>
@@ -129,7 +129,7 @@
                     <div class="material-boxes material-selection">
                         {% for material in form.materials %}
                         <label class="material-box">
-                            {{ material.tag }} <!-- This renders the checkbox input -->
+                            {{ material.tag }}
                             <span class="material-label">{{ material.choice_label }}</span>
                         </label>
                         {% endfor %}
@@ -205,7 +205,7 @@
             {% endif %}
         </div>
 
-        <!-- Price, Sale Price, Delivery Charges -->
+        <!-- Price, Sale Price -->
         <div class="row">
             <div class="form-group col-md-4">
                 <label for="id_price">Price:</label>
@@ -254,7 +254,7 @@
             <a href="{% url 'product_detail' product.id %}" class="btn btn-cancel">Cancel</a>
         </div>
 
-        <!-- Error and Success Messages -->
+        <!-- Error and Success Msgs -->
         {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -270,29 +270,23 @@
 {% block script %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Add a click event to each color circle
         const colorCircles = document.querySelectorAll('.color-circle');
 
         colorCircles.forEach(circle => {
             circle.addEventListener('click', function () {
                 const checkbox = circle.querySelector('input[type="checkbox"]');
 
-                // Toggle checkbox state when the circle is clicked
                 checkbox.checked = !checkbox.checked;
 
-                // Toggle outline based on selection
                 const colorIndicator = circle.querySelector('.color-indicator');
                 if (checkbox.checked) {
-                    colorIndicator.style.border = '2px solid #11656b';  // Selected outline
+                    colorIndicator.style.border = '2px solid #11656b';
                 } else {
-                    colorIndicator.style.border = '2px solid transparent';  // Remove outline
+                    colorIndicator.style.border = '2px solid transparent';
                 }
             });
         });
     });
-
-
-
 
 
     document.querySelectorAll('.material-box').forEach(function (box) {

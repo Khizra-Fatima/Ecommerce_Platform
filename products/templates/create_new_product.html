@@ -13,7 +13,7 @@
 <div class="create-product-container mt-4">
     <h2>Create New Product</h2>
 
-    <!-- Display error or success messages -->
+    <!-- Display error or success msgs -->
     {% if messages %}
     <div class="messages">
         {% for message in messages %}
@@ -70,7 +70,7 @@
             <!-- Stock Status -->
             <div class="form-group col-md-9">
                 {{ form.stock_status.label_tag }}
-                {{ form.stock_status|add_class:"form-control-sm" }} <!-- Add 'form-control-sm' for smaller input -->
+                {{ form.stock_status|add_class:"form-control-sm" }}
                 {% if form.stock_status.errors %}
                 <div class="text-danger">{{ form.stock_status.errors }}</div>
                 {% endif %}
@@ -93,11 +93,8 @@
                 <div class="color-circles color-selection">
                     {% for color in colors %}
                     <label class="color-circle">
-                        <!-- Hidden Checkbox -->
                         <input type="checkbox" name="colors" value="{{ color.pk }}" style="display: none;" 
                         {% if color in form.color.value %} checked {% endif %}>
-
-                        <!-- Color Circle -->
                         <span class="color-indicator" style="--dynamic-color: {{ color.hex_code }};"></span>
                     </label>
                     {% endfor %}
@@ -145,7 +142,7 @@
                     <div class="material-boxes material-selection">
                         {% for material in form.materials %}
                         <label class="material-box">
-                            {{ material.tag }} <!-- This renders the checkbox input -->
+                            {{ material.tag }}
                             <span class="material-label">{{ material.choice_label }}</span>
                         </label>
                         {% endfor %}
@@ -256,7 +253,7 @@
         </div>
 
 
-        <!-- Tags Field with Error Display -->
+        <!-- Tags Field -->
         <div class="form-group">
             <label for="id_tags">Tags (comma separated):</label>
             {{ form.tags }}
@@ -286,30 +283,23 @@
 {% block script %}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // Add a click event to each color circle
         const colorCircles = document.querySelectorAll('.color-circle');
 
         colorCircles.forEach(circle => {
             circle.addEventListener('click', function () {
                 const checkbox = circle.querySelector('input[type="checkbox"]');
 
-                // Toggle checkbox state when the circle is clicked
                 checkbox.checked = !checkbox.checked;
 
-                // Toggle outline based on selection
                 const colorIndicator = circle.querySelector('.color-indicator');
                 if (checkbox.checked) {
-                    colorIndicator.style.border = '2px solid #11656b';  // Selected outline
+                    colorIndicator.style.border = '2px solid #11656b';
                 } else {
-                    colorIndicator.style.border = '2px solid transparent';  // Remove outline
+                    colorIndicator.style.border = '2px solid transparent';
                 }
             });
         });
     });
-
-
-
-
 
     document.querySelectorAll('.material-box').forEach(function (box) {
         box.addEventListener('click', function () {

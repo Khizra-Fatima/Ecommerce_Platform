@@ -67,7 +67,6 @@
                 </div>
             </div>
             <div class="col-lg-5 col-12 p-0">
-                <!-- Image & Video Section -->
                 <div class="media-container">
                     <div class="product-image-main">
                         <img src="{{ product.featured_image.url }}" alt="{{ product.product_name }}">
@@ -124,7 +123,7 @@
             <!-- Add Cart Modal -->
             <div class="modal fade" id="AddCartModal{{ product.id }}" tabindex="-1"
                 aria-labelledby="AddCartModalLabel{{ product.id }}" aria-hidden="true">
-                <div class="modal-dialog modal-lg"> <!-- Increase modal width -->
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="AddCartModalLabel{{ product.id }}">
@@ -144,7 +143,6 @@
                                 </select>                                
                             </div>
 
-                            <!-- Hidden input field to store quantity -->
                             <input type="hidden" id="modal-quantity-{{ product.id }}" name="quantity" value="1">
                         </div>
                         <div class="modal-footer">
@@ -479,7 +477,7 @@
         let colorSelectElement = modal.querySelector(".color-select");
         let selectedColor = colorSelectElement ? colorSelectElement.value : "";
 
-        let selectedQuantityElement = modal.querySelector("input[name='quantity']");  // Read from hidden input
+        let selectedQuantityElement = modal.querySelector("input[name='quantity']");
         let selectedQuantity = selectedQuantityElement ? parseInt(selectedQuantityElement.value) || 1 : 1;
 
         if (!selectedColor) {
@@ -502,7 +500,7 @@
             if (data.status === "success") {
                 alert(data.message);
                 let modalInstance = bootstrap.Modal.getInstance(modal);
-                modalInstance.hide();  // Close modal
+                modalInstance.hide();
             } else {
                 alert("Error: " + data.message);
             }
@@ -511,7 +509,6 @@
     });
 });
 
-    // Function to get CSRF token
     function getCSRFToken() {
         let token = document.querySelector("[name=csrfmiddlewaretoken]")?.value;
         if (!token) {
@@ -520,7 +517,6 @@
         return token;
     }
 
-    // Quantity Selector
     document.querySelectorAll(".quantity-selector").forEach((selector) => {
         const decreaseBtn = selector.querySelector(".decrease");
         const increaseBtn = selector.querySelector(".increase");
@@ -550,7 +546,6 @@
         qtyInput.addEventListener("input", validateQuantity);
     });
 
-        // Handle "Add to Cart" button click
     document.querySelectorAll(".add-to-cart").forEach((button) => {
         button.addEventListener("click", function () {
             let productContainer = this.closest(".product-container");
@@ -561,13 +556,13 @@
             let modal = document.querySelector(modalId);
 
             let quantityDisplay = modal.querySelector(".selectedQuantity");
-            let modalQuantityInput = modal.querySelector("input[name='quantity']");  // New hidden input
+            let modalQuantityInput = modal.querySelector("input[name='quantity']");
 
             if (quantityDisplay) {
                 quantityDisplay.textContent = selectedQuantity;
             }
             if (modalQuantityInput) {
-                modalQuantityInput.value = selectedQuantity;  // Store the correct quantity in the hidden input
+                modalQuantityInput.value = selectedQuantity;
             }
         });
     });
