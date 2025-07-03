@@ -13,7 +13,6 @@ from decouple import config
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -52,8 +51,7 @@ LOGOUT_REDIRECT_URL = 'home'
 
 
 
-# Application definition
-
+# Installed Application
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -165,15 +163,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 
-# Global static files location (shared across apps)
 STATIC_URL = '/ecommerce-static/'
 
-
-# Directory where collectstatic will place collected files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-
-# Additional locations where Django will search for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
