@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-jkx(65#lp5df@4+9^2af%ws)(5ss7-pmy!3$rusbp=#h2ce4n5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['django-ecommerce-project-4dtm.onrender.com']
+ALLOWED_HOSTS = ['django-ecommerce-project-4dtm.onrender.com', 'localhost', '127.0.0.1']
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
