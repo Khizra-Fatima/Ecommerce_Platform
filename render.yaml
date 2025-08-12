@@ -3,10 +3,20 @@ services:
     name: ecommerce-platform
     env: python
     plan: free
-    buildCommand: pip install -r ecom_requirements.txt
+    buildCommand: | 
+      pip install -r ecom_requirements.txt
     startCommand: gunicorn Ecommerce_Platform.wsgi:application
     envVars:
       - key: SECRET_KEY
         value: django-insecure-jkx(65#lp5df@4+9^2af%ws)(5ss7-pmy!3$rusbp=#h2ce4n5
       - key: DJANGO_SETTINGS_MODULE
         value: Ecommerce_Platform.settings
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ecommerce-db
+          property: connectionString
+      - key: RENDER
+        value: "true"
+    postDeployCommand: |
+      python manage.py migrate
+      python manage.py collectstatic --noinput
