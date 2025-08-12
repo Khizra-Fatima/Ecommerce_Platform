@@ -17,6 +17,6 @@ services:
           property: connectionString
       - key: RENDER
         value: "true"
-    postDeployCommand: |
+    postdeploy: |
       python manage.py migrate
       python manage.py collectstatic --noinput
