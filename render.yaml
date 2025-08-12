@@ -5,6 +5,8 @@ services:
     plan: free
     buildCommand: | 
       pip install -r ecom_requirements.txt
+      python manage.py migrate
+      python manage.py collectstatic --noinput
     startCommand: gunicorn Ecommerce_Platform.wsgi:application
     envVars:
       - key: SECRET_KEY
@@ -17,6 +19,3 @@ services:
           property: connectionString
       - key: RENDER
         value: "true"
-    postdeploy: |
-      python manage.py migrate
-      python manage.py collectstatic --noinput
