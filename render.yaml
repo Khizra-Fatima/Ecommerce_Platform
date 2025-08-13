@@ -8,7 +8,7 @@ services:
       ./render-build.sh && pip install -r ecom_requirements.txt
       python manage.py migrate --noinput
       python manage.py collectstatic --noinput
-    startCommand: python manage.py runserver 0.0.0.0:10000
+    startCommand: gunicorn Ecommerce_Platform.wsgi:application
     envVars:
       - key: SECRET_KEY
         value: django-insecure-jkx(65#lp5df@4+9^2af%ws)(5ss7-pmy!3$rusbp=#h2ce4n5
