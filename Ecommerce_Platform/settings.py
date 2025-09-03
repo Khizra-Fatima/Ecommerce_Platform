@@ -73,7 +73,6 @@ INSTALLED_APPS = [
     'chatbot',
     'rest_framework',
     'cloudinary_storage', 
-    'django.contrib.staticfiles',
     'cloudinary',
 ]
 
