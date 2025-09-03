@@ -72,8 +72,9 @@ INSTALLED_APPS = [
     'reviews',
     'chatbot',
     'rest_framework',
-    'cloudinary_storage', 
     'cloudinary',
+    'cloudinary_storage', 
+
 ]
 
 
@@ -190,7 +191,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files (uploaded files by users) (Move to Cloudinary)
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-MEDIA_URL = '/media/'
+#MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
