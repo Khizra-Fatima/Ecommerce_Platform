@@ -72,6 +72,9 @@ INSTALLED_APPS = [
     'reviews',
     'chatbot',
     'rest_framework',
+    'cloudinary_storage', 
+    'django.contrib.staticfiles',
+    'cloudinary',
 ]
 
 
@@ -186,9 +189,12 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
-# Media files (uploaded files by users)
+# Media files (uploaded files by users) (Move to Cloudinary)
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
