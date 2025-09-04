@@ -59,7 +59,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'social_django',
     'guardian',
     'main_app',
@@ -72,7 +74,6 @@ INSTALLED_APPS = [
     'reviews',
     'chatbot',
     'rest_framework',
-
 ]
 
 
@@ -186,13 +187,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # Media files (uploaded files by users) (Move to Cloudinary)
-#MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-INSTALLED_APPS += [
-    'cloudinary',
-    'cloudinary_storage',
-]
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
