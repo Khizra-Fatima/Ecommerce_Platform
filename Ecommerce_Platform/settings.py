@@ -186,8 +186,17 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# Media files (uploaded files by users) (Move to Cloudinary)
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Media files → Cloudinary
 DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+# Cloudinary config
+CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL")
 
 
 # Default primary key field type
