@@ -187,16 +187,7 @@ STATICFILES_DIRS = [
 ]
 
 # Media files (uploaded files by users) (Move to Cloudinary)
-STORAGES = {
-    #Media -> Cloudinary
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    #Static -> WhiteNoise pipeline
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
 # Default primary key field type
