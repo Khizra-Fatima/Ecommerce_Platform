@@ -1,0 +1,134 @@
+/* Color Variables */
+body {
+  background-color: white;
+}
+
+/* Container */
+.container {
+  max-width: 1300px;
+  margin: auto;
+}
+
+/* Headings */
+h2 {
+  color: #612718;
+  font-weight: bold;
+  text-align: left;
+  font-size: 2.3em;
+}
+
+h4 {
+  color: #612718;
+  font-weight: bold;
+}
+
+/* Order Summary Section */
+.order-summary {
+  padding: 20px;
+}
+
+.product-detail {
+  background-color: transparent;
+  color: #3f2914;
+  padding: 1em 0;
+}
+
+.product_name {
+  color: #612718;
+  font-size: 1.2em;
+  margin-left: 1em;
+  margin-top: 2.2em;
+}
+
+.product {
+  margin-left: 1.5em;
+  font-size: 1.2em;
+  color: #2E2E2E;
+  font-weight: bold;
+}
+
+.stock {
+  margin-top: 6em;
+  font-weight: bold;
+}
+
+.price {
+  font-weight: bold;
+  margin-bottom: 0.7em;
+  margin-left: 1.5em;
+  color: #612718;
+}
+
+.featured-image {
+  width: 100%;
+  height: 120px;
+  margin-left: 1.5em;
+  border-radius: 5px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+
+/* Order Form */
+.order-form {
+  background-color: transparent;
+  border: none;
+  border-radius: 8px;
+}
+.order-form h5 {
+  color: #612718;
+  border-bottom: 1px solid #9e4027;
+  font-size: 1.4em;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.form-label {
+  color: #545454;
+}
+
+.form-control {
+  background-color: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+}
+
+.form-control:focus {
+  border: 1px solid #e1e1e1;
+  box-shadow: 0 0 0 0 rgba(67, 67, 190, 0.25);
+}
+
+input,
+select,
+textarea {
+  padding: 12px 10px 12px 10px !important;
+  font-size: 1.05em !important;
+}
+
+/* Quantity and Delivery Method */
+#id_quantity,
+#id_delivery_method {
+  max-width: 100%;
+}
+
+/* Button */
+.btn-order {
+  width: 100%;
+  background-color: white;
+  border: 1px solid #612718;
+  border-radius: 0px;
+  padding: 10px 20px;
+  font-weight: bold;
+  color: #612718;
+  transition: background-color 0.3s ease;
+  margin-bottom: 4em;
+}
+.btn-order:hover {
+  background-color: #612718;
+  color: white;
+}
+
+.text-end {
+  text-align: end;
+}

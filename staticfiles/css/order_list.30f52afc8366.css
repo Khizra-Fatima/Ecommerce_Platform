@@ -1,0 +1,141 @@
+body {
+  background-color: #f6ebdf !important;
+}
+
+.container {
+  background-color: #f6ebdf !important;
+  padding: 2rem;
+  color: #000000;
+  margin-bottom: 3em;
+}
+
+.orders-header h1 {
+  color: #2E2E2E;
+  font-weight: bold;
+}
+
+.text-muted {
+  color: #f7f7f7;
+}
+
+.orders-item {
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  background-color: #ffffff;
+  border: 1px solid #616161;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.orders-item .card-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.orders-item .product-name {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #2E2E2E;
+}
+.orders-item .product-name a {
+  text-decoration: none;
+  color: #2E2E2E;
+}
+.orders-item .product-name a:hover {
+  color: #151515;
+}
+.orders-item .featured-image-container {
+  margin-bottom: 15px;
+  text-align: center;
+}
+.orders-item .featured-image-container .featured-image {
+  border-radius: 0.25rem;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  height: 200px;
+  border: 2px solid #2E2E2E;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.orders-item .price {
+  margin-top: 0.7em;
+  font-size: 1rem;
+  color: #c98d56;
+}
+.orders-item .card-footer {
+  background-color: #2E2E2E;
+  color: #f7f7f7;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.orders-item .card-footer .btn {
+  color: #ffffff;
+  border: 1px solid #ffffff;
+  font-size: 0.8rem;
+  transition: background-color 0.3s;
+}
+.orders-item .card-footer .btn:hover {
+  background-color: white;
+  color: #2E2E2E;
+  border: 1px solid #2E2E2E;
+}
+.orders-item .card-footer .btn-delete {
+  background-color: #C29B0C;
+  border-color: #C29B0C;
+  color: #2E2E2E;
+}
+.orders-item .card-footer .btn-delete:hover {
+  background-color: #927509;
+}
+
+.text-center .text-muted {
+  color: #c4c4c4;
+}
+.text-center .btn-outline-primary {
+  color: rgb(67, 67, 190);
+  border-color: rgb(67, 67, 190);
+}
+.text-center .btn-outline-primary:hover {
+  background-color: rgb(67, 67, 190);
+  color: #ffffff;
+}
+
+p .status-pending {
+  background-color: #f1c232;
+  color: #ffffff;
+}
+p .status-processing {
+  background-color: #6aa84f;
+  color: #ffffff;
+}
+p .status-shipped {
+  background-color: #3d85c6;
+  color: #ffffff;
+}
+p .status-out-for-delivery {
+  background-color: #ff9900;
+  color: #ffffff;
+}
+p .status-delivered {
+  background-color: #4a86e8;
+  color: #ffffff;
+}
+p .status-cancelled {
+  background-color: #cc0000;
+  color: #ffffff;
+}
+p .status-label {
+  padding: 5px 7px 5px 10px;
+  border-radius: 4px;
+}
+p .update-link {
+  background-color: #c98d56;
+  color: white;
+  margin-left: 0.4em;
+  padding: 0.5em 1em;
+  border-radius: 7px;
+}

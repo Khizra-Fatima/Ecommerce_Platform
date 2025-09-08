@@ -1,0 +1,168 @@
+body {
+  background-color: #f6ebdf;
+}
+
+.create-product-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #080808;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+}
+.create-product-container h2 {
+  color: #C29B0C;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.create-product-container .form-group {
+  margin-bottom: 20px;
+}
+.create-product-container .form-group label {
+  color: #C29B0C;
+  display: block;
+  margin-bottom: 5px;
+}
+.create-product-container .form-group input,
+.create-product-container .form-group select,
+.create-product-container .form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #faf6f1;
+  color: #000000;
+}
+.create-product-container .form-group .text-danger {
+  color: #c98d56;
+  font-size: 14px;
+  margin-top: 5px;
+}
+.create-product-container .form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.create-product-container .form-buttons .btn {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.create-product-container .form-buttons .btn.btn-publish {
+  background-color: #C29B0C;
+  color: #2E2E2E;
+}
+.create-product-container .form-buttons .btn.btn-publish:hover {
+  background-color: #927509;
+}
+.create-product-container .form-buttons .btn.btn-draft {
+  background-color: #c98d56;
+  color: #f7f7f7;
+}
+.create-product-container .form-buttons .btn.btn-draft:hover {
+  background-color: #b37339;
+}
+.create-product-container .messages {
+  margin-bottom: 20px;
+}
+.create-product-container .messages .alert {
+  padding: 10px;
+  border-radius: 5px;
+}
+.create-product-container .messages .alert.alert-success {
+  background-color: #b5b5e5;
+  color: rgb(67, 67, 190);
+}
+.create-product-container .messages .alert.alert-danger, .create-product-container .messages .alert.alert-error {
+  background-color: #eedbca;
+  color: #c98d56;
+}
+
+.color-selection {
+  background-color: #faf6f1;
+  padding: 1.5em;
+  max-width: 300px;
+}
+
+.color-circles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-circle {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.color-indicator {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-color: var(--dynamic-color);
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border 0.3s ease;
+}
+
+/* Style for selected color (outline) */
+input[type=checkbox]:checked + .color-indicator {
+  border: 2px solid #11656b;
+  /* Outline color for selected circles */
+}
+
+.color-circle input[type=checkbox] {
+  display: none;
+}
+
+.material-whole {
+  background-color: #faf6f1;
+  max-width: 100%;
+  height: 93%;
+}
+.material-whole label {
+  color: #2E2E2E !important;
+  font-weight: bold;
+}
+
+.material-selection {
+  max-width: 100%;
+  padding: 1.5em;
+}
+
+.material-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  /* Allows the boxes to wrap onto the next line */
+  gap: 10px;
+  /* Space between the boxes */
+}
+
+.material-box {
+  display: inline-flex;
+  /* Allows the content to size according to the material name */
+  align-items: center;
+  /* Vertically centers the text inside the box */
+  padding: 10px;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: white;
+}
+
+.material-box input[type=checkbox] {
+  display: none;
+  /* Hide the default checkbox */
+}
+
+/* Styling for when a material is selected */
+.material-box input[type=checkbox]:checked + .material-label {
+  color: #007bff;
+  padding: 0px;
+}
