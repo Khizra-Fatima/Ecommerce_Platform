@@ -197,6 +197,15 @@ STORAGES = {
     },
 }
 
+
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map"]
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
+
 # --------------------
 # Cloudinary Config
 # --------------------
