@@ -198,7 +198,7 @@ STORAGES = {
 }
 
 
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map"]
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "css"]
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
