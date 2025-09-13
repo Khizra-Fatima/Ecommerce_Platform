@@ -7,8 +7,8 @@ services:
       pip install --upgrade pip
       pip install -r ecom_requirements.txt
       rm -rf staticfiles/
-      python manage.py migrate --noinput
       python manage.py collectstatic --noinput
+      python manage.py migrate --noinput
       python manage.py createsuperuser --noinput || true
     startCommand: gunicorn Ecommerce_Platform.wsgi:application
     envVars:
