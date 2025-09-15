@@ -186,29 +186,27 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 STORAGES = {
     "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
 }
 
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
-
-
-STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
-
+#STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 
 WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "md", "txt", "LICENSE", "license"]
+
+WHITENOISE_IGNORE_PATTERN = r"^cloudinary/"
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
-
-WHITENOISE_IGNORE_PATTERN = r"^cloudinary/"
 
 # --------------------
 # Cloudinary Config
