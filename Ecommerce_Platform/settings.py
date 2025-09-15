@@ -195,11 +195,13 @@ STORAGES = {
     },
 }
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 
 
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "css", "js", "md", "txt", "png", "jpg", "jpeg", "gif", "ico", "woff", "woff2", "ttf", "eot", "svg", "LICENSE", "license" ]
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "md", "txt", "LICENSE", "license"]
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
