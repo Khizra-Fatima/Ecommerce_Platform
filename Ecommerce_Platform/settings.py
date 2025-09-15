@@ -199,7 +199,7 @@ STORAGES = {
 STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 
 
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "css", "js", "md", "txt"]
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "css", "js", "md", "txt", "png", "jpg", "jpeg", "gif", "ico"]
 
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
