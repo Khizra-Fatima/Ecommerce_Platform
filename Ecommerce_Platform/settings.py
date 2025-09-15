@@ -206,6 +206,7 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
+WHITENOISE_IGNORE_PATTERN = r"^cloudinary/"
 
 # --------------------
 # Cloudinary Config
