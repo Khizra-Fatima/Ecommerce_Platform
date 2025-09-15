@@ -199,7 +199,7 @@ STORAGES = {
 
 #STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "md", "txt", "LICENSE", "license"]
+WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "md", "txt", "LICENSE", "license", "woff", "woff2", "ttf", "eot", "svg"]
 
 WHITENOISE_IGNORE_PATTERN = r"^cloudinary/"
 
