@@ -24,6 +24,7 @@ services:
           property: connectionString
       - key: RENDER
         value: "true"
+    staticPublishPath: staticfiles
 
 databases:
   - name: ecommerce-database
