@@ -194,8 +194,11 @@ STATICFILES_FINDERS = [
 ]
 
 STORAGES = {
-    "default": {
+    "default": {   # Media (Cloudinary)
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {  # Static (Django’s default)
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
 }
 
