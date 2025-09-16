@@ -87,7 +87,7 @@ ANONYMOUS_USER_ID = -1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -186,12 +186,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
 
 STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
@@ -199,14 +201,10 @@ STORAGES = {
 
 #STATICFILES_STORAGE = STORAGES["staticfiles"]["BACKEND"]
 
-WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "md", "txt", "LICENSE", "license", "woff", "woff2", "ttf", "eot", "svg"]
+#WHITENOISE_SKIP_COMPRESS_EXTENSIONS = ["map", "md", "txt", "LICENSE", "license", "woff", "woff2", "ttf", "eot", "svg"]
 
-WHITENOISE_IGNORE_PATTERN = r"^cloudinary/"
+#WHITENOISE_IGNORE_PATTERN = r"^cloudinary/"
 
-STATICFILES_FINDERS = [
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-]
 
 # --------------------
 # Cloudinary Config
